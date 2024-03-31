@@ -4,31 +4,26 @@
 import utils
 
 # import gc  # garbage collector
-# print("free memory left before (most) imports: ", gc.mem_free())
-from ulab import numpy as np
+# print('free memory left before (most) imports: ', gc.mem_free())
+# from ulab import numpy as np
 import board
 import displayio
 import terminalio
-import bitmaptools
+import vectorio
 import busio
 import adafruit_spd1656
 import supervisor
 from adafruit_display_text.bitmap_label import Label
 
-# print("free memory left after imports: ", gc.mem_free())
+# print('free memory left after imports: ', gc.mem_free())
 
 supervisor.runtime.autoreload = False
 
 displayio.release_displays()
 
 
-class DispRunner:
-    def __init__(self):
-        '''
-        origin: the user's location as a tuple, e.g. (lat, long)
-        radius: the radius of a circle that would fit on the screen, in meters
-        '''
-        
+class InkDisp():
+    def __init__(self):       
         # this pinout is for the Feather RP2040 ThinkInk
         spi = busio.SPI(board.EPD_SCK, MOSI=board.EPD_MOSI, MISO=None)
         epd_cs = board.EPD_CS
@@ -61,12 +56,10 @@ class DispRunner:
         
         self.color_list = color_list
         
-    def run(self):
-        display = self.display
-        g = self.g
+    def update(self):
         # Add the Group to the Display
-        display.show(g)
-        display.refresh()
+        self.display.root_group = self.g
+        self.display.refresh()
 
     def get_idx(self, color: str):
         '''
@@ -74,32 +67,36 @@ class DispRunner:
         '''
         return self.color_names.index(color)
     
-    def display_text(self, text: str, x: int, y: int):
-        display = self.display
-        lbl = Label(terminalio.FONT, text=text, color=utils.colors["black"], scale=3)
+    def add_text(self, text: str, x: int, y: int, color: str):
+        # display = self.display
+        lbl = Label(terminalio.FONT, text=text, color=utils.colors[color], scale=3)
         lbl.anchor_point = (0.5, 0.5)
         lbl.anchored_position = (x, y)  # (display.width // 2, display.height // 2)
         self.g.append(lbl)
         return None
     
-    def display_bg(self, c_border: int, c_fill: int, border_len: int):
-        """
-        c_border_len: color of border, hex
-        c_fill: color of fill, hex
-        border_len: border length (pixels)
-        """
+    def draw_polygon(self, points: list, color: str):
+        '''
+        origin = the user's location as a tuple, e.g. (lat, long)
+        p = palette
+        points = list of tuples e.g. [(1, 2), (2, 2), (3, 4), (5, 6)]
+        '''
         display = self.display
-        bmp = displayio.Bitmap(display.width, display.height, 7)
-        p = displayio.Palette(2)
-        p[0] = c_border
-        p[1] = c_fill
-        bmp.fill(0)  # Fills the bitmap with the supplied palette index value.
-        bitmaptools.fill_region(bmp, 
-                                border_len, 
-                                border_len, 
-                                display.width - border_len, 
-                                display.height - border_len, 
-                                1)  # create rectangle, fill it w/ p[1]
-        tg = displayio.TileGrid(bitmap=bmp, pixel_shader=p)  # Create a TileGrid to hold the bitmap
-        self.g.append(tg)
+        for i in range(len(points)):
+            lat, lon = points[i]
+            points[i] = self.coord_to_display(self.lat0, self.lon0, lat, lon)
+        
+        polygon = vectorio.Polygon(pixel_shader=self.p, points=points, x=display.width // 2, y=display.height // 2, color_index=self.get_idx(color))
+        self.g.append(polygon)
+        return None
+    
+    def draw_bg(self, color: str):
+        '''
+        draw background
+        '''
+        display = self.display
+        x = display.width // 2
+        y = display.height // 2
+        points = [(-x, y), (-x, -y), (x, -y), (x, y)]
+        self.draw_polygon(self, points=points, color=color)
         return None
