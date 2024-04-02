@@ -23,7 +23,7 @@ displayio.release_displays()
 
 
 class InkDisp():
-    def __init__(self):       
+    def __init__(self, date_init):       
         # this pinout is for the Feather RP2040 ThinkInk
         spi = busio.SPI(board.EPD_SCK, MOSI=board.EPD_MOSI, MISO=None)
         epd_cs = board.EPD_CS
@@ -55,7 +55,15 @@ class InkDisp():
         self.p = p
         
         self.color_list = color_list
-        
+
+        #
+        self.draw_bg(color='white')
+        self.date_lbl = Label(terminalio.FONT, text=date_init, color=utils.colors['black'], scale=3)
+        self.date_lbl.anchor_point = (0.5, 0.5)
+        self.date_lbl.anchored_position = (display.width // 2, display.height // 2) 
+        self.g.append(self.date_lbl)
+        self.update()
+    
     def update(self):
         # Add the Group to the Display
         self.display.root_group = self.g
@@ -71,8 +79,16 @@ class InkDisp():
         # display = self.display
         lbl = Label(terminalio.FONT, text=text, color=utils.colors[color], scale=3)
         lbl.anchor_point = (0.5, 0.5)
-        lbl.anchored_position = (x, y)  # (display.width // 2, display.height // 2)
+        lbl.anchored_position = (x, y)  # (display.width // 2, display.height // 2) 
         self.g.append(lbl)
+        return None
+    
+    def modify_date(self, date: str):
+        display = self.display
+        self.date_lbl = Label(terminalio.FONT, text=date, color=utils.colors['black'], scale=3)
+        self.date_lbl.anchor_point = (0.5, 0.5)
+        self.date_lbl.anchored_position = (display.width // 2, display.height // 2) 
+        # self.g.append(self.date_lbl)
         return None
     
     def draw_polygon(self, points: list, color: str):
@@ -82,11 +98,11 @@ class InkDisp():
         points = list of tuples e.g. [(1, 2), (2, 2), (3, 4), (5, 6)]
         '''
         display = self.display
-        for i in range(len(points)):
-            lat, lon = points[i]
-            points[i] = self.coord_to_display(self.lat0, self.lon0, lat, lon)
-        
-        polygon = vectorio.Polygon(pixel_shader=self.p, points=points, x=display.width // 2, y=display.height // 2, color_index=self.get_idx(color))
+        polygon = vectorio.Polygon(pixel_shader=self.p, 
+                                   points=points, 
+                                   x=display.width // 2,
+                                   y=display.height // 2, 
+                                   color_index=self.get_idx(color))
         self.g.append(polygon)
         return None
     
@@ -95,8 +111,11 @@ class InkDisp():
         draw background
         '''
         display = self.display
-        x = display.width // 2
-        y = display.height // 2
-        points = [(-x, y), (-x, -y), (x, -y), (x, y)]
-        self.draw_polygon(self, points=points, color=color)
+        rect = vectorio.Rectangle(pixel_shader=self.p, 
+                                  width=display.width, 
+                                  height=display.height, 
+                                  x=0, 
+                                  y=0, 
+                                  color_index=self.get_idx(color))
+        self.g.append(rect)
         return None
