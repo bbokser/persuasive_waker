@@ -14,8 +14,15 @@ clock = Clock()
 date_str = clock.get_date_str()
 inkdisp = InkDisp(date_str)
 # inkdisp.add_text(date_str, x=inkdisp.width//2, y=inkdisp.height//2, color='black')
-
+dt = 0.1
+blink_rate = 0.5
+k_blink = int(blink_rate/dt)
+k = 0
+blink_on = 1
 while True:
+    if k == k_blink:
+        k = 0
+        blink_on *= -1
     state = fsm.execute(setting=0)
     print(state)
     if state == 'default':
@@ -41,4 +48,6 @@ while True:
         date_str = clock.get_date_str()
         inkdisp.modify_date(date_str)
         inkdisp.update()
-    time.sleep(0.1)
+    
+    k += 1
+    time.sleep(dt)
