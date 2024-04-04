@@ -18,8 +18,18 @@ class Default(State):
         super().__init__(fsm)
 
     def execute(self):
-        if self.FSM.setting > 0.1:
+        if self.FSM.set_date == True:
+            self.FSM.to_transition('toSetYear')
+            return str('start_set_year')
+        elif self.FSM.set_time == True:
             self.FSM.to_transition('toSetHour')
+            return str('start_set_hour')
+        elif self.FSM.set_alarm1 == True:
+            return str('start_set_alarm1')
+        elif self.FSM.set_alarm2 == True:
+            return str('start_set_alarm2')
+        else:
+            pass
         return str('default')
 
 class SetYear(State):
@@ -27,8 +37,13 @@ class SetYear(State):
         super().__init__(fsm)
 
     def execute(self):
-        if self.FSM.setting > 1:
+        if self.FSM.enter == True:
+            self.FSM.to_transition('toSetMonth')
+            return str('start_set_month')
+        elif self.FSM.back == True:
             self.FSM.to_transition('toDefault')
+        else:
+            pass
         return str('set_year')
     
 class SetMonth(State):
@@ -36,8 +51,13 @@ class SetMonth(State):
         super().__init__(fsm)
 
     def execute(self):
-        if self.FSM.setting > 1:
+        if self.FSM.enter == True:
+            self.FSM.to_transition('toSetDay')
+            return str('start_set_day')
+        elif self.FSM.back == True:
             self.FSM.to_transition('toDefault')
+        else:
+            pass
         return str('set_month')
     
 class SetDay(State):
@@ -45,8 +65,13 @@ class SetDay(State):
         super().__init__(fsm)
 
     def execute(self):
-        if self.FSM.setting > 1:
+        if self.FSM.enter == True:
             self.FSM.to_transition('toDefault')
+            return str('end_set_day')
+        elif self.FSM.back == True:
+            self.FSM.to_transition('toDefault')
+        else:
+            pass
         return str('set_day')
     
 class SetHour(State):
@@ -54,8 +79,13 @@ class SetHour(State):
         super().__init__(fsm)
 
     def execute(self):
-        if self.FSM.setting > 1:
+        if self.FSM.enter == True:
+            self.FSM.to_transition('toSetMin')
+            return str('start_set_min')
+        elif self.FSM.back == True:
             self.FSM.to_transition('toDefault')
+        else:
+            pass
         return str('set_hour')
     
 class SetMin(State):
@@ -63,8 +93,11 @@ class SetMin(State):
         super().__init__(fsm)
 
     def execute(self):
-        if self.FSM.setting > 1:
+        if self.FSM.enter == True or self.FSM.back == True:
             self.FSM.to_transition('toDefault')
+            return str('end_set_min')
+        else:
+            pass
         return str('set_min')
 
 
@@ -85,7 +118,10 @@ class FSM:
         self.prevState = None
         self.trans = None
         
-        self.setting = 0
+        self.set_date = False
+        self.set_time = False
+        self.set_alarm1 = False
+        self.set_alarm2 = False
 
         self.add_state('default', Default(self))
         self.add_state('set_year', SetYear(self))
@@ -118,8 +154,11 @@ class FSM:
         # set the transition state
         self.trans = self.transitions[to_trans]
 
-    def execute(self, setting):
-        self.setting = setting
+    def execute(self, set_date, set_time, set_alarm1, set_alarm2):
+        self.set_date = set_date
+        self.set_time = set_time
+        self.set_alarm1 = set_alarm1
+        self.set_alarm2 = set_alarm2
         
         if self.trans:
             self.curState.exit()
