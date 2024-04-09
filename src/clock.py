@@ -84,6 +84,8 @@ class Clock():
     
     def get_alarm_delta(self)->str:
         # get time until next alarm
+        # TODO: Make this cross over midnight (assume whichever is closer)
+        # https://stackoverflow.com/questions/3096953/how-to-calculate-the-time-interval-between-two-time-strings
         t_now = adafruit_datetime.datetime.fromtimestamp(time.mktime(self.rtc.datetime))
         t_alarm = copy(t_now)
         t_alarm.replace(hour=str(self.alarm_hour), minute=str(self.alarm_min))
