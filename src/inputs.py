@@ -30,17 +30,17 @@ class Inputs():
         button_t.pull = digitalio.Pull.UP
         self.button_t = button_t
 
-        # alarm1 button
-        button_a1 = digitalio.DigitalInOut(board.D5)
-        button_a1.direction = digitalio.Direction.INPUT
-        button_a1.pull = digitalio.Pull.UP
-        self.button_a1 = button_a1
+        # set alarm button
+        button_a = digitalio.DigitalInOut(board.D5)
+        button_a.direction = digitalio.Direction.INPUT
+        button_a.pull = digitalio.Pull.UP
+        self.button_a = button_a
 
-        # alarm2 button
-        button_a2 = digitalio.DigitalInOut(board.D6)
-        button_a2.direction = digitalio.Direction.INPUT
-        button_a2.pull = digitalio.Pull.UP
-        self.button_a2 = button_a2
+        # set blinds button
+        button_b = digitalio.DigitalInOut(board.D6)
+        button_b.direction = digitalio.Direction.INPUT
+        button_b.pull = digitalio.Pull.UP
+        self.button_b = button_b
     
     def update_button(self):
         # this must run every timestep to work

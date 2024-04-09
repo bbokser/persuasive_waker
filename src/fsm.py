@@ -24,10 +24,9 @@ class Default(State):
         elif self.FSM.set_time == True:
             self.FSM.to_transition('toSetHour')
             return str('start_set_hour')
-        elif self.FSM.set_alarm1 == True:
-            return str('start_set_alarm1')
-        elif self.FSM.set_alarm2 == True:
-            return str('start_set_alarm2')
+        elif self.FSM.set_alarm == True:
+            self.FSM.to_transition('toSetAlarmHour')
+            return str('start_set_alarm')
         else:
             pass
         return str('default')
@@ -99,6 +98,30 @@ class SetMin(State):
         else:
             pass
         return str('set_min')
+    
+class SetAlarmHour(State):
+    def __init__(self, fsm):
+        super().__init__(fsm)
+
+    def execute(self):
+        if self.FSM.enter == True:
+            self.FSM.to_transition('toSetAlarmMin')
+            return str('start_set_alarm_min')
+        elif self.FSM.back == True:
+            self.FSM.to_transition('toDefault')
+        return str('set_alarm_hour')
+    
+class SetAlarmMin(State):
+    def __init__(self, fsm):
+        super().__init__(fsm)
+
+    def execute(self):
+        if self.FSM.enter == True or self.FSM.back == True:
+            self.FSM.to_transition('toDefault')
+            return str('end_set_alarm_min')
+        else:
+            pass
+        return str('set_alarm_min')
 
 
 class Transition:
@@ -106,8 +129,8 @@ class Transition:
         self.toState = tostate
 
     def execute(self):
-        pass
         # return self.toState
+        pass
 
 
 class FSM:
@@ -120,8 +143,7 @@ class FSM:
         
         self.set_date = False
         self.set_time = False
-        self.set_alarm1 = False
-        self.set_alarm2 = False
+        self.set_alarm = False
 
         self.add_state('default', Default(self))
         self.add_state('set_year', SetYear(self))
@@ -129,13 +151,16 @@ class FSM:
         self.add_state('set_day', SetDay(self))
         self.add_state('set_hour', SetHour(self))
         self.add_state('set_min', SetMin(self))
+        self.add_state('set_alarm_hour', SetAlarmHour(self))
+        self.add_state('set_alarm_min', SetAlarmMin(self))
 
-        self.add_transition('toSetYear',      Transition('set_year'))
+        self.add_transition('toSetYear', Transition('set_year'))
         self.add_transition('toSetMonth', Transition('set_month'))
-        self.add_transition('toSetDay',    Transition('set_day'))
-        self.add_transition('toSetHour',    Transition('set_hour'))
-        self.add_transition('toSetMin',    Transition('set_min'))
-        self.add_transition('toDefault',    Transition('default'))
+        self.add_transition('toSetDay', Transition('set_day'))
+        self.add_transition('toSetHour', Transition('set_hour'))
+        self.add_transition('toSetMin', Transition('set_min'))
+        self.add_transition('toSetAlarmHour', Transition('set_alarm_hour'))
+        self.add_transition('toDefault', Transition('default'))
 
         self.setstate('default')
 
@@ -154,11 +179,10 @@ class FSM:
         # set the transition state
         self.trans = self.transitions[to_trans]
 
-    def execute(self, set_date, set_time, set_alarm1, set_alarm2):
+    def execute(self, set_date, set_time, set_alarm):
         self.set_date = set_date
         self.set_time = set_time
-        self.set_alarm1 = set_alarm1
-        self.set_alarm2 = set_alarm2
+        self.set_alarm = set_alarm
         
         if self.trans:
             self.curState.exit()

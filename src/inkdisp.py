@@ -23,7 +23,7 @@ displayio.release_displays()
 
 
 class InkDisp():
-    def __init__(self, date_init):       
+    def __init__(self, date_init, alarm_init):       
         # this pinout is for the Feather RP2040 ThinkInk
         spi = busio.SPI(board.EPD_SCK, MOSI=board.EPD_MOSI, MISO=None)
         epd_cs = board.EPD_CS
@@ -56,14 +56,15 @@ class InkDisp():
         
         self.color_list = color_list
 
-        #
+        # initialization routine
         self.draw_bg(color='white')
-        self.date_lbl = Label(terminalio.FONT, text=date_init, color=utils.colors['black'], scale=3)
-        self.date_lbl.anchor_point = (0.5, 0.5)
-        self.date_lbl.anchored_position = (display.width // 2, display.height // 2) 
-        self.g.append(self.date_lbl)
+        self.apply_info(date=date_init, alarm=alarm_init)
         self.update()
     
+    def clear(self):
+        # clear the group
+        self.g = displayio.Group()
+
     def update(self):
         # Add the Group to the Display
         self.display.root_group = self.g
@@ -75,7 +76,7 @@ class InkDisp():
         '''
         return self.color_names.index(color)
     
-    def add_text(self, text: str, x: int, y: int, color: str):
+    def draw_text(self, text: str, x: int, y: int, color: str):
         # display = self.display
         lbl = Label(terminalio.FONT, text=text, color=utils.colors[color], scale=3)
         lbl.anchor_point = (0.5, 0.5)
@@ -83,12 +84,12 @@ class InkDisp():
         self.g.append(lbl)
         return None
     
-    def modify_date(self, date: str):
+    def apply_info(self, date: str, alarm: str):
         display = self.display
-        self.date_lbl = Label(terminalio.FONT, text=date, color=utils.colors['black'], scale=3)
-        self.date_lbl.anchor_point = (0.5, 0.5)
-        self.date_lbl.anchored_position = (display.width // 2, display.height // 2) 
-        # self.g.append(self.date_lbl)
+        self.draw_text(text=date, 
+                       x=display.width // 2, y=display.height // 2, color='black')
+        self.draw_text(text='Alarm: ' + alarm, 
+                       x=display.width // 2, y=display.height // 2 - 15, color='red')
         return None
     
     def draw_polygon(self, points: list, color: str):

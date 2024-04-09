@@ -9,34 +9,13 @@ import utils
 def get_suffix(n: int):
     last_digit = n % 10
     return utils.number_suffix[last_digit]
-
-def leapyear(year:int)->bool:
-    # check whether a given year is a leap year.
-    '''
-    https://www.rmg.co.uk/stories/topics/which-years-are-leap-years-can-you-have-leap-seconds
-    "To be a leap year, the year number must be divisible by four
-    except for end-of-century years, which must be divisible by 400"
-    '''
-    if (year % 4) != 0:
-        # years not divisible by 4 are not leap years
-        return False
-    if (year % 100) != 0:
-        # years divisible by 4 but not 100 are leap years
-        return True
-    if (year % 400) != 0:
-        # years divisible by 4 and 100 but not 400 are not leap years
-        return False
-    return True
-
-def get_max_day(year:int, month:int)->int:
-    # return the number of days in the given month and for the given year
-    # https://stackoverflow.com/questions/28800127/universal-formula-to-calculate-the-number-of-days-in-a-month-taking-into-account
-    return 28 + (month + (month/8)) % 2 + 2 % month + 2 * (1/month) + ((month == 2) * leapyear(year))
     
 class Clock():
     def __init__(self):
         i2c = board.I2C()  #busio.I2C(board.SCL0, board.SDA0)
         self.rtc = adafruit_ds3231.DS3231(i2c)
+        self.alarm_hour = 0
+        self.alarm_min = 0
         
     def set_date(self, year:int, month:int, day:int):
         self.rtc.datetime = time.struct_time((year, 
@@ -66,8 +45,7 @@ class Clock():
     
     def get_time_str(self)->str:
         current = self.rtc.datetime
-        time_str = "{:d}:{:02d}".format(current.tm_hour, current.tm_min)
-        return time_str
+        return "{:d}:{:02d}".format(current.tm_hour, current.tm_min)
 
     def get_year(self)->int:
         return self.rtc.datetime.tm_year
@@ -83,4 +61,18 @@ class Clock():
     
     def get_min(self)->int:
         return self.rtc.datetime.tm_min
+    
+    # alarm functions
+    def set_alarm(self, hour:int, min:int):
+        self.alarm_hour = hour
+        self.alarm_min = min
+
+    def get_alarm_hour(self)->int:
+        return self.alarm_hour
+    
+    def get_alarm_min(self)->int:
+        return self.alarm_min
+    
+    def get_alarm_str(self)->str:
+        return "{:d}:{:02d}".format(self.alarm_hour, self.alarm_min)
     

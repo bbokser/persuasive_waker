@@ -15,6 +15,6 @@ class SegmentDisp():
         self.segment_disp.print(value)
 
     def print_2vals(self, value1:str, value2:str):
-        value = "{:02d}{:02d}".format(value1, value2)
+        value = '{:02d}{:02d}'.format(value1, value2)
         self.segment_disp.print(value)
     

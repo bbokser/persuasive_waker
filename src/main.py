@@ -1,11 +1,36 @@
 import time
 
+from fsm import FSM
+
+# hardware
 from inkdisp import InkDisp
 from clock import Clock
-from clock import get_max_day
 from segment import SegmentDisp
-from fsm import FSM
 from inputs import Inputs
+from piezo import Piezo
+
+def leapyear(year:int)->bool:
+    # check whether a given year is a leap year.
+    '''
+    https://www.rmg.co.uk/stories/topics/which-years-are-leap-years-can-you-have-leap-seconds
+    "To be a leap year, the year number must be divisible by four
+    except for end-of-century years, which must be divisible by 400"
+    '''
+    if (year % 4) != 0:
+        # years not divisible by 4 are not leap years
+        return False
+    if (year % 100) != 0:
+        # years divisible by 4 but not 100 are leap years
+        return True
+    if (year % 400) != 0:
+        # years divisible by 4 and 100 but not 400 are not leap years
+        return False
+    return True
+
+def get_max_day(year:int, month:int)->int:
+    # return the number of days in the given month and for the given year
+    # https://stackoverflow.com/questions/28800127/universal-formula-to-calculate-the-number-of-days-in-a-month-taking-into-account
+    return 28 + (month + (month/8)) % 2 + 2 % month + 2 * (1/month) + ((month == 2) * leapyear(year))
 
 def wrap_to_range(x:int, a:int, b:int):
     '''
@@ -28,14 +53,16 @@ def halfblink(value, blink_bool):
 
 time.sleep(5)  # to ensure serial connection does not fail
 
+# initialize class objects
 fsm = FSM()
 segment_disp = SegmentDisp()
 clock = Clock()
 inputs = Inputs()
-
+piezo = Piezo()
 date_str = clock.get_date_str()
-inkdisp = InkDisp(date_str)
-# inkdisp.add_text(date_str, x=inkdisp.width//2, y=inkdisp.height//2, color='black')
+alarm_str = clock.get_alarm_str()
+inkdisp = InkDisp(date_init=date_str, alarm_init=alarm_str)
+
 dt = 0.1
 blink_rate = 0.5
 k_blink = int(blink_rate/dt)
@@ -49,14 +76,14 @@ while True:
     
     state = fsm.execute(set_date=inputs.d, 
                         set_time=inputs.t, 
-                        set_alarm1=inputs.a1, 
-                        set_alarm2=inputs.a2)
+                        set_alarm=inputs.a,
+                        set_blinds=inputs.b)
     print('state = ', state)
 
     if state == 'default':
         segment_disp.print_2vals(clock.get_hour(), clock.get_min())
 
-    elif state == 'start_set_month' or state == 'start_set_day' or state == 'start_set_min':
+    elif state in ['start_set_month', 'start_set_day', 'start_set_min', 'start_set_alarm_min']:
         inputs.rezero()
 
     elif state == 'start_set_year':
@@ -82,13 +109,26 @@ while True:
         minute = clock.get_min()
         inputs.rezero()
     elif state == 'set_hour':
-        hour_new = hour + inputs.get_encoder_pos() % 24
+        hour_new = (hour + inputs.get_encoder_pos()) % 24
         segment_disp.print_2vals(halfblink(hour_new, blink_bool), minute)
     elif state == 'set_min':
-        min_new = minute + inputs.get_encoder_pos() % 60
+        min_new = (minute + inputs.get_encoder_pos()) % 60
         segment_disp.print_2vals(hour_new, halfblink(min_new, blink_bool))
     elif state == 'end_set_min':
         clock.set_time(hour=hour_new, min=min_new)
+    
+    elif state == 'start_set_alarm_hour':
+        hour = clock.get_alarm_hour()
+        minute = clock.get_alarm_min()
+        inputs.rezero()
+    elif state == 'set_alarm_hour':
+        hour_new = (hour + inputs.get_encoder_pos()) % 24
+        segment_disp.print_2vals(halfblink(hour_new, blink_bool), minute)
+    elif state == 'set_alarm_min':
+        min_new = (minute + inputs.get_encoder_pos()) % 60
+        segment_disp.print_2vals(hour_new, halfblink(min_new, blink_bool))
+    elif state == 'end_set_min':
+        clock.set_alarm(hour=hour_new, min=min_new)
 
     if date_str != clock.get_date_str():
         date_str = clock.get_date_str()
