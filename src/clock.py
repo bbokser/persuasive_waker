@@ -2,7 +2,8 @@ import adafruit_ds3231
 import board
 import time
 # from ulab import numpy as np
-# import adafruit_datetime
+import adafruit_datetime
+from copy import copy
 
 import utils
 
@@ -16,6 +17,7 @@ class Clock():
         self.rtc = adafruit_ds3231.DS3231(i2c)
         self.alarm_hour = 0
         self.alarm_min = 0
+        self.alarm_nullify = True
         
     def set_date(self, year:int, month:int, day:int):
         self.rtc.datetime = time.struct_time((year, 
@@ -40,12 +42,12 @@ class Clock():
         weekday = utils.weekday[current.tm_wday]
         month = utils.month[current.tm_mon - 1]
         suffix = get_suffix(current.tm_mday)
-        date_str = "{}, {} {:d}{}, {:d}".format(weekday, month, current.tm_mday, suffix, current.tm_year)
+        date_str = '{}, {} {:d}{}, {:d}'.format(weekday, month, current.tm_mday, suffix, current.tm_year)
         return date_str
     
     def get_time_str(self)->str:
         current = self.rtc.datetime
-        return "{:d}:{:02d}".format(current.tm_hour, current.tm_min)
+        return '{:d}:{:02d}'.format(current.tm_hour, current.tm_min)
 
     def get_year(self)->int:
         return self.rtc.datetime.tm_year
@@ -63,9 +65,10 @@ class Clock():
         return self.rtc.datetime.tm_min
     
     # alarm functions
-    def set_alarm(self, hour:int, min:int):
+    def set_alarm(self, hour:int, min:int, nullify=False):
         self.alarm_hour = hour
         self.alarm_min = min
+        self.alarm_nullify = nullify
 
     def get_alarm_hour(self)->int:
         return self.alarm_hour
@@ -74,5 +77,17 @@ class Clock():
         return self.alarm_min
     
     def get_alarm_str(self)->str:
-        return "{:d}:{:02d}".format(self.alarm_hour, self.alarm_min)
+        if self.alarm_nullify is False:
+            return '{:d}:{:02d}'.format(self.alarm_hour, self.alarm_min)
+        else:
+            return 'None'
+    
+    def get_alarm_delta(self)->str:
+        # get time until next alarm
+        t_now = adafruit_datetime.datetime.fromtimestamp(time.mktime(self.rtc.datetime))
+        t_alarm = copy(t_now)
+        t_alarm.replace(hour=str(self.alarm_hour), minute=str(self.alarm_min))
+        t_delta = t_alarm - t_now
+        return t_delta.total_seconds() / 60  # float of time delta in minutes
+
     

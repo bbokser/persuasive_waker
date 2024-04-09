@@ -109,6 +109,7 @@ class SetAlarmHour(State):
             return str('start_set_alarm_min')
         elif self.FSM.back == True:
             self.FSM.to_transition('toDefault')
+            return str('set_no_alarm')
         return str('set_alarm_hour')
     
 class SetAlarmMin(State):
@@ -116,11 +117,12 @@ class SetAlarmMin(State):
         super().__init__(fsm)
 
     def execute(self):
-        if self.FSM.enter == True or self.FSM.back == True:
+        if self.FSM.enter == True:
             self.FSM.to_transition('toDefault')
             return str('end_set_alarm_min')
-        else:
-            pass
+        elif self.FSM.back == True:
+            self.FSM.to_transition('toDefault')
+            return str('set_no_alarm')
         return str('set_alarm_min')
 
 
@@ -141,6 +143,8 @@ class FSM:
         self.prevState = None
         self.trans = None
         
+        self.enter = False
+        self.back = False
         self.set_date = False
         self.set_time = False
         self.set_alarm = False
@@ -179,7 +183,9 @@ class FSM:
         # set the transition state
         self.trans = self.transitions[to_trans]
 
-    def execute(self, set_date, set_time, set_alarm):
+    def execute(self, enter, back, set_date, set_time, set_alarm):
+        self.enter = enter
+        self.back = back
         self.set_date = set_date
         self.set_time = set_time
         self.set_alarm = set_alarm

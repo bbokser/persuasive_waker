@@ -11,47 +11,50 @@ class Inputs():
         self.encoder = rotaryio.IncrementalEncoder(board.D10, board.D9) #, divisor=2)
         self.zero_pos = self.encoder.position
 
-        # encoder button
-        button = digitalio.DigitalInOut(board.D11)
-        button.direction = digitalio.Direction.INPUT
-        button.pull = digitalio.Pull.UP
-        self.button = button
-        self.button_val_prev = False
+        # encoder button (enter)
+        self.button_e = self.config_button(board.D11)
+        self.button_e_prev = False
+        
+        # back button
+        self.button_b = self.config_button(board.D25)
+        self.button_b_prev = False
 
         # set date button
-        button_d = digitalio.DigitalInOut(board.D12)
-        button_d.direction = digitalio.Direction.INPUT
-        button_d.pull = digitalio.Pull.UP
-        self.button_d = button_d
+        self.button_d = self.config_button(board.D12)
 
         # set time button
-        button_t = digitalio.DigitalInOut(board.D13)
-        button_t.direction = digitalio.Direction.INPUT
-        button_t.pull = digitalio.Pull.UP
-        self.button_t = button_t
+        self.button_t = self.config_button(board.D13)
 
         # set alarm button
-        button_a = digitalio.DigitalInOut(board.D5)
-        button_a.direction = digitalio.Direction.INPUT
-        button_a.pull = digitalio.Pull.UP
-        self.button_a = button_a
+        self.button_a = self.config_button(board.D5)
 
-        # set blinds button
-        button_b = digitalio.DigitalInOut(board.D6)
-        button_b.direction = digitalio.Direction.INPUT
-        button_b.pull = digitalio.Pull.UP
-        self.button_b = button_b
+        # set shades button
+        self.button_s = self.config_button(board.D6)
     
-    def update_button(self):
+    def config_button(self, pin):
+        button = digitalio.DigitalInOut(pin)
+        button.direction = digitalio.Direction.INPUT
+        button.pull = digitalio.Pull.UP
+        return button
+
+    def update_button_e(self):
         # this must run every timestep to work
-        if self.button_val_prev is True and self.button.value is False:
+        if self.button_e_prev is True and self.button_e.value is False:
             # button was previously pressed, is no longer pressed
-            self.button_val_prev = False
+            self.button_e_prev = False
             return True
-        
-        self.button_val_prev = self.button.value
+        self.button_e_prev = self.button_e.value
         return False
         
+    def update_button_b(self):
+        # this must run every timestep to work
+        if self.button_b_prev is True and self.button_b.value is False:
+            # button was previously pressed, is no longer pressed
+            self.button_b_prev = False
+            return True
+        self.button_b_prev = self.button_b.value
+        return False
+    
     def rezero(self):
         # re-zero encoder
         self.zero_pos = self.encoder.position

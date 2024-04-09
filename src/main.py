@@ -58,7 +58,7 @@ fsm = FSM()
 segment_disp = SegmentDisp()
 clock = Clock()
 inputs = Inputs()
-piezo = Piezo()
+buzzer = Piezo()
 date_str = clock.get_date_str()
 alarm_str = clock.get_alarm_str()
 inkdisp = InkDisp(date_init=date_str, alarm_init=alarm_str)
@@ -74,10 +74,14 @@ while True:
         k = 0
         blink_bool *= -1
     
-    state = fsm.execute(set_date=inputs.d, 
-                        set_time=inputs.t, 
-                        set_alarm=inputs.a,
-                        set_blinds=inputs.b)
+    inputs.update_button_e()
+    inputs.update_button_b()
+    state = fsm.execute(enter=inputs.button_e,
+                        back=inputs.button_b,
+                        set_date=inputs.button_d, 
+                        set_time=inputs.button_t, 
+                        set_alarm=inputs.button_a,
+                        set_blinds=inputs.button_s)
     print('state = ', state)
 
     if state == 'default':
@@ -129,11 +133,23 @@ while True:
         segment_disp.print_2vals(hour_new, halfblink(min_new, blink_bool))
     elif state == 'end_set_min':
         clock.set_alarm(hour=hour_new, min=min_new)
+    elif state == 'set_no_alarm':
+        clock.set_alarm(hour=hour_new, min=min_new, nullify=True)
 
-    if date_str != clock.get_date_str():
+    if date_str != clock.get_date_str() or alarm_str != clock.get_alarm_str():
         date_str = clock.get_date_str()
-        inkdisp.modify_date(date_str)
+        alarm_str = clock.get_alarm_str()
+        inkdisp.clear()
+        inkdisp.apply_info(date_str=date_str, alarm_str=alarm_str)
         inkdisp.update()
     
+    if clock.alarm_nullify is False:
+        delta = clock.get_alarm_delta()
+        if 0 < delta < 60:
+            # TODO: Make gradual
+            buzzer.play(note='c4', amp=0.1, on=blink_bool)
+        elif -30 > delta >= 0:
+            buzzer.play(note='b4', amp=1, on=blink_bool)
+
     k += 1
     time.sleep(dt)
