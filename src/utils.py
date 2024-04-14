@@ -12,6 +12,7 @@ colors = {
 weekday = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 number_suffix = {
+    0: 'th',
     1: 'st',
     2: 'nd',
     3: 'rd',
@@ -20,6 +21,5 @@ number_suffix = {
     6: 'th',
     7: 'th',
     8: 'th',
-    9: 'th',
-    0: 'th'
+    9: 'th'
 }

@@ -7,8 +7,11 @@ import adafruit_datetime
 import utils
 
 def get_suffix(n: int):
-    last_digit = n % 10
-    return utils.number_suffix[last_digit]
+    if 10 < n < 14:
+        return 'th'
+    else:
+        last_digit = n % 10
+        return utils.number_suffix[last_digit]
     
 class Clock():
     def __init__(self):
