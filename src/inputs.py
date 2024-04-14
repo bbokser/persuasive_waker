@@ -16,7 +16,7 @@ class Inputs():
         self.button_e_prev = False
         
         # back button
-        self.button_b = self.config_button(board.D25)
+        self.button_b = self.config_button(board.D24)
         self.button_b_prev = False
 
         # set date button
@@ -39,20 +39,20 @@ class Inputs():
 
     def update_button_e(self):
         # this must run every timestep to work
-        if self.button_e_prev is True and self.button_e.value is False:
+        if self.button_e_prev is True and self.get_button_e() is False:
             # button was previously pressed, is no longer pressed
             self.button_e_prev = False
             return True
-        self.button_e_prev = self.button_e.value
+        self.button_e_prev = self.get_button_e()
         return False
         
     def update_button_b(self):
         # this must run every timestep to work
-        if self.button_b_prev is True and self.button_b.value is False:
+        if self.button_b_prev is True and self.get_button_b() is False:
             # button was previously pressed, is no longer pressed
             self.button_b_prev = False
             return True
-        self.button_b_prev = self.button_b.value
+        self.button_b_prev = self.get_button_b()
         return False
     
     def rezero(self):
@@ -62,4 +62,22 @@ class Inputs():
     def get_encoder_pos(self):
         # encoder feedback
         return self.encoder.position - self.zero_pos
+    
+    def get_button_e(self):
+        return not self.button_e.value
+    
+    def get_button_b(self):
+        return not self.button_b.value
+    
+    def get_button_d(self):
+        return not self.button_d.value
+    
+    def get_button_t(self):
+        return not self.button_t.value
+    
+    def get_button_a(self):
+        return not self.button_a.value
+    
+    def get_button_s(self):
+        return not self.button_s.value
         

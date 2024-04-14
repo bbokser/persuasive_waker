@@ -3,7 +3,6 @@ import board
 import time
 # from ulab import numpy as np
 import adafruit_datetime
-from copy import copy
 
 import utils
 
@@ -23,19 +22,19 @@ class Clock():
         self.rtc.datetime = time.struct_time((year, 
                                               month, 
                                               day, 
-                                              self.rtc.tm_hour, 
-                                              self.rtc.tm_min, 
-                                              self.rtc.tm_sec, 
-                                              self.rtc.tm_wday, -1, -1))
+                                              self.rtc.datetime.tm_hour, 
+                                              self.rtc.datetime.tm_min, 
+                                              self.rtc.datetime.tm_sec, 
+                                              self.rtc.datetime.tm_wday, -1, -1))
 
     def set_time(self, hour:int, min:int):
-        self.rtc.datetime = time.struct_time((self.rtc.tm_year, 
-                                              self.rtc.tm_mon, 
-                                              self.rtc.tm_mday, 
+        self.rtc.datetime = time.struct_time((self.rtc.datetime.tm_year, 
+                                              self.rtc.datetime.tm_mon, 
+                                              self.rtc.datetime.tm_mday, 
                                               hour, 
                                               min, 
                                               0, 
-                                              self.rtc.tm_wday, -1, -1))
+                                              self.rtc.datetime.tm_wday, -1, -1))
 
     def get_date_str(self)-> str:
         current = self.rtc.datetime
@@ -82,12 +81,15 @@ class Clock():
         else:
             return 'None'
     
+    def get_datetime_now(self):
+        return adafruit_datetime.datetime.fromtimestamp(time.mktime(self.rtc.datetime))
+    
     def get_alarm_delta(self)->str:
         # get time until next alarm
         # TODO: Make this cross over midnight (assume whichever is closer)
         # https://stackoverflow.com/questions/3096953/how-to-calculate-the-time-interval-between-two-time-strings
-        t_now = adafruit_datetime.datetime.fromtimestamp(time.mktime(self.rtc.datetime))
-        t_alarm = copy(t_now)
+        t_now = self.get_datetime_now()
+        t_alarm = self.get_datetime_now()
         t_alarm.replace(hour=str(self.alarm_hour), minute=str(self.alarm_min))
         t_delta = t_alarm - t_now
         return t_delta.total_seconds() / 60  # float of time delta in minutes

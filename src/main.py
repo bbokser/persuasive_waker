@@ -32,12 +32,12 @@ def get_max_day(year:int, month:int)->int:
     # https://stackoverflow.com/questions/28800127/universal-formula-to-calculate-the-number-of-days-in-a-month-taking-into-account
     return 28 + (month + (month/8)) % 2 + 2 % month + 2 * (1/month) + ((month == 2) * leapyear(year))
 
-def wrap_to_range(x:int, a:int, b:int):
+def wrap_to_range(x:int, a:int, b:int)->int:
     '''
     x: the value to wrap
     a <= x <= b
     '''
-    return (x - a) % (b - a + 1) + a
+    return int((x - a) % (b - a + 1) + a)
 
 def fullblink(value, blink_bool):
     # provide full display blink
@@ -74,14 +74,14 @@ while True:
         k = 0
         blink_bool *= -1
     
-    inputs.update_button_e()
-    inputs.update_button_b()
-    state = fsm.execute(enter=inputs.button_e,
-                        back=inputs.button_b,
-                        set_date=inputs.button_d, 
-                        set_time=inputs.button_t, 
-                        set_alarm=inputs.button_a,
-                        set_blinds=inputs.button_s)
+    button_e_val = inputs.update_button_e()
+    button_b_val = inputs.update_button_b()
+    state = fsm.execute(enter=button_e_val,
+                        back=button_b_val,
+                        set_date=inputs.get_button_d(), 
+                        set_time=inputs.get_button_t(), 
+                        set_alarm=inputs.get_button_a()) #,
+                        #set_blinds=inputs.button_s.value)
     print('state = ', state)
 
     if state == 'default':
