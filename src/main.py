@@ -39,18 +39,6 @@ def wrap_to_range(x:int, a:int, b:int)->int:
     '''
     return int((x - a) % (b - a + 1) + a)
 
-def fullblink(value, blink_bool):
-    # provide full display blink
-    if blink_bool is True:
-        return '    '
-    return value
-
-def halfblink(value, blink_bool):
-    # provide half of display blink
-    if blink_bool is True:
-        return '  '
-    return value
-
 time.sleep(5)  # to ensure serial connection does not fail
 
 # initialize class objects
@@ -64,15 +52,16 @@ alarm_str = clock.get_alarm_str()
 inkdisp = InkDisp(date_init=date_str, alarm_init=alarm_str)
 
 dt = 0.1
-blink_rate = 0.5
+blink_rate = 0.3
 k_blink = int(blink_rate/dt)
 k = 0
-blink_bool = 1
+blink_bool = True
+delta_max = 30  # max alarm ring time
 
 while True:
     if k >= k_blink:
         k = 0
-        blink_bool *= -1
+        blink_bool = not blink_bool
     
     button_e_val = inputs.update_button_e()
     button_b_val = inputs.update_button_b()
@@ -97,14 +86,14 @@ while True:
         inputs.rezero()
     elif state == 'set_year':
         year_new = wrap_to_range(year + inputs.get_encoder_pos(), a=-999, b=9999)
-        segment_disp.print(fullblink(year_new, blink_bool))
+        segment_disp.print(year_new, blink_bool)
     elif state == 'set_month':
         month_new = wrap_to_range(month + inputs.get_encoder_pos(), a=1, b=12)
-        segment_disp.print_2vals(halfblink(month_new, blink_bool), day)
+        segment_disp.print_2vals(month_new, day, wink_left=blink_bool)
     elif state == 'set_day':
         day_max = get_max_day(year=year_new, month=month_new)
         day_new = wrap_to_range(day + inputs.get_encoder_pos(), a=1, b=day_max)
-        segment_disp.print_2vals(month_new, halfblink(day_new, blink_bool))
+        segment_disp.print_2vals(month_new, day_new, wink_right=blink_bool)
     elif state == 'end_set_day':
         clock.set_date(year=year_new, month=month_new, day=day_new)
 
@@ -114,42 +103,42 @@ while True:
         inputs.rezero()
     elif state == 'set_hour':
         hour_new = (hour + inputs.get_encoder_pos()) % 24
-        segment_disp.print_2vals(halfblink(hour_new, blink_bool), minute)
+        segment_disp.print_2vals(hour_new, minute, wink_left=blink_bool)
     elif state == 'set_min':
         min_new = (minute + inputs.get_encoder_pos()) % 60
-        segment_disp.print_2vals(hour_new, halfblink(min_new, blink_bool))
+        segment_disp.print_2vals(hour_new, min_new, wink_right=blink_bool)
     elif state == 'end_set_min':
         clock.set_time(hour=hour_new, min=min_new)
     
-    elif state == 'start_set_alarm_hour':
+    elif state == 'start_set_alarm':
         hour = clock.get_alarm_hour()
         minute = clock.get_alarm_min()
         inputs.rezero()
     elif state == 'set_alarm_hour':
         hour_new = (hour + inputs.get_encoder_pos()) % 24
-        segment_disp.print_2vals(halfblink(hour_new, blink_bool), minute)
+        segment_disp.print_2vals(hour_new, minute, wink_left=blink_bool)
     elif state == 'set_alarm_min':
         min_new = (minute + inputs.get_encoder_pos()) % 60
-        segment_disp.print_2vals(hour_new, halfblink(min_new, blink_bool))
-    elif state == 'end_set_min':
+        segment_disp.print_2vals(hour_new, min_new, wink_right=blink_bool)
+    elif state == 'end_set_alarm_min':
         clock.set_alarm(hour=hour_new, min=min_new)
     elif state == 'set_no_alarm':
-        clock.set_alarm(hour=hour_new, min=min_new, nullify=True)
+        clock.alarm_nullify = True
+        # clock.set_alarm(hour=hour_new, min=min_new, nullify=True)
 
     if date_str != clock.get_date_str() or alarm_str != clock.get_alarm_str():
         date_str = clock.get_date_str()
         alarm_str = clock.get_alarm_str()
         inkdisp.clear()
-        inkdisp.apply_info(date_str=date_str, alarm_str=alarm_str)
+        inkdisp.apply_info(date=date_str, alarm=alarm_str)
         inkdisp.update()
     
     if clock.alarm_nullify is False:
         delta = clock.get_alarm_delta()
-        if 0 < delta < 60:
-            # TODO: Make gradual
-            buzzer.play(note='c4', amp=0.1, on=blink_bool)
-        elif -30 > delta >= 0:
-            buzzer.play(note='b4', amp=1, on=blink_bool)
+        if -delta_max < delta <= 0:
+            buzzer.play(note='c4', amp=abs(delta/delta_max), on=blink_bool)
+        else:
+            buzzer.shutoff()
 
     k += 1
     time.sleep(dt)

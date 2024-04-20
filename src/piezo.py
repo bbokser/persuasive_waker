@@ -3,7 +3,7 @@ import pwmio
 
 class Piezo():
     def __init__(self):
-        self.buzzer = pwmio.PWMOut(board.D25, variable_frequency=True)
+        self.buzzer = pwmio.PWMOut(board.D9, variable_frequency=True)
         self.duty_max = 2**16  # max duty cycle = 65535 Hz
         self.tone = {'c4': 262,
                      'd4': 294,
@@ -20,7 +20,10 @@ class Piezo():
         '''
         if on:
             self.buzzer.frequency = self.tone[note]
-            self.buzzer.duty_cycle = amp * self.duty_max
+            self.buzzer.duty_cycle = int(amp * self.duty_max)
         else:
             self.buzzer.duty_cycle = 0
+    
+    def shutoff(self):
+        self.buzzer.duty_cycle = 0
         

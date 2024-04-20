@@ -8,28 +8,28 @@ class Inputs():
     '''
     def __init__(self):
         # encoder
-        self.encoder = rotaryio.IncrementalEncoder(board.D10, board.D9) #, divisor=2)
+        self.encoder = rotaryio.IncrementalEncoder(board.D25, board.D24) #, divisor=2)
         self.zero_pos = self.encoder.position
 
         # encoder button (enter)
-        self.button_e = self.config_button(board.D11)
+        self.button_e = self.config_button(board.D13)
         self.button_e_prev = False
         
         # back button
-        self.button_b = self.config_button(board.D24)
+        self.button_b = self.config_button(board.D12)
         self.button_b_prev = False
 
         # set date button
-        self.button_d = self.config_button(board.D12)
+        self.button_d = self.config_button(board.D11)
 
         # set time button
-        self.button_t = self.config_button(board.D13)
+        self.button_t = self.config_button(board.D10)
 
         # set alarm button
-        self.button_a = self.config_button(board.D5)
+        self.button_a = self.config_button(board.D6)
 
         # set shades button
-        self.button_s = self.config_button(board.D6)
+        self.button_s = self.config_button(board.D5)
     
     def config_button(self, pin):
         button = digitalio.DigitalInOut(pin)

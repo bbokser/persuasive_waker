@@ -92,8 +92,8 @@ class Clock():
         # TODO: Make this cross over midnight (assume whichever is closer)
         # https://stackoverflow.com/questions/3096953/how-to-calculate-the-time-interval-between-two-time-strings
         t_now = self.get_datetime_now()
-        t_alarm = self.get_datetime_now()
-        t_alarm.replace(hour=str(self.alarm_hour), minute=str(self.alarm_min))
+        # t_alarm = self.get_datetime_now()
+        t_alarm = t_now.replace(hour=int(self.alarm_hour), minute=int(self.alarm_min))
         t_delta = t_alarm - t_now
         return t_delta.total_seconds() / 60  # float of time delta in minutes
 

@@ -164,6 +164,7 @@ class FSM:
         self.add_transition('toSetHour', Transition('set_hour'))
         self.add_transition('toSetMin', Transition('set_min'))
         self.add_transition('toSetAlarmHour', Transition('set_alarm_hour'))
+        self.add_transition('toSetAlarmMin', Transition('set_alarm_min'))
         self.add_transition('toDefault', Transition('default'))
 
         self.setstate('default')
