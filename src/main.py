@@ -8,36 +8,7 @@ from clock import Clock
 from segment import SegmentDisp
 from inputs import Inputs
 from piezo import Piezo
-
-def leapyear(year:int)->bool:
-    # check whether a given year is a leap year.
-    '''
-    https://www.rmg.co.uk/stories/topics/which-years-are-leap-years-can-you-have-leap-seconds
-    "To be a leap year, the year number must be divisible by four
-    except for end-of-century years, which must be divisible by 400"
-    '''
-    if (year % 4) != 0:
-        # years not divisible by 4 are not leap years
-        return False
-    if (year % 100) != 0:
-        # years divisible by 4 but not 100 are leap years
-        return True
-    if (year % 400) != 0:
-        # years divisible by 4 and 100 but not 400 are not leap years
-        return False
-    return True
-
-def get_max_day(year:int, month:int)->int:
-    # return the number of days in the given month and for the given year
-    # https://stackoverflow.com/questions/28800127/universal-formula-to-calculate-the-number-of-days-in-a-month-taking-into-account
-    return 28 + (month + (month/8)) % 2 + 2 % month + 2 * (1/month) + ((month == 2) * leapyear(year))
-
-def wrap_to_range(x:int, a:int, b:int)->int:
-    '''
-    x: the value to wrap
-    a <= x <= b
-    '''
-    return int((x - a) % (b - a + 1) + a)
+import utils
 
 time.sleep(5)  # to ensure serial connection does not fail
 
@@ -56,7 +27,7 @@ blink_rate = 0.3
 k_blink = int(blink_rate/dt)
 k = 0
 blink_bool = True
-delta_max = 30  # max alarm ring time
+delta_max = 10  # max alarm ring time
 
 while True:
     if k >= k_blink:
@@ -85,14 +56,14 @@ while True:
         day = clock.get_day()
         inputs.rezero()
     elif state == 'set_year':
-        year_new = wrap_to_range(year + inputs.get_encoder_pos(), a=-999, b=9999)
+        year_new = utils.wrap_to_range(year + inputs.get_encoder_pos(), a=-999, b=9999)
         segment_disp.print(year_new, blink_bool)
     elif state == 'set_month':
-        month_new = wrap_to_range(month + inputs.get_encoder_pos(), a=1, b=12)
+        month_new = utils.wrap_to_range(month + inputs.get_encoder_pos(), a=1, b=12)
         segment_disp.print_2vals(month_new, day, wink_left=blink_bool)
     elif state == 'set_day':
-        day_max = get_max_day(year=year_new, month=month_new)
-        day_new = wrap_to_range(day + inputs.get_encoder_pos(), a=1, b=day_max)
+        day_max = utils.get_max_day(year=year_new, month=month_new)
+        day_new = utils.wrap_to_range(day + inputs.get_encoder_pos(), a=1, b=day_max)
         segment_disp.print_2vals(month_new, day_new, wink_right=blink_bool)
     elif state == 'end_set_day':
         clock.set_date(year=year_new, month=month_new, day=day_new)
@@ -136,7 +107,10 @@ while True:
     if clock.alarm_nullify is False:
         delta = clock.get_alarm_delta()
         if -delta_max < delta <= 0:
-            buzzer.play(note='c4', amp=abs(delta/delta_max), on=blink_bool)
+            magnitude = abs(delta/delta_max)
+            amp = utils.clip(magnitude, 0.1, 1.)
+            tone = utils.translate(magnitude, 262, 464)
+            buzzer.play(tone=tone, amp=amp, on=blink_bool)
         else:
             buzzer.shutoff()
 

@@ -9,7 +9,7 @@ class Inputs():
     def __init__(self):
         # encoder
         self.encoder = rotaryio.IncrementalEncoder(board.D25, board.D24) #, divisor=2)
-        self.zero_pos = self.encoder.position
+        self.zero_pos = -self.encoder.position
 
         # encoder button (enter)
         self.button_e = self.config_button(board.D13)
@@ -57,11 +57,11 @@ class Inputs():
     
     def rezero(self):
         # re-zero encoder
-        self.zero_pos = self.encoder.position
+        self.zero_pos = -self.encoder.position
 
     def get_encoder_pos(self):
         # encoder feedback
-        return self.encoder.position - self.zero_pos
+        return -self.encoder.position - self.zero_pos
     
     def get_button_e(self):
         return not self.button_e.value
