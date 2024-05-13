@@ -19,7 +19,8 @@ class Clock():
         self.rtc = adafruit_ds3231.DS3231(i2c)
         self.alarm_hour = 0
         self.alarm_min = 0
-        self.alarm_nullify = True
+        self.alarm_enable = False
+        self.alarm_temp_disable = False
         
     def set_date(self, year:int, month:int, day:int):
         self.rtc.datetime = time.struct_time((year, 
@@ -67,10 +68,10 @@ class Clock():
         return self.rtc.datetime.tm_min
     
     # alarm functions
-    def set_alarm(self, hour:int, min:int, nullify=False):
+    def set_alarm(self, hour:int, min:int, enable=True):
         self.alarm_hour = hour
         self.alarm_min = min
-        self.alarm_nullify = nullify
+        self.alarm_enable = enable
 
     def get_alarm_hour(self)->int:
         return self.alarm_hour
@@ -79,7 +80,7 @@ class Clock():
         return self.alarm_min
     
     def get_alarm_str(self)->str:
-        if self.alarm_nullify is False:
+        if self.alarm_enable is True:
             return '{:d}:{:02d}'.format(self.alarm_hour, self.alarm_min)
         else:
             return 'None'

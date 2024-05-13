@@ -30,7 +30,7 @@ class Inputs():
 
         # set shades button
         self.button_s = self.config_button(board.D5)
-    
+
     def config_button(self, pin):
         button = digitalio.DigitalInOut(pin)
         button.direction = digitalio.Direction.INPUT

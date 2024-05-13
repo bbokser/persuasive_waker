@@ -4,15 +4,13 @@
 
 ### Hardware
 - LED corresponding to each 'set'
-- Blinds actuator
-    - Setting blinds time
-- Remote shutoff
 - Battery built-in, difficult to remove
 - Writing to storage requires toggle switch 
-    - preferably with LED on to indicate PC write access
+    - LED hard built-in to indicate PC write access not software-dependent
+- Add back E-ink
+- Temp and humidity?
 
 ### Software
-- Write to storage
 - The cross-midnight problem
 - Stop blinking while setting time
 - Integrate FSM better
