@@ -5,8 +5,7 @@
 ### Hardware
 - LED corresponding to each 'set'
 - Battery built-in, difficult to remove
-- Writing to storage requires toggle switch 
-    - LED hard built-in to indicate PC write access not software-dependent
+- LED hard built-in to indicate PC write access not software-dependent
 - Add back E-ink
 - Temp and humidity?
 
