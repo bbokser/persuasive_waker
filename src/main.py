@@ -153,9 +153,9 @@ while True:
             buzzer.shutoff()
     
     elif clock.alarm_enable is True and clock.alarm_temp_disable is True:
-            buzzer.shutoff()
-            if delta < -delta_max:
-                clock.alarm_temp_disable = False
+        buzzer.shutoff()
+        if delta < -delta_max:
+            clock.alarm_temp_disable = False
     else:
         buzzer.shutoff()
 

@@ -31,6 +31,7 @@ class IrSensor():
                                1650, 571]
 
     def check_ir(self, delay=0.1):
+        len_ref = len(self.pulse_expected)
         pulses = self.pulses
         # note that this delays the loop 
         # while waiting to receive a signal
@@ -38,6 +39,6 @@ class IrSensor():
         if pulse is None:
             return False
         
-        output = fuzzy_pulse_compare(self.pulse_expected, pulse)
+        output = fuzzy_pulse_compare(self.pulse_expected, pulse[:len_ref])
         pulses.clear()
         return output

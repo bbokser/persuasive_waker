@@ -90,7 +90,6 @@ class Clock():
     
     def get_alarm_delta(self)->str:
         # get time until next alarm
-        # TODO: Make this cross over midnight (assume whichever is closer)
         # https://stackoverflow.com/questions/3096953/how-to-calculate-the-time-interval-between-two-time-strings
         t_now = self.get_datetime_now()
         # t_alarm = self.get_datetime_now()
