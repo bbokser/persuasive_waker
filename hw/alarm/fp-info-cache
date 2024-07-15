@@ -1,4 +1,11 @@
-23358595729944714
+23430388700269976
+4328
+ADAFRUIT_4328
+
+
+0
+6
+6
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -63959,6 +63966,13 @@ Raspberry Pi Pico module usb pcb swd
 53
 49
 Module_RaspberryPi_Pico
+RaspberryPi_Pico_Original_SMD_HandSolder
+Raspberry Pi Pico (original only) surface-mount footprint with debug pads for hand soldering (not compatible with Pico W), https://datasheets.raspberrypi.com/pico/pico-datasheet.pdf
+Raspberry Pi Pico module usb pcb swd handsolder
+0
+43
+43
+Module_RaspberryPi_Pico
 RaspberryPi_Pico_Original_SMD_MountingHoles
 Raspberry Pi Pico (original only) surface-mount footprint for reflow soldering with test points and debug pads (not compatible with Pico W), https://datasheets.raspberrypi.com/pico/pico-datasheet.pdf
 Raspberry Pi Pico module usb pcb swd
@@ -63966,12 +63980,47 @@ Raspberry Pi Pico module usb pcb swd
 53
 49
 Module_RaspberryPi_Pico
-RaspberryPi_Pico_Original_SMD_MountingHoles_Castellated_HandSolder
+RaspberryPi_Pico_Original_SMD_MountingHoles_HandSolder
+Raspberry Pi Pico (original only) surface-mount footprint with debug pads for hand soldering (not compatible with Pico W), https://datasheets.raspberrypi.com/pico/pico-datasheet.pdf
+Raspberry Pi Pico module usb pcb swd handsolder
+0
+43
+43
+Module_RaspberryPi_Pico
+RaspberryPi_Pico_Original_SMD_MountingHoles_HandSolder_Castellated
 Raspberry Pi Pico (original only) surface-mount footprint with debug pads and castellated test points for hand soldering; requires completion of partial edge (not compatible with Pico W), https://datasheets.raspberrypi.com/pico/pico-datasheet.pdf
 Raspberry Pi Pico module castellated usb pcb swd handsolder
 0
 52
 49
+Module_RaspberryPi_Pico
+RaspberryPi_Pico_Original_Virtual
+Raspberry Pi Pico (original only) virtual footprint (no pads; not compatible with Pico W), https://datasheets.raspberrypi.com/pico/pico-datasheet.pdf
+Raspberry Pi Pico module usb pcb virtual
+0
+0
+0
+Module_RaspberryPi_Pico
+RaspberryPi_Pico_Original_Virtual_MountingHoles
+Raspberry Pi Pico (original only) virtual footprint (no pads; not compatible with Pico W), https://datasheets.raspberrypi.com/pico/pico-datasheet.pdf
+Raspberry Pi Pico module usb pcb virtual
+0
+0
+0
+Module_RaspberryPi_Pico
+RaspberryPi_Pico_PinSocket_1x03_P2.54mm_Vertical
+Through hole straight socket strip for individual placement alongside a virtual Raspberry Pi Pico, 1x03, 2.54mm pitch, single row
+Raspberry Pi Pico through hole socket strip THT 1x03 2.54mm single row
+0
+3
+3
+Module_RaspberryPi_Pico
+RaspberryPi_Pico_PinSocket_1x20_P2.54mm_Vertical
+Through hole straight socket strip for individual placement alongside a virtual Raspberry Pi Pico, 1x20, 2.54mm pitch, single row
+Raspberry Pi Pico through hole socket strip THT 1x20 2.54mm single row
+0
+20
+20
 Module_RaspberryPi_Pico
 RaspberryPi_Pico_W_SMD
 Raspberry Pi Pico W (wireless only) surface-mount footprint for reflow soldering with test points and debug pads (not compatible with original Pico), https://datasheets.raspberrypi.com/picow/pico-w-datasheet.pdf
@@ -63980,6 +64029,13 @@ Raspberry Pi Pico module usb pcb swd antenna
 53
 49
 Module_RaspberryPi_Pico
+RaspberryPi_Pico_W_SMD_HandSolder
+Raspberry Pi Pico W (wireless only) surface-mount footprint with debug pads for hand soldering (not compatible with original Pico), https://datasheets.raspberrypi.com/picow/pico-w-datasheet.pdf
+Raspberry Pi Pico module usb pcb swd antenna handsolder
+0
+43
+43
+Module_RaspberryPi_Pico
 RaspberryPi_Pico_W_SMD_MountingHoles
 Raspberry Pi Pico W (wireless only) surface-mount footprint for reflow soldering with test points and debug pads (not compatible with original Pico), https://datasheets.raspberrypi.com/picow/pico-w-datasheet.pdf
 Raspberry Pi Pico module usb pcb swd antenna
@@ -63987,12 +64043,33 @@ Raspberry Pi Pico module usb pcb swd antenna
 53
 49
 Module_RaspberryPi_Pico
-RaspberryPi_Pico_W_SMD_MountingHoles_Castellated_HandSolder
+RaspberryPi_Pico_W_SMD_MountingHoles_HandSolder
+Raspberry Pi Pico W (wireless only) surface-mount footprint with debug pads for hand soldering (not compatible with original Pico), https://datasheets.raspberrypi.com/picow/pico-w-datasheet.pdf
+Raspberry Pi Pico module usb pcb swd antenna handsolder
+0
+43
+43
+Module_RaspberryPi_Pico
+RaspberryPi_Pico_W_SMD_MountingHoles_HandSolder_Castellated
 Raspberry Pi Pico W (wireless only) surface-mount footprint with castellated test points and debug access for hand soldering; requires completion of partial edge (not compatible with original Pico), https://datasheets.raspberrypi.com/picow/pico-w-datasheet.pdf
 Raspberry Pi Pico module castellated usb pcb swd antenna handsolder
 0
 55
 49
+Module_RaspberryPi_Pico
+RaspberryPi_Pico_W_Virtual
+Raspberry Pi Pico W (wireless only) virtual footprint (no pads; not compatible with original Pico), https://datasheets.raspberrypi.com/pico/pico-datasheet.pdf
+Raspberry Pi Pico module usb pcb antenna virtual
+0
+0
+0
+Module_RaspberryPi_Pico
+RaspberryPi_Pico_W_Virtual_MountingHoles
+Raspberry Pi Pico W (wireless only) virtual footprint (no pads; not compatible with original Pico), https://datasheets.raspberrypi.com/pico/pico-datasheet.pdf
+Raspberry Pi Pico module usb pcb antenna virtual
+0
+0
+0
 Motors
 Vybronics_VZ30C1T8219732L
 Vibration motor, 2.3-3.2V, 14000rpm, 0.7G, https://www.vybronics.com/wp-content/uploads/datasheet-files/Vybronics-VZ30C1T8219732L-datasheet.pdf
@@ -87730,6 +87807,223 @@ rotary encoder illuminated switch vertical
 0
 9
 8
+SamacSys_Parts
+2462
+2462
+Undefined or Miscellaneous
+0
+4
+4
+SamacSys_Parts
+DIOM5336X250N
+SMB_
+Schottky Diode
+0
+2
+2
+SamacSys_Parts
+DIOM5436X244N
+DO-214AA (SMBJ)
+Diode
+0
+2
+2
+SamacSys_Parts
+DIONM7959X262N
+DO-214AB
+TVS Diode (Bi-directional)
+0
+2
+2
+SamacSys_Parts
+DS01254L01BE
+DS01-254-L-01BE-1
+Switch
+0
+2
+2
+SamacSys_Parts
+FES10D
+TO−277−3LD CASE 340BQ ISSUE O
+Schottky Diode
+0
+3
+3
+SamacSys_Parts
+HPZRC18QX
+HPZR-C18-QX-2
+Diode
+0
+2
+2
+SamacSys_Parts
+HPZRC56X
+HPZR-C56X-2
+Diode
+0
+2
+2
+SamacSys_Parts
+LMR36503R5URPER
+RPE0009B
+Integrated Circuit
+0
+13
+13
+SamacSys_Parts
+NE555DR
+D (R-PDSO-G8)
+Integrated Circuit
+0
+8
+8
+SamacSys_Parts
+NR4018T100M
+NR401
+Inductor
+0
+2
+2
+SamacSys_Parts
+PEC11R4215FS0024
+PEC11R-4215F-S0024-1
+Undefined or Miscellaneous
+0
+7
+7
+SamacSys_Parts
+PSMN3R9100YSFX
+PSMN3R9-100YSFX-3
+MOSFET (N-Channel)
+0
+6
+6
+SamacSys_Parts
+PT1241PFQ
+PT-1241PFQ-1
+Loudspeaker or Buzzer
+0
+2
+2
+SamacSys_Parts
+PTS647SM38SMTR2LFS
+PTS647SM70SMTR2LFS-2
+Switch
+0
+4
+4
+SamacSys_Parts
+QFP50P1200X1200X120-65N
+tqfp64
+Integrated Circuit
+0
+65
+65
+SamacSys_Parts
+RKB2SJK250SMTRLFS
+RKB2SJK250SMTR LFS-1
+Switch
+0
+4
+4
+SamacSys_Parts
+SFV24R4STBE1HLF
+SFV24R-4STBE1HLF-2
+Connector
+0
+26
+26
+SamacSys_Parts
+SHT40BD1BR2
+SHT40-BD1B-R2-2
+Integrated Circuit
+0
+4
+4
+SamacSys_Parts
+SMF24VTR
+SMF24VTR-1
+Diode
+0
+2
+2
+SamacSys_Parts
+SOD3716X135N
+SOD-123
+Diode
+0
+2
+2
+SamacSys_Parts
+SOIC127P600X175-8N
+23K256-I/SN
+Integrated Circuit
+0
+8
+8
+SamacSys_Parts
+SOIC127P1032X265-16N
+16 SO
+Integrated Circuit
+0
+16
+16
+SamacSys_Parts
+SON50P300X200X80-7N-D
+DCB 6-Lead Plastic DFN
+Integrated Circuit
+0
+7
+7
+SamacSys_Parts
+SOP50P490X110-10N
+DGS0010A
+Integrated Circuit
+0
+10
+10
+SamacSys_Parts
+SOP254P953X445-6N
+TPSA226M010R0900
+Relay or Contactor
+0
+6
+6
+SamacSys_Parts
+SOT95P237X112-3N
+sot-23 -
+MOSFET (N-Channel)
+0
+3
+3
+SamacSys_Parts
+SOT95P237X122-3N
+SOT−23, 3 Lead
+MOSFET (N-Channel)
+0
+3
+3
+SamacSys_Parts
+SOT96P237X111-3N
+SOT-23 (TO-236) CASE 318-08 ISSUE AR
+Zener Diode
+0
+3
+3
+SamacSys_Parts
+SOT96P240X115-3N
+DMG2305UX-7
+MOSFET (P-Channel)
+0
+3
+3
+SamacSys_Parts
+TSOP38238
+TSOP38238
+Integrated Circuit
+0
+3
+3
 Sensor
 ASAIR_AM2302_P2.54mm_Lead2.75mm_TabDown
 Temperature and humidity module, http://akizukidenshi.com/download/ds/aosong/AM2302.pdf

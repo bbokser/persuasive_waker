@@ -1,0 +1,87 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP NE555DR
+D Single Precision Timer
+K
+F http://www.ti.com/lit/ds/symlink/ne555.pdf
+$ENDCMP
+#
+$CMP PTS647SM70SMTR2LFS
+D Tactile Switches 50mA 12VDC, 1.8N 7.0mm H, G leads
+K
+F https://www.ckswitches.com/media/2567/pts647.pdf
+$ENDCMP
+#
+$CMP TSOP38238
+D IR Remote Receiver 38KHz 45m
+K
+F 
+$ENDCMP
+#
+$CMP PEC11R-4215F-S0024
+D Rotary Encoder Mechanical 24 Quadrature (Incremental) Vertical 15mm SHAFT w/SWITCH
+K
+F https://www.bourns.com/docs/product-datasheets/pec11r.pdf?sfvrsn=bb617cbf_12
+$ENDCMP
+#
+$CMP RKB2SJK250SMTR_LFS
+D Tactile Switches J Bend SMT Term 250gf Force
+K
+F https://www.ckswitches.com/media/3130/ck_rk_datasheet.pdf
+$ENDCMP
+#
+$CMP DS01-254-L-01BE
+D DIP Switches / SIP Switches DIP Switch, SPST, 2.54 pitch, raised actuator, flat bottom, long pin, 1 position, Blue
+K
+F https://www.cuidevices.com/product/resource/ds01-254.pdf
+$ENDCMP
+#
+$CMP DS3231S#T&R
+D MAXIM INTEGRATED PRODUCTS - DS3231S#T&R - RTC IC, Date Time Format (Day/Date/Month/Year hh:mm:ss), I2C, 2.3 V to 5.5 V supply, SOIC-16
+K
+F https://datasheet.datasheetarchive.com/originals/distributors/Datasheets-18/DSA-345166.pdf
+$ENDCMP
+#
+$CMP SHT40-BD1B-R2
+D SENSIRION - SHT40-BD1B-R2 - Humidity and Temperature Sensor, Digital, 0% to 100% RH, I2C, DFN-EP-4, -40C to 125C
+K
+F https://sensirion.com/media/documents/33FD6951/63E1087C/Datasheet_SHT4x_1.pdf
+$ENDCMP
+#
+$CMP SFV24R-4STBE1HLF
+D 24 Position FPC Connector Contacts, Top 0.020" (0.50mm) Surface Mount, Right Angle  Click Image to Enlarge Skip to the beginning of the images gallery OVERVIEW DESCRIPTION 0.50mm Flex Connector, SFV-R Series, 24 Position, Top Side Contact, Side Entry Surface Mount ZIF Connector, Halogen Free, Lead Free with Cable-Lock, Gold Flash
+K
+F https://cdn.amphenol-cs.com/media/wysiwyg/files/drawing/10116954.pdf
+$ENDCMP
+#
+$CMP 23K256-I_SN
+D 256K,32K X 8 2.7V Ser SRAM,23K256-I/SN
+K
+F http://ww1.microchip.com/downloads/en/DeviceDoc/22100F.pdf
+$ENDCMP
+#
+$CMP IRLML2060TRPBF
+D IRLML2060TRPBF N-Channel MOSFET, 1.2 A, 60 V HEXFET, 3-Pin SOT-23 Infineon
+K
+F https://www.infineon.com/dgdl/irlml2060pbf.pdf?fileId=5546d462533600a401535664b7fb25ee
+$ENDCMP
+#
+$CMP MBR0530-TP
+D Small Signal Schottky Diodes
+K
+F https://mccsemi.com/pdf/Products/MBR0520-MBR0580(SOD123).pdf
+$ENDCMP
+#
+$CMP NR4018T100M
+D Taiyo Yuden Shielded Wire-wound SMD Inductor with a Ferrite Core, 10 H +/-20% Wire-Wound 840mA Idc
+K
+F https://ds.yuden.co.jp/TYCOMPAS/ut/download?pn=NRH2412T4R7MNGH++&fileType=CA
+$ENDCMP
+#
+$CMP AS1115-BSST
+D AS1115 LED Driver IC 64LED matrix driver with 16keys
+K
+F https://datasheet.datasheetarchive.com/originals/distributors/Datasheets-SFU1/DSASFU10002655.pdf
+$ENDCMP
+#
+#End Doc Library
