@@ -83,7 +83,7 @@
 		(symbol "TDCR1060M_0_1"
 			(polyline
 				(pts
-					(xy 7.62 -22.86) (xy 33.02 -22.86)
+					(xy 7.62 -36.83) (xy 33.02 -36.83)
 				)
 				(stroke
 					(width 0.127)
@@ -95,7 +95,7 @@
 			)
 			(polyline
 				(pts
-					(xy 7.62 5.08) (xy 7.62 -22.86)
+					(xy 7.62 5.08) (xy 7.62 -36.83)
 				)
 				(stroke
 					(width 0.127)
@@ -107,7 +107,7 @@
 			)
 			(polyline
 				(pts
-					(xy 33.02 -22.86) (xy 33.02 5.08)
+					(xy 33.02 -36.83) (xy 33.02 5.08)
 				)
 				(stroke
 					(width 0.127)
@@ -150,9 +150,9 @@
 				)
 			)
 			(pin unspecified line
-				(at 40.64 -15.24 180)
+				(at 0 -19.05 0)
 				(length 7.62)
-				(name "CATHODE_L3"
+				(name "CC_L3"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -168,7 +168,7 @@
 				)
 			)
 			(pin unspecified line
-				(at 40.64 -12.7 180)
+				(at 40.64 -17.78 180)
 				(length 7.62)
 				(name "ANODE_F"
 					(effects
@@ -186,7 +186,7 @@
 				)
 			)
 			(pin unspecified line
-				(at 40.64 -10.16 180)
+				(at 40.64 -33.02 180)
 				(length 7.62)
 				(name "ANODE_L1_L2"
 					(effects
@@ -204,7 +204,7 @@
 				)
 			)
 			(pin unspecified line
-				(at 40.64 -7.62 180)
+				(at 40.64 -6.35 180)
 				(length 7.62)
 				(name "ANODE_C"
 					(effects
@@ -222,7 +222,7 @@
 				)
 			)
 			(pin unspecified line
-				(at 40.64 -5.08 180)
+				(at 40.64 1.27 180)
 				(length 7.62)
 				(name "ANODE_A"
 					(effects
@@ -240,7 +240,7 @@
 				)
 			)
 			(pin unspecified line
-				(at 40.64 -2.54 180)
+				(at 40.64 -21.59 180)
 				(length 7.62)
 				(name "ANODE_G"
 					(effects
@@ -258,7 +258,7 @@
 				)
 			)
 			(pin unspecified line
-				(at 40.64 0 180)
+				(at 40.64 -2.54 180)
 				(length 7.62)
 				(name "ANODE_B"
 					(effects
@@ -276,7 +276,7 @@
 				)
 			)
 			(pin unspecified line
-				(at 0 -2.54 0)
+				(at 0 -3.81 0)
 				(length 7.62)
 				(name "CC_D2"
 					(effects
@@ -294,9 +294,9 @@
 				)
 			)
 			(pin unspecified line
-				(at 0 -5.08 0)
+				(at 40.64 -10.16 180)
 				(length 7.62)
-				(name "Anode_D"
+				(name "ANODE_D"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -330,7 +330,7 @@
 				)
 			)
 			(pin unspecified line
-				(at 0 -10.16 0)
+				(at 40.64 -13.97 180)
 				(length 7.62)
 				(name "ANODE_E"
 					(effects
@@ -348,7 +348,7 @@
 				)
 			)
 			(pin unspecified line
-				(at 0 -12.7 0)
+				(at 0 -11.43 0)
 				(length 7.62)
 				(name "CC_D3"
 					(effects
@@ -366,7 +366,7 @@
 				)
 			)
 			(pin unspecified line
-				(at 0 -15.24 0)
+				(at 40.64 -25.4 180)
 				(length 7.62)
 				(name "ANODE_DP"
 					(effects
@@ -384,7 +384,7 @@
 				)
 			)
 			(pin unspecified line
-				(at 0 -17.78 0)
+				(at 0 -15.24 0)
 				(length 7.62)
 				(name "CC_D4"
 					(effects
@@ -402,7 +402,7 @@
 				)
 			)
 			(pin unspecified line
-				(at 40.64 -17.78 180)
+				(at 40.64 -29.21 180)
 				(length 7.62)
 				(name "ANODE_L3"
 					(effects

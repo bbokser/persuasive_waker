@@ -84,4 +84,10 @@ K
 F https://datasheet.datasheetarchive.com/originals/distributors/Datasheets-SFU1/DSASFU10002655.pdf
 $ENDCMP
 #
+$CMP Si1308EDL-T1-GE3
+D MOSFET N-Ch 30V 1.5A TrenchFET SC70 Vishay Si1308EDL-T1-GE3 N-channel MOSFET Transistor, 1.5 A, 30 V, 3-Pin SC-70
+K
+F https://componentsearchengine.com/Datasheets/1/SI1308EDL-T1-GE3.pdf
+$ENDCMP
+#
 #End Doc Library
