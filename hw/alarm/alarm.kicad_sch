@@ -3173,11 +3173,11 @@
 				)
 			)
 		)
-		(symbol "SamacSys_Parts:2462"
+		(symbol "SamacSys_Parts:2464"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
-			(property "Reference" "U"
+			(property "Reference" "BT"
 				(at 16.51 7.62 0)
 				(effects
 					(font
@@ -3186,7 +3186,7 @@
 					(justify left top)
 				)
 			)
-			(property "Value" "2462"
+			(property "Value" "2464"
 				(at 16.51 5.08 0)
 				(effects
 					(font
@@ -3195,7 +3195,7 @@
 					(justify left top)
 				)
 			)
-			(property "Footprint" "2462"
+			(property "Footprint" "2464"
 				(at 16.51 -94.92 0)
 				(effects
 					(font
@@ -3205,7 +3205,7 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" "http://www.keyelco.com/product-pdf.cfm?p=1027"
+			(property "Datasheet" "https://4donline.ihs.com/images/VipMasterIC/IC/KEYC/KEYCS01036/KEYCS02795-1.pdf?hkey=6D3A4C79FDBF58556ACFDE234799DDF0"
 				(at 16.51 -194.92 0)
 				(effects
 					(font
@@ -3215,7 +3215,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "KEYSTONE - 2462 - BATTERY HOLDER"
+			(property "Description" "Manufacturer:	Keystone Electronics Product Category:	Cylindrical Battery Contacts, Clips, Holders & Springs RoHS:	 Details Product:	Battery Holders Battery Cell Size:	AA Number of Batteries:	3 Battery Material:	Steel Mounting Style:	PCB Brand:	Keystone Electronics Contact Plating:	Nickel Packaging:	Bulk Product Type:	Cylindrical Battery Contacts, Clips, Holders & Springs 1 Subcategory:	Battery Unit Weight:	0.359794 oz"
 				(at 0 0 0)
 				(effects
 					(font
@@ -3224,7 +3224,7 @@
 					(hide yes)
 				)
 			)
-			(property "Height" "16.51"
+			(property "Height" "16.99"
 				(at 16.51 -394.92 0)
 				(effects
 					(font
@@ -3234,7 +3234,7 @@
 					(hide yes)
 				)
 			)
-			(property "Mouser Part Number" "534-2462"
+			(property "Mouser Part Number" "534-2464"
 				(at 16.51 -494.92 0)
 				(effects
 					(font
@@ -3244,7 +3244,7 @@
 					(hide yes)
 				)
 			)
-			(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Keystone-Electronics/2462?qs=3CbvriavsLChvFNADwDLZA%3D%3D"
+			(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Keystone-Electronics/2464?qs=3CbvriavsLDuYK6W9WnmCg%3D%3D"
 				(at 16.51 -594.92 0)
 				(effects
 					(font
@@ -3264,7 +3264,7 @@
 					(hide yes)
 				)
 			)
-			(property "Manufacturer_Part_Number" "2462"
+			(property "Manufacturer_Part_Number" "2464"
 				(at 16.51 -794.92 0)
 				(effects
 					(font
@@ -3274,7 +3274,7 @@
 					(hide yes)
 				)
 			)
-			(symbol "2462_1_1"
+			(symbol "2464_1_1"
 				(rectangle
 					(start 5.08 2.54)
 					(end 15.24 -5.08)
@@ -3287,7 +3287,7 @@
 					)
 				)
 				(pin passive line
-					(at 20.32 -2.54 180)
+					(at 0 -2.54 0)
 					(length 5.08)
 					(name "+"
 						(effects
@@ -3305,7 +3305,7 @@
 					)
 				)
 				(pin passive line
-					(at 20.32 0 180)
+					(at 0 0 0)
 					(length 5.08)
 					(name "-"
 						(effects
@@ -3322,17 +3322,170 @@
 						)
 					)
 				)
+			)
+		)
+		(symbol "SamacSys_Parts:CM322522-680KL"
+			(pin_names hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "L"
+				(at 16.51 6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+				)
+			)
+			(property "Value" "CM322522-680KL"
+				(at 16.51 3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+				)
+			)
+			(property "Footprint" "INDM3225X240N"
+				(at 16.51 -96.19 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.bourns.com/docs/product-datasheets/cm322522.pdf?sfvrsn=2061c9e1_9"
+				(at 16.51 -196.19 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Description" "Fixed Inductors 68uH 10% Wirewound"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Height" "2.4"
+				(at 16.51 -396.19 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Mouser Part Number" "652-CM322522-680KL"
+				(at 16.51 -496.19 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Bourns/CM322522-680KL?qs=y9m3SKnhpLP4NhSV9%252B7Uqw%3D%3D"
+				(at 16.51 -596.19 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer_Name" "Bourns"
+				(at 16.51 -696.19 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer_Part_Number" "CM322522-680KL"
+				(at 16.51 -796.19 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(symbol "CM322522-680KL_1_1"
+				(arc
+					(start 7.62 0)
+					(mid 6.35 1.219)
+					(end 5.08 0)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 10.16 0)
+					(mid 8.89 1.219)
+					(end 7.62 0)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 12.7 0)
+					(mid 11.43 1.219)
+					(end 10.16 0)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 15.24 0)
+					(mid 13.97 1.219)
+					(end 12.7 0)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
 				(pin passive line
 					(at 0 0 0)
 					(length 5.08)
-					(name "3"
+					(name "1"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "3"
+					(number "1"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -3341,16 +3494,16 @@
 					)
 				)
 				(pin passive line
-					(at 0 -2.54 0)
+					(at 20.32 0 180)
 					(length 5.08)
-					(name "4"
+					(name "2"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "4"
+					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -4279,195 +4432,6 @@
 						)
 					)
 					(number "9"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
-		(symbol "SamacSys_Parts:NR4018T100M"
-			(pin_names hide)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "L"
-				(at 16.51 6.35 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-				)
-			)
-			(property "Value" "NR4018T100M"
-				(at 16.51 3.81 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-				)
-			)
-			(property "Footprint" "NR4018T100M"
-				(at 16.51 -96.19 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "https://ds.yuden.co.jp/TYCOMPAS/ut/download?pn=NRH2412T4R7MNGH++&fileType=CA"
-				(at 16.51 -196.19 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-					(hide yes)
-				)
-			)
-			(property "Description" "Taiyo Yuden Shielded Wire-wound SMD Inductor with a Ferrite Core, 10 H +/-20% Wire-Wound 840mA Idc"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Height" "1.8"
-				(at 16.51 -396.19 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-					(hide yes)
-				)
-			)
-			(property "Mouser Part Number" "963-NR4018T100M"
-				(at 16.51 -496.19 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-					(hide yes)
-				)
-			)
-			(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/TAIYO-YUDEN/NR4018T100M?qs=PzICbMaShUcP3EQjiR4rxg%3D%3D"
-				(at 16.51 -596.19 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-					(hide yes)
-				)
-			)
-			(property "Manufacturer_Name" "TAIYO YUDEN"
-				(at 16.51 -696.19 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-					(hide yes)
-				)
-			)
-			(property "Manufacturer_Part_Number" "NR4018T100M"
-				(at 16.51 -796.19 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-					(hide yes)
-				)
-			)
-			(symbol "NR4018T100M_1_1"
-				(arc
-					(start 7.62 0)
-					(mid 6.35 1.219)
-					(end 5.08 0)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start 10.16 0)
-					(mid 8.89 1.219)
-					(end 7.62 0)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start 12.7 0)
-					(mid 11.43 1.219)
-					(end 10.16 0)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start 15.24 0)
-					(mid 13.97 1.219)
-					(end 12.7 0)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin passive line
-					(at 0 0 0)
-					(length 5.08)
-					(name "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 20.32 0 180)
-					(length 5.08)
-					(name "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -7462,16 +7426,6 @@
 	)
 	(wire
 		(pts
-			(xy 162.56 90.17) (xy 166.37 90.17)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2833e779-8446-4e26-9a5f-9fdfc3033a3d")
-	)
-	(wire
-		(pts
 			(xy 109.22 167.64) (xy 124.46 167.64)
 		)
 		(stroke
@@ -8742,16 +8696,6 @@
 	)
 	(wire
 		(pts
-			(xy 162.56 90.17) (xy 162.56 88.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9a36c0c3-2f70-411f-af29-553b89087f1f")
-	)
-	(wire
-		(pts
 			(xy 506.73 120.65) (xy 466.09 120.65)
 		)
 		(stroke
@@ -9382,6 +9326,16 @@
 	)
 	(wire
 		(pts
+			(xy 157.48 90.17) (xy 157.48 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d83b4c44-2b90-498a-a7b1-36915943c87c")
+	)
+	(wire
+		(pts
 			(xy 207.01 337.82) (xy 207.01 332.74)
 		)
 		(stroke
@@ -9409,6 +9363,16 @@
 			(type default)
 		)
 		(uuid "dad8704b-75b9-4956-9324-88ca2a97a05d")
+	)
+	(wire
+		(pts
+			(xy 147.32 90.17) (xy 157.48 90.17)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "db112e02-5bba-4162-96a2-d207d51ac778")
 	)
 	(wire
 		(pts
@@ -9502,7 +9466,7 @@
 	)
 	(wire
 		(pts
-			(xy 166.37 90.17) (xy 166.37 91.44)
+			(xy 147.32 90.17) (xy 147.32 92.71)
 		)
 		(stroke
 			(width 0)
@@ -10674,7 +10638,7 @@
 				)
 			)
 		)
-		(property "Value" "0.1uF"
+		(property "Value" "1uF"
 			(at 302.26 303.784 90)
 			(effects
 				(font
@@ -11004,7 +10968,7 @@
 				)
 			)
 		)
-		(property "Value" "0.1uF"
+		(property "Value" "1uF"
 			(at 306.07 352.044 90)
 			(effects
 				(font
@@ -12565,7 +12529,7 @@
 				)
 			)
 		)
-		(property "Value" "0.1uF"
+		(property "Value" "1uF"
 			(at 215.646 172.72 90)
 			(effects
 				(font
@@ -12632,7 +12596,7 @@
 				)
 			)
 		)
-		(property "Value" "0.1uF"
+		(property "Value" "1uF"
 			(at 297.18 339.344 90)
 			(effects
 				(font
@@ -12699,7 +12663,7 @@
 				)
 			)
 		)
-		(property "Value" "0.1uF"
+		(property "Value" "1uF"
 			(at 306.07 341.884 90)
 			(effects
 				(font
@@ -12766,7 +12730,7 @@
 				)
 			)
 		)
-		(property "Value" "0.1uF"
+		(property "Value" "1uF"
 			(at 432.816 323.85 90)
 			(effects
 				(font
@@ -12833,7 +12797,7 @@
 				)
 			)
 		)
-		(property "Value" "0.1uF"
+		(property "Value" "1uF"
 			(at 213.36 349.504 90)
 			(effects
 				(font
@@ -14185,132 +14149,6 @@
 		)
 	)
 	(symbol
-		(lib_id "SamacSys_Parts:2462")
-		(at 162.56 68.58 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "81cdbcc9-5285-48e1-b4e0-24a65404f882")
-		(property "Reference" "U3"
-			(at 170.18 78.74 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "2462"
-			(at 167.64 78.74 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "2462"
-			(at 67.64 85.09 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "http://www.keyelco.com/product-pdf.cfm?p=1027"
-			(at -32.36 85.09 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Description" "KEYSTONE - 2462 - BATTERY HOLDER"
-			(at 162.56 68.58 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Height" "16.51"
-			(at -232.36 85.09 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Mouser Part Number" "534-2462"
-			(at -332.36 85.09 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Keystone-Electronics/2462?qs=3CbvriavsLChvFNADwDLZA%3D%3D"
-			(at -432.36 85.09 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer_Name" "Keystone Electronics"
-			(at -532.36 85.09 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer_Part_Number" "2462"
-			(at -632.36 85.09 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(pin "4"
-			(uuid "bcaa755c-ef60-4d22-81a0-4542760a5699")
-		)
-		(pin "1"
-			(uuid "2a6ff3c7-4f4f-4b39-af1d-5b41fb0097f5")
-		)
-		(pin "3"
-			(uuid "185ebb68-4616-4059-88f6-14996354411e")
-		)
-		(pin "2"
-			(uuid "f47c67ec-1027-423c-8971-a06c25614362")
-		)
-		(instances
-			(project "alarm"
-				(path "/10078caa-7fd0-475a-83d7-2ff1e936c6b6"
-					(reference "U3")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:C")
 		(at 311.15 340.36 90)
 		(unit 1)
@@ -14327,7 +14165,7 @@
 				)
 			)
 		)
-		(property "Value" "0.1uF"
+		(property "Value" "1uF"
 			(at 311.15 336.804 90)
 			(effects
 				(font
@@ -14460,7 +14298,7 @@
 				)
 			)
 		)
-		(property "Value" "0.1uF"
+		(property "Value" "1uF"
 			(at 436.626 137.16 90)
 			(effects
 				(font
@@ -14640,126 +14478,6 @@
 			(project "alarm"
 				(path "/10078caa-7fd0-475a-83d7-2ff1e936c6b6"
 					(reference "#PWR01")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "SamacSys_Parts:NR4018T100M")
-		(at 208.28 321.31 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "8e6558dc-603b-45ad-b15c-b86579ae6dd7")
-		(property "Reference" "L1"
-			(at 218.44 314.96 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "10uH"
-			(at 218.44 317.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "NR4018T100M"
-			(at 224.79 417.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://ds.yuden.co.jp/TYCOMPAS/ut/download?pn=NRH2412T4R7MNGH++&fileType=CA"
-			(at 224.79 517.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Description" "Taiyo Yuden Shielded Wire-wound SMD Inductor with a Ferrite Core, 10 H +/-20% Wire-Wound 840mA Idc"
-			(at 208.28 321.31 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Height" "1.8"
-			(at 224.79 717.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Mouser Part Number" "963-NR4018T100M"
-			(at 224.79 817.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/TAIYO-YUDEN/NR4018T100M?qs=PzICbMaShUcP3EQjiR4rxg%3D%3D"
-			(at 224.79 917.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer_Name" "TAIYO YUDEN"
-			(at 224.79 1017.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer_Part_Number" "NR4018T100M"
-			(at 224.79 1117.5 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "2fc81e41-c367-464f-abc8-1bf2afa8de31")
-		)
-		(pin "2"
-			(uuid "672a2b2d-bf3c-4b24-8f51-cfd62cb3d6f6")
-		)
-		(instances
-			(project "alarm"
-				(path "/10078caa-7fd0-475a-83d7-2ff1e936c6b6"
-					(reference "L1")
 					(unit 1)
 				)
 			)
@@ -15294,7 +15012,7 @@
 				)
 			)
 		)
-		(property "Value" "0.1uF"
+		(property "Value" "1uF"
 			(at 300.99 346.964 90)
 			(effects
 				(font
@@ -15339,6 +15057,126 @@
 			(project "alarm"
 				(path "/10078caa-7fd0-475a-83d7-2ff1e936c6b6"
 					(reference "C4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "SamacSys_Parts:CM322522-680KL")
+		(at 208.28 321.31 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ae732c49-2930-4b56-b72b-770405a94337")
+		(property "Reference" "L1"
+			(at 218.44 314.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "68 uH"
+			(at 218.44 317.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "INDM3225X240N"
+			(at 224.79 417.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.bourns.com/docs/product-datasheets/cm322522.pdf?sfvrsn=2061c9e1_9"
+			(at 224.79 517.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "Fixed Inductors 68uH 10% Wirewound"
+			(at 208.28 321.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Height" "2.4"
+			(at 224.79 717.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Mouser Part Number" "652-CM322522-680KL"
+			(at 224.79 817.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Bourns/CM322522-680KL?qs=y9m3SKnhpLP4NhSV9%252B7Uqw%3D%3D"
+			(at 224.79 917.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Name" "Bourns"
+			(at 224.79 1017.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Part_Number" "CM322522-680KL"
+			(at 224.79 1117.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b0d36fd6-aaaf-49c8-aad4-29e58639568c")
+		)
+		(pin "2"
+			(uuid "01f403a7-cb6b-4cde-b16b-d1eeafd5bcbc")
+		)
+		(instances
+			(project "alarm"
+				(path "/10078caa-7fd0-475a-83d7-2ff1e936c6b6"
+					(reference "L1")
 					(unit 1)
 				)
 			)
@@ -15723,7 +15561,7 @@
 				)
 			)
 		)
-		(property "Value" "0.1uF"
+		(property "Value" "1uF"
 			(at 307.086 60.96 90)
 			(effects
 				(font
@@ -15982,7 +15820,7 @@
 				)
 			)
 		)
-		(property "Value" "0.1uF"
+		(property "Value" "1uF"
 			(at 226.06 357.124 90)
 			(effects
 				(font
@@ -16159,6 +15997,128 @@
 			(project "alarm"
 				(path "/10078caa-7fd0-475a-83d7-2ff1e936c6b6"
 					(reference "#PWR011")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "SamacSys_Parts:2464")
+		(at 157.48 88.9 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "dbac90ad-051f-4ab3-ba36-363a4168a517")
+		(property "Reference" "BT1"
+			(at 163.83 77.4699 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "2464"
+			(at 163.83 80.0099 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "2464"
+			(at 252.4 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://4donline.ihs.com/images/VipMasterIC/IC/KEYC/KEYCS01036/KEYCS02795-1.pdf?hkey=6D3A4C79FDBF58556ACFDE234799DDF0"
+			(at 352.4 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "Manufacturer:	Keystone Electronics Product Category:	Cylindrical Battery Contacts, Clips, Holders & Springs RoHS:	 Details Product:	Battery Holders Battery Cell Size:	AA Number of Batteries:	3 Battery Material:	Steel Mounting Style:	PCB Brand:	Keystone Electronics Contact Plating:	Nickel Packaging:	Bulk Product Type:	Cylindrical Battery Contacts, Clips, Holders & Springs 1 Subcategory:	Battery Unit Weight:	0.359794 oz"
+			(at 157.48 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Height" "16.99"
+			(at 552.4 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Mouser Part Number" "534-2464"
+			(at 652.4 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Keystone-Electronics/2464?qs=3CbvriavsLDuYK6W9WnmCg%3D%3D"
+			(at 752.4 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Name" "Keystone Electronics"
+			(at 852.4 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Part_Number" "2464"
+			(at 952.4 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "951cd88a-351d-45d6-865b-4467675b042b")
+		)
+		(pin "1"
+			(uuid "16247da8-1ea7-400b-9e57-11ed724bff97")
+		)
+		(instances
+			(project "alarm"
+				(path "/10078caa-7fd0-475a-83d7-2ff1e936c6b6"
+					(reference "BT1")
 					(unit 1)
 				)
 			)
@@ -17331,7 +17291,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 166.37 91.44 0)
+		(at 147.32 92.71 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -17340,7 +17300,7 @@
 		(fields_autoplaced yes)
 		(uuid "f23e1dd8-b4b7-45a3-8727-6b6917a21c98")
 		(property "Reference" "#PWR019"
-			(at 166.37 97.79 0)
+			(at 147.32 99.06 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17349,7 +17309,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 166.37 96.52 0)
+			(at 147.32 97.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17357,7 +17317,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 166.37 91.44 0)
+			(at 147.32 92.71 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17366,7 +17326,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 166.37 91.44 0)
+			(at 147.32 92.71 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17375,7 +17335,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 166.37 91.44 0)
+			(at 147.32 92.71 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17412,7 +17372,7 @@
 				)
 			)
 		)
-		(property "Value" "0.1uF"
+		(property "Value" "1uF"
 			(at 293.37 301.244 90)
 			(effects
 				(font
@@ -17479,7 +17439,7 @@
 				)
 			)
 		)
-		(property "Value" "0.1uF"
+		(property "Value" "1uF"
 			(at 359.156 148.59 90)
 			(effects
 				(font

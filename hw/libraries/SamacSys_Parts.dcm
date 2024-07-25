@@ -90,4 +90,16 @@ K
 F https://componentsearchengine.com/Datasheets/1/SI1308EDL-T1-GE3.pdf
 $ENDCMP
 #
+$CMP CM322522-680KL
+D Fixed Inductors 68uH 10% Wirewound
+K
+F https://www.bourns.com/docs/product-datasheets/cm322522.pdf?sfvrsn=2061c9e1_9
+$ENDCMP
+#
+$CMP 2464
+D Manufacturer:	Keystone Electronics Product Category:	Cylindrical Battery Contacts, Clips, Holders & Springs RoHS:	 Details Product:	Battery Holders Battery Cell Size:	AA Number of Batteries:	3 Battery Material:	Steel Mounting Style:	PCB Brand:	Keystone Electronics Contact Plating:	Nickel Packaging:	Bulk Product Type:	Cylindrical Battery Contacts, Clips, Holders & Springs 1 Subcategory:	Battery Unit Weight:	0.359794 oz
+K
+F https://4donline.ihs.com/images/VipMasterIC/IC/KEYC/KEYCS01036/KEYCS02795-1.pdf?hkey=6D3A4C79FDBF58556ACFDE234799DDF0
+$ENDCMP
+#
 #End Doc Library

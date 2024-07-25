@@ -414,4 +414,47 @@ P 4 0 1 10 230 100 270 120 270 80 230 100 F
 ENDDRAW
 ENDDEF
 #
+#SamacSys ECAD Model CM322522-680KL
+#/961444/907023/2.50/2/3/Inductor
+DEF CM322522-680KL L 0 30 Y Y 1 F N
+F0 "L" 650 250 50 H V L CNN
+F1 "CM322522-680KL" 650 150 50 H V L CNN
+F2 "INDM3225X240N" 650 50 50 H I L CNN
+F3 "https://www.bourns.com/docs/product-datasheets/cm322522.pdf?sfvrsn=2061c9e1_9" 650 -50 50 H I L CNN
+F4 "Fixed Inductors 68uH 10% Wirewound" 650 -150 50 H I L CNN "Description"
+F5 "2.4" 650 -250 50 H I L CNN "Height"
+F6 "652-CM322522-680KL" 650 -350 50 H I L CNN "Mouser Part Number"
+F7 "https://www.mouser.co.uk/ProductDetail/Bourns/CM322522-680KL?qs=y9m3SKnhpLP4NhSV9%252B7Uqw%3D%3D" 650 -450 50 H I L CNN "Mouser Price/Stock"
+F8 "Bourns" 650 -550 50 H I L CNN "Manufacturer_Name"
+F9 "CM322522-680KL" 650 -650 50 H I L CNN "Manufacturer_Part_Number"
+DRAW
+X ~ 1 0 0 200 R 50 50 0 0 P
+X ~ 2 800 0 200 L 50 50 0 0 P
+A 250 -2 50 1777 -23 0 1 6 N 300 0 200 0
+A 350 -2 50 1777 -23 0 1 6 N 400 0 300 0
+A 450 -2 50 1777 -23 0 1 6 N 500 0 400 0
+A 550 -2 50 1777 -23 0 1 6 N 600 0 500 0
+ENDDRAW
+ENDDEF
+#
+#SamacSys ECAD Model 2464
+#/545521/907023/2.50/2/3/Battery
+DEF 2464 BT 0 30 Y Y 1 F N
+F0 "BT" 650 300 50 H V L CNN
+F1 "2464" 650 200 50 H V L CNN
+F2 "2464" 650 100 50 H I L CNN
+F3 "https://4donline.ihs.com/images/VipMasterIC/IC/KEYC/KEYCS01036/KEYCS02795-1.pdf?hkey=6D3A4C79FDBF58556ACFDE234799DDF0" 650 0 50 H I L CNN
+F4 "Manufacturer:	Keystone Electronics Product Category:	Cylindrical Battery Contacts, Clips, Holders & Springs RoHS:	 Details Product:	Battery Holders Battery Cell Size:	AA Number of Batteries:	3 Battery Material:	Steel Mounting Style:	PCB Brand:	Keystone Electronics Contact Plating:	Nickel Packaging:	Bulk Product Type:	Cylindrical Battery Contacts, Clips, Holders & Springs 1 Subcategory:	Battery Unit Weight:	0.359794 oz" 650 -100 50 H I L CNN "Description"
+F5 "16.99" 650 -200 50 H I L CNN "Height"
+F6 "534-2464" 650 -300 50 H I L CNN "Mouser Part Number"
+F7 "https://www.mouser.co.uk/ProductDetail/Keystone-Electronics/2464?qs=3CbvriavsLDuYK6W9WnmCg%3D%3D" 650 -400 50 H I L CNN "Mouser Price/Stock"
+F8 "Keystone Electronics" 650 -500 50 H I L CNN "Manufacturer_Name"
+F9 "2464" 650 -600 50 H I L CNN "Manufacturer_Part_Number"
+DRAW
+X + 1 0 -100 200 R 50 50 0 0 P
+X - 2 0 0 200 R 50 50 0 0 P
+P 5 0 1 6 200 100 600 100 600 -200 200 -200 200 100 N
+ENDDRAW
+ENDDEF
+#
 #End Library
