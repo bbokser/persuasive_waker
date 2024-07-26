@@ -30,7 +30,7 @@
 			)
 		)
 	)
-	(property "Footprint" ""
+	(property "Footprint" "RaspberryPi_Pico_Original_SMD_MountingHoles_HandSolder_Castellated"
 		(at 0 0 0)
 		(layer "F.Fab")
 		(hide yes)
@@ -2267,15 +2267,15 @@
 			"d9e34e8d-1a76-4bda-88e4-fe2b475efe6e" "e572468c-d2ab-4710-abeb-f66a0ce2e11f"
 		)
 	)
-	(model "../Module_RaspberryPi_Pico.3dshapes/RaspberryPi_Pico.wrl"
+	(model "C:/Users/bboks/Documents/git_windows/source/rp2040-alarm-clock/hw/libraries/Raspberry Pi Pico-R3-Simplified.STEP"
 		(offset
-			(xyz 0 0 0)
+			(xyz 0 0 0.5)
 		)
 		(scale
 			(xyz 1 1 1)
 		)
 		(rotate
-			(xyz 0 0 0)
+			(xyz -90 0 0)
 		)
 	)
 )

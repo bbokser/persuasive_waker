@@ -102,4 +102,10 @@ K
 F https://4donline.ihs.com/images/VipMasterIC/IC/KEYC/KEYCS01036/KEYCS02795-1.pdf?hkey=6D3A4C79FDBF58556ACFDE234799DDF0
 $ENDCMP
 #
+$CMP PEC11S-929K-S0015
+D PEC11S Series - 12 mm SMD Incremental Encoder.
+K
+F https://componentsearchengine.com/Datasheets/1/PEC11S-929K-S0015.pdf
+$ENDCMP
+#
 #End Doc Library

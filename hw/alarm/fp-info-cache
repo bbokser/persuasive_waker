@@ -1,4 +1,4 @@
-23430388700269976
+23440721390942303
 4328
 ADAFRUIT_4328
 
@@ -87815,6 +87815,13 @@ Undefined or Miscellaneous
 4
 4
 SamacSys_Parts
+2464
+2464-2
+Battery
+0
+2
+2
+SamacSys_Parts
 DIOM5336X250N
 SMB_
 Schottky Diode
@@ -87864,6 +87871,13 @@ Diode
 2
 2
 SamacSys_Parts
+INDM3225X240N
+SIZE  CODE 3225
+Inductor
+0
+2
+2
+SamacSys_Parts
 LMR36503R5URPER
 RPE0009B
 Integrated Circuit
@@ -87891,6 +87905,13 @@ Undefined or Miscellaneous
 0
 7
 7
+SamacSys_Parts
+PEC11S929KS0015
+PEC11S-929K-S0015-1
+Integrated Circuit
+0
+11
+11
 SamacSys_Parts
 PSMN3R9100YSFX
 PSMN3R9-100YSFX-3
@@ -87983,12 +88004,26 @@ Integrated Circuit
 10
 10
 SamacSys_Parts
+SOP64P600X175-24N
+QSOP-24
+Integrated Circuit
+0
+24
+24
+SamacSys_Parts
 SOP254P953X445-6N
 TPSA226M010R0900
 Relay or Contactor
 0
 6
 6
+SamacSys_Parts
+SOT65P210X110-3N
+SC-70_3LEADS
+MOSFET (N-Channel)
+0
+3
+3
 SamacSys_Parts
 SOT95P237X112-3N
 sot-23 -
@@ -95731,3 +95766,10 @@ Varistor VF
 0
 2
 2
+footprints
+TDCG1060M_VIS
+
+TDCR1060M 
+0
+16
+16

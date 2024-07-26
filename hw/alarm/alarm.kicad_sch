@@ -3173,11 +3173,11 @@
 				)
 			)
 		)
-		(symbol "SamacSys_Parts:2464"
+		(symbol "SamacSys_Parts:2462"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
-			(property "Reference" "BT"
+			(property "Reference" "U"
 				(at 16.51 7.62 0)
 				(effects
 					(font
@@ -3186,7 +3186,7 @@
 					(justify left top)
 				)
 			)
-			(property "Value" "2464"
+			(property "Value" "2462"
 				(at 16.51 5.08 0)
 				(effects
 					(font
@@ -3195,7 +3195,7 @@
 					(justify left top)
 				)
 			)
-			(property "Footprint" "2464"
+			(property "Footprint" "2462"
 				(at 16.51 -94.92 0)
 				(effects
 					(font
@@ -3205,7 +3205,7 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" "https://4donline.ihs.com/images/VipMasterIC/IC/KEYC/KEYCS01036/KEYCS02795-1.pdf?hkey=6D3A4C79FDBF58556ACFDE234799DDF0"
+			(property "Datasheet" "http://www.keyelco.com/product-pdf.cfm?p=1027"
 				(at 16.51 -194.92 0)
 				(effects
 					(font
@@ -3215,7 +3215,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "Manufacturer:	Keystone Electronics Product Category:	Cylindrical Battery Contacts, Clips, Holders & Springs RoHS:	 Details Product:	Battery Holders Battery Cell Size:	AA Number of Batteries:	3 Battery Material:	Steel Mounting Style:	PCB Brand:	Keystone Electronics Contact Plating:	Nickel Packaging:	Bulk Product Type:	Cylindrical Battery Contacts, Clips, Holders & Springs 1 Subcategory:	Battery Unit Weight:	0.359794 oz"
+			(property "Description" "KEYSTONE - 2462 - BATTERY HOLDER"
 				(at 0 0 0)
 				(effects
 					(font
@@ -3224,7 +3224,7 @@
 					(hide yes)
 				)
 			)
-			(property "Height" "16.99"
+			(property "Height" "16.51"
 				(at 16.51 -394.92 0)
 				(effects
 					(font
@@ -3234,7 +3234,7 @@
 					(hide yes)
 				)
 			)
-			(property "Mouser Part Number" "534-2464"
+			(property "Mouser Part Number" "534-2462"
 				(at 16.51 -494.92 0)
 				(effects
 					(font
@@ -3244,7 +3244,7 @@
 					(hide yes)
 				)
 			)
-			(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Keystone-Electronics/2464?qs=3CbvriavsLDuYK6W9WnmCg%3D%3D"
+			(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Keystone-Electronics/2462?qs=3CbvriavsLChvFNADwDLZA%3D%3D"
 				(at 16.51 -594.92 0)
 				(effects
 					(font
@@ -3264,7 +3264,7 @@
 					(hide yes)
 				)
 			)
-			(property "Manufacturer_Part_Number" "2464"
+			(property "Manufacturer_Part_Number" "2462"
 				(at 16.51 -794.92 0)
 				(effects
 					(font
@@ -3274,7 +3274,7 @@
 					(hide yes)
 				)
 			)
-			(symbol "2464_1_1"
+			(symbol "2462_1_1"
 				(rectangle
 					(start 5.08 2.54)
 					(end 15.24 -5.08)
@@ -3287,7 +3287,7 @@
 					)
 				)
 				(pin passive line
-					(at 0 -2.54 0)
+					(at 20.32 -2.54 180)
 					(length 5.08)
 					(name "+"
 						(effects
@@ -3305,7 +3305,7 @@
 					)
 				)
 				(pin passive line
-					(at 0 0 0)
+					(at 20.32 0 180)
 					(length 5.08)
 					(name "-"
 						(effects
@@ -3315,6 +3315,42 @@
 						)
 					)
 					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 0 0)
+					(length 5.08)
+					(name "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -2.54 0)
+					(length 5.08)
+					(name "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -4441,12 +4477,12 @@
 				)
 			)
 		)
-		(symbol "SamacSys_Parts:PEC11R-4215F-S0024"
+		(symbol "SamacSys_Parts:PEC11S-929K-S0015"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
-			(property "Reference" "U"
-				(at 21.59 15.24 0)
+			(property "Reference" "IC"
+				(at 24.13 7.62 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -4454,8 +4490,8 @@
 					(justify left top)
 				)
 			)
-			(property "Value" "PEC11R-4215F-S0024"
-				(at 21.59 12.7 0)
+			(property "Value" "PEC11S-929K-S0015"
+				(at 24.13 5.08 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -4463,18 +4499,8 @@
 					(justify left top)
 				)
 			)
-			(property "Footprint" "PEC11R4215FS0024"
-				(at 21.59 -87.3 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "https://www.bourns.com/docs/product-datasheets/pec11r.pdf?sfvrsn=bb617cbf_12"
-				(at 21.59 -187.3 0)
+			(property "Footprint" "PEC11S929KS0015"
+				(at 24.13 -94.92 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -4483,7 +4509,17 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "Rotary Encoder Mechanical 24 Quadrature (Incremental) Vertical 15mm SHAFT w/SWITCH"
+			(property "Datasheet" "https://componentsearchengine.com/Datasheets/1/PEC11S-929K-S0015.pdf"
+				(at 24.13 -194.92 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+					(hide yes)
+				)
+			)
+			(property "Description" "PEC11S Series - 12 mm SMD Incremental Encoder."
 				(at 0 0 0)
 				(effects
 					(font
@@ -4492,8 +4528,8 @@
 					(hide yes)
 				)
 			)
-			(property "Height" "21.5"
-				(at 21.59 -387.3 0)
+			(property "Height" "14"
+				(at 24.13 -394.92 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -4502,8 +4538,8 @@
 					(hide yes)
 				)
 			)
-			(property "Mouser Part Number" "652-PEC11R-4215F-S24"
-				(at 21.59 -487.3 0)
+			(property "Mouser Part Number" "652-PEC11S929K-S0015"
+				(at 24.13 -494.92 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -4512,8 +4548,8 @@
 					(hide yes)
 				)
 			)
-			(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Bourns/PEC11R-4215F-S0024?qs=Zq5ylnUbLm5lAqmKF80wzQ%3D%3D"
-				(at 21.59 -587.3 0)
+			(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Bourns/PEC11S-929K-S0015?qs=80T3JVN997A05YR0wgcotA%3D%3D"
+				(at 24.13 -594.92 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -4523,7 +4559,7 @@
 				)
 			)
 			(property "Manufacturer_Name" "Bourns"
-				(at 21.59 -687.3 0)
+				(at 24.13 -694.92 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -4532,8 +4568,8 @@
 					(hide yes)
 				)
 			)
-			(property "Manufacturer_Part_Number" "PEC11R-4215F-S0024"
-				(at 21.59 -787.3 0)
+			(property "Manufacturer_Part_Number" "PEC11S-929K-S0015"
+				(at 24.13 -794.92 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -4542,10 +4578,10 @@
 					(hide yes)
 				)
 			)
-			(symbol "PEC11R-4215F-S0024_1_1"
+			(symbol "PEC11S-929K-S0015_1_1"
 				(rectangle
-					(start 5.08 10.16)
-					(end 20.32 -17.78)
+					(start 5.08 2.54)
+					(end 22.86 -15.24)
 					(stroke
 						(width 0.254)
 						(type default)
@@ -4555,45 +4591,9 @@
 					)
 				)
 				(pin passive line
-					(at 10.16 15.24 270)
+					(at 0 0 0)
 					(length 5.08)
-					(name "COM"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 12.7 15.24 270)
-					(length 5.08)
-					(name "NO"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 10.16 -22.86 90)
-					(length 5.08)
-					(name "CHANNEL_A"
+					(name "CCW"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -4609,9 +4609,9 @@
 					)
 				)
 				(pin passive line
-					(at 15.24 -22.86 90)
+					(at 0 -2.54 0)
 					(length 5.08)
-					(name "CHANNEL_B"
+					(name "CW"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -4627,9 +4627,9 @@
 					)
 				)
 				(pin passive line
-					(at 12.7 -22.86 90)
+					(at 0 -5.08 0)
 					(length 5.08)
-					(name "COMMON"
+					(name "WIPER"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -4645,16 +4645,16 @@
 					)
 				)
 				(pin passive line
-					(at 0 0 0)
+					(at 0 -7.62 0)
 					(length 5.08)
-					(name "MH1"
+					(name "COM"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "MH1"
+					(number "D1"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -4663,16 +4663,124 @@
 					)
 				)
 				(pin passive line
-					(at 25.4 0 180)
+					(at 0 -10.16 0)
 					(length 5.08)
-					(name "MH2"
+					(name "NO"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "MH2"
+					(number "E1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -12.7 0)
+					(length 5.08)
+					(name "MP1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "MP1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 27.94 0 180)
+					(length 5.08)
+					(name "MP2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "MP2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 27.94 -2.54 180)
+					(length 5.08)
+					(name "MP3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "MP3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 27.94 -5.08 180)
+					(length 5.08)
+					(name "MP4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "MP4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 27.94 -7.62 180)
+					(length 5.08)
+					(name "MP5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "MP5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 27.94 -10.16 180)
+					(length 5.08)
+					(name "MP6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "MP6"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -6775,6 +6883,12 @@
 		(uuid "1fd8fe58-8fe9-4392-8afd-16fcaa3f7075")
 	)
 	(junction
+		(at 314.96 176.53)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "1ffc702a-17f3-4dd6-92fb-4951969e36a9")
+	)
+	(junction
 		(at 458.47 143.51)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -6877,7 +6991,7 @@
 		(uuid "9d405dd7-d6fe-4139-a761-645248c49331")
 	)
 	(junction
-		(at 347.98 142.24)
+		(at 347.98 113.03)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a208a33f-4b2c-41a5-8d1b-566517cce9f3")
@@ -6913,7 +7027,7 @@
 		(uuid "c06e8911-0906-461c-b386-34afb8eb4457")
 	)
 	(junction
-		(at 347.98 154.94)
+		(at 347.98 125.73)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "c1cc9f69-49e8-4394-9f09-1a16e1cc424d")
@@ -6941,12 +7055,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "ebec487b-b1e9-40ab-afcc-1cf644d12ef0")
-	)
-	(junction
-		(at 521.97 82.55)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "ecae4c9f-6e36-4ed1-ae5c-43edbb1b1bca")
 	)
 	(junction
 		(at 289.56 340.36)
@@ -6983,6 +7091,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "f8f8ccb4-2141-4762-b140-87cf844816da")
+	)
+	(junction
+		(at 519.43 82.55)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "fc26a974-3e8e-4bc2-9981-d1f64b360bde")
 	)
 	(wire
 		(pts
@@ -7046,7 +7160,7 @@
 	)
 	(wire
 		(pts
-			(xy 355.6 152.4) (xy 355.6 154.94)
+			(xy 355.6 123.19) (xy 355.6 125.73)
 		)
 		(stroke
 			(width 0)
@@ -7186,7 +7300,7 @@
 	)
 	(wire
 		(pts
-			(xy 355.6 154.94) (xy 347.98 154.94)
+			(xy 355.6 125.73) (xy 347.98 125.73)
 		)
 		(stroke
 			(width 0)
@@ -7396,6 +7510,16 @@
 	)
 	(wire
 		(pts
+			(xy 519.43 82.55) (xy 529.59 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2537b836-82a4-4080-aba7-59e5ec8a2676")
+	)
+	(wire
+		(pts
 			(xy 217.17 304.8) (xy 224.79 304.8)
 		)
 		(stroke
@@ -7566,7 +7690,7 @@
 	)
 	(wire
 		(pts
-			(xy 345.44 149.86) (xy 347.98 149.86)
+			(xy 345.44 120.65) (xy 347.98 120.65)
 		)
 		(stroke
 			(width 0)
@@ -7596,7 +7720,7 @@
 	)
 	(wire
 		(pts
-			(xy 347.98 149.86) (xy 347.98 154.94)
+			(xy 347.98 120.65) (xy 347.98 125.73)
 		)
 		(stroke
 			(width 0)
@@ -7623,6 +7747,16 @@
 			(type default)
 		)
 		(uuid "39e61c60-aaed-482f-a1f7-5c624ac5591f")
+	)
+	(wire
+		(pts
+			(xy 314.96 173.99) (xy 318.77 173.99)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3a3593a2-1db0-442f-9fd6-e86b1539b2b3")
 	)
 	(wire
 		(pts
@@ -7666,13 +7800,13 @@
 	)
 	(wire
 		(pts
-			(xy 521.97 90.17) (xy 521.97 82.55)
+			(xy 304.8 177.8) (xy 304.8 176.53)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "4219e1a0-b7db-4e22-acc5-5db03406b461")
+		(uuid "3f80fcf5-1458-4749-8e52-1a52faf06d4b")
 	)
 	(wire
 		(pts
@@ -7693,6 +7827,16 @@
 			(type default)
 		)
 		(uuid "425e62ed-1e87-41a6-98e4-72d46c011ac7")
+	)
+	(wire
+		(pts
+			(xy 318.77 176.53) (xy 314.96 176.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "42c78a95-1d0f-4ae4-97fd-c70eaff68a17")
 	)
 	(wire
 		(pts
@@ -7726,16 +7870,6 @@
 	)
 	(wire
 		(pts
-			(xy 102.87 148.59) (xy 107.95 148.59)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4474b0e3-879f-4260-af21-e640d220681f")
-	)
-	(wire
-		(pts
 			(xy 448.31 200.66) (xy 450.85 200.66)
 		)
 		(stroke
@@ -7763,6 +7897,16 @@
 			(type default)
 		)
 		(uuid "49018d0a-6fb2-4aad-b397-4b90ddb84137")
+	)
+	(wire
+		(pts
+			(xy 308.61 171.45) (xy 318.77 171.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "49ea6c29-038b-4653-aecc-786593458ed5")
 	)
 	(wire
 		(pts
@@ -7803,16 +7947,6 @@
 			(type default)
 		)
 		(uuid "4bf7b900-55a4-4ed5-8502-1abc7268b5d8")
-	)
-	(wire
-		(pts
-			(xy 102.87 151.13) (xy 102.87 162.56)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4cc49373-e7eb-4848-99b5-890ded0ad4da")
 	)
 	(wire
 		(pts
@@ -7996,6 +8130,16 @@
 	)
 	(wire
 		(pts
+			(xy 519.43 82.55) (xy 519.43 90.17)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "61f208ed-6d0d-4cb8-8fb9-bca80cabea4d")
+	)
+	(wire
+		(pts
 			(xy 445.77 113.03) (xy 455.93 113.03)
 		)
 		(stroke
@@ -8116,16 +8260,6 @@
 	)
 	(wire
 		(pts
-			(xy 55.88 148.59) (xy 64.77 148.59)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6aebc1b6-719c-44e6-aafb-ab52a6168b35")
-	)
-	(wire
-		(pts
 			(xy 466.09 120.65) (xy 466.09 135.89)
 		)
 		(stroke
@@ -8146,16 +8280,6 @@
 	)
 	(wire
 		(pts
-			(xy 107.95 148.59) (xy 107.95 151.13)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6c31eb5b-7050-458f-ab11-df5a50edc6a1")
-	)
-	(wire
-		(pts
 			(xy 464.82 182.88) (xy 464.82 193.04)
 		)
 		(stroke
@@ -8166,7 +8290,7 @@
 	)
 	(wire
 		(pts
-			(xy 347.98 154.94) (xy 347.98 158.75)
+			(xy 347.98 125.73) (xy 347.98 129.54)
 		)
 		(stroke
 			(width 0)
@@ -8216,6 +8340,16 @@
 	)
 	(wire
 		(pts
+			(xy 308.61 179.07) (xy 318.77 179.07)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7214b3ca-3343-42e0-8bba-6be3e9b998df")
+	)
+	(wire
+		(pts
 			(xy 308.61 325.12) (xy 316.23 325.12)
 		)
 		(stroke
@@ -8233,6 +8367,16 @@
 			(type default)
 		)
 		(uuid "7318ab8e-b348-4b7c-affe-92e28ccd23e3")
+	)
+	(wire
+		(pts
+			(xy 314.96 176.53) (xy 314.96 173.99)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "744f8473-b8a3-4d0f-bc69-19bff22cfe51")
 	)
 	(wire
 		(pts
@@ -8326,23 +8470,13 @@
 	)
 	(wire
 		(pts
-			(xy 355.6 144.78) (xy 355.6 142.24)
+			(xy 355.6 115.57) (xy 355.6 113.03)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "7b238c71-e109-4e77-a277-64c0672f32aa")
-	)
-	(wire
-		(pts
-			(xy 52.07 151.13) (xy 52.07 154.94)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7ce13282-aba1-4f3f-9e33-809334f4f2de")
 	)
 	(wire
 		(pts
@@ -8436,7 +8570,7 @@
 	)
 	(wire
 		(pts
-			(xy 347.98 142.24) (xy 347.98 147.32)
+			(xy 347.98 113.03) (xy 347.98 118.11)
 		)
 		(stroke
 			(width 0)
@@ -8526,16 +8660,6 @@
 	)
 	(wire
 		(pts
-			(xy 64.77 151.13) (xy 52.07 151.13)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "881fa6e3-06a0-4534-b3d1-9a0806e56c1a")
-	)
-	(wire
-		(pts
 			(xy 408.94 322.58) (xy 412.75 322.58)
 		)
 		(stroke
@@ -8586,7 +8710,7 @@
 	)
 	(wire
 		(pts
-			(xy 347.98 140.97) (xy 347.98 142.24)
+			(xy 347.98 111.76) (xy 347.98 113.03)
 		)
 		(stroke
 			(width 0)
@@ -8646,7 +8770,7 @@
 	)
 	(wire
 		(pts
-			(xy 316.23 147.32) (xy 320.04 147.32)
+			(xy 316.23 118.11) (xy 320.04 118.11)
 		)
 		(stroke
 			(width 0)
@@ -8663,16 +8787,6 @@
 			(type default)
 		)
 		(uuid "9723e44e-bcf1-4274-a318-562fe7205a8b")
-	)
-	(wire
-		(pts
-			(xy 55.88 153.67) (xy 64.77 153.67)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "984dec62-a1a4-472a-a30c-8ef020b9920c")
 	)
 	(wire
 		(pts
@@ -8786,7 +8900,7 @@
 	)
 	(wire
 		(pts
-			(xy 102.87 162.56) (xy 124.46 162.56)
+			(xy 113.03 162.56) (xy 124.46 162.56)
 		)
 		(stroke
 			(width 0)
@@ -8916,6 +9030,16 @@
 	)
 	(wire
 		(pts
+			(xy 304.8 176.53) (xy 314.96 176.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b0d6e845-2e02-4d5a-8ebe-51248dd2e66f")
+	)
+	(wire
+		(pts
 			(xy 448.31 152.4) (xy 455.93 152.4)
 		)
 		(stroke
@@ -8923,6 +9047,16 @@
 			(type default)
 		)
 		(uuid "b136a8a4-eb9f-49e9-b412-8f1110e56497")
+	)
+	(wire
+		(pts
+			(xy 308.61 168.91) (xy 318.77 168.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b1dfee59-09c8-4265-8a57-e31dcbd98cf9")
 	)
 	(wire
 		(pts
@@ -9096,16 +9230,6 @@
 	)
 	(wire
 		(pts
-			(xy 504.19 82.55) (xy 521.97 82.55)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c2b390e0-c846-4833-827c-62c81c67175a")
-	)
-	(wire
-		(pts
 			(xy 461.01 115.57) (xy 461.01 140.97)
 		)
 		(stroke
@@ -9186,7 +9310,7 @@
 	)
 	(wire
 		(pts
-			(xy 355.6 142.24) (xy 347.98 142.24)
+			(xy 355.6 113.03) (xy 347.98 113.03)
 		)
 		(stroke
 			(width 0)
@@ -9326,16 +9450,6 @@
 	)
 	(wire
 		(pts
-			(xy 157.48 90.17) (xy 157.48 88.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d83b4c44-2b90-498a-a7b1-36915943c87c")
-	)
-	(wire
-		(pts
 			(xy 207.01 337.82) (xy 207.01 332.74)
 		)
 		(stroke
@@ -9356,23 +9470,13 @@
 	)
 	(wire
 		(pts
-			(xy 521.97 82.55) (xy 529.59 82.55)
+			(xy 504.19 82.55) (xy 519.43 82.55)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "dad8704b-75b9-4956-9324-88ca2a97a05d")
-	)
-	(wire
-		(pts
-			(xy 147.32 90.17) (xy 157.48 90.17)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "db112e02-5bba-4162-96a2-d207d51ac778")
 	)
 	(wire
 		(pts
@@ -9406,7 +9510,7 @@
 	)
 	(wire
 		(pts
-			(xy 345.44 147.32) (xy 347.98 147.32)
+			(xy 345.44 118.11) (xy 347.98 118.11)
 		)
 		(stroke
 			(width 0)
@@ -9426,7 +9530,7 @@
 	)
 	(wire
 		(pts
-			(xy 316.23 149.86) (xy 320.04 149.86)
+			(xy 316.23 120.65) (xy 320.04 120.65)
 		)
 		(stroke
 			(width 0)
@@ -9466,7 +9570,7 @@
 	)
 	(wire
 		(pts
-			(xy 147.32 90.17) (xy 147.32 92.71)
+			(xy 162.56 88.9) (xy 162.56 91.44)
 		)
 		(stroke
 			(width 0)
@@ -9853,8 +9957,8 @@
 		(uuid 7482848b-1725-4e8c-9697-13a8b6d3fe21)
 	)
 	(rectangle
-		(start 276.86 119.38)
-		(end 378.46 167.64)
+		(start 276.86 90.17)
+		(end 378.46 138.43)
 		(stroke
 			(width 0)
 			(type default)
@@ -9875,6 +9979,18 @@
 			(type none)
 		)
 		(uuid c79b31f2-d972-4987-8ddb-6a21d425377e)
+	)
+	(rectangle
+		(start 276.86 144.78)
+		(end 378.46 198.12)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid d08f3b7e-889d-477d-b260-b0e7900900ba)
 	)
 	(text "https://files.waveshare.com/upload/4/4e/2.13inch_e-Paper_V4_Specification.pdf"
 		(exclude_from_sim no)
@@ -9927,9 +10043,19 @@
 		)
 		(uuid "782d75f5-098a-46ed-8dc5-581ee01df77e")
 	)
+	(text "Encoder"
+		(exclude_from_sim no)
+		(at 295.91 152.4 0)
+		(effects
+			(font
+				(size 5.08 5.08)
+			)
+		)
+		(uuid "913c0c21-3efb-41c3-a8bc-751c603de06b")
+	)
 	(text "Temp/Humidity"
 		(exclude_from_sim no)
-		(at 310.642 126.746 0)
+		(at 310.642 97.536 0)
 		(effects
 			(font
 				(size 5.08 5.08)
@@ -10045,7 +10171,7 @@
 		(uuid "4f9b9be7-d703-4787-87b1-f7ca30a19053")
 	)
 	(label "SDA"
-		(at 316.23 147.32 0)
+		(at 316.23 118.11 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10088,6 +10214,28 @@
 		)
 		(uuid "5bf3bb0d-157a-462a-8d04-916e5e0859b8")
 	)
+	(label "Enc_Switch"
+		(at 113.03 162.56 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "61707606-2420-4a33-8213-1dc714982d47")
+	)
+	(label "Enc_Switch"
+		(at 308.61 179.07 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "692a9f5d-b325-4670-8e64-ec37ed6224f4")
+	)
 	(label "SRAMCS"
 		(at 116.84 152.4 0)
 		(fields_autoplaced yes)
@@ -10110,6 +10258,17 @@
 		)
 		(uuid "6eb802fa-3461-48e1-aeeb-5136528da2df")
 	)
+	(label "Enc_B1"
+		(at 308.61 171.45 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "7101e9ab-a683-425f-b859-318056dc0518")
+	)
 	(label "EinkRESET"
 		(at 308.61 320.04 0)
 		(fields_autoplaced yes)
@@ -10120,17 +10279,6 @@
 			(justify left bottom)
 		)
 		(uuid "791cd152-978b-4e18-9cef-313b08c556a8")
-	)
-	(label "Enc_B1"
-		(at 55.88 153.67 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "7976f3e4-9193-47eb-8762-3330f3a1475a")
 	)
 	(label "EinkCS"
 		(at 116.84 154.94 0)
@@ -10175,6 +10323,17 @@
 			(justify left bottom)
 		)
 		(uuid "856d42c5-cd52-4460-8cc3-9b9e019ca261")
+	)
+	(label "Enc_A1"
+		(at 308.61 168.91 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "87758fe0-3c60-4699-821e-59f2e4b8875f")
 	)
 	(label "SCL"
 		(at 337.82 242.57 0)
@@ -10298,7 +10457,7 @@
 		(uuid "ae442daf-cf98-460e-98ad-be63f418fcb7")
 	)
 	(label "SCL"
-		(at 316.23 149.86 0)
+		(at 316.23 120.65 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10452,17 +10611,6 @@
 		(uuid "f9c8e0d2-7d23-467d-bcf8-96c40cbb8326")
 	)
 	(label "Enc_A1"
-		(at 55.88 148.59 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "fa364609-173e-4c07-b474-12fde409e962")
-	)
-	(label "Enc_A1"
 		(at 116.84 157.48 0)
 		(fields_autoplaced yes)
 		(effects
@@ -10497,7 +10645,7 @@
 	)
 	(symbol
 		(lib_id "SamacSys_Parts:SHT40-BD1B-R2")
-		(at 320.04 147.32 0)
+		(at 320.04 118.11 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -10506,7 +10654,7 @@
 		(fields_autoplaced yes)
 		(uuid "00c16760-16ef-41a5-b861-2bc62259b333")
 		(property "Reference" "IC3"
-			(at 332.74 139.7 0)
+			(at 332.74 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10514,7 +10662,7 @@
 			)
 		)
 		(property "Value" "SHT40-BD1B-R2"
-			(at 332.74 142.24 0)
+			(at 332.74 113.03 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10522,7 +10670,7 @@
 			)
 		)
 		(property "Footprint" "SHT40BD1BR2"
-			(at 341.63 242.24 0)
+			(at 341.63 213.03 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10532,7 +10680,7 @@
 			)
 		)
 		(property "Datasheet" "https://sensirion.com/media/documents/33FD6951/63E1087C/Datasheet_SHT4x_1.pdf"
-			(at 341.63 342.24 0)
+			(at 341.63 313.03 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10542,7 +10690,7 @@
 			)
 		)
 		(property "Description" "SENSIRION - SHT40-BD1B-R2 - Humidity and Temperature Sensor, Digital, 0% to 100% RH, I2C, DFN-EP-4, -40C to 125C"
-			(at 320.04 147.32 0)
+			(at 320.04 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10551,7 +10699,7 @@
 			)
 		)
 		(property "Height" "0.59"
-			(at 341.63 542.24 0)
+			(at 341.63 513.03 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10561,7 +10709,7 @@
 			)
 		)
 		(property "Mouser Part Number" "403-SHT40-BD1B-R2"
-			(at 341.63 642.24 0)
+			(at 341.63 613.03 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10571,7 +10719,7 @@
 			)
 		)
 		(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Sensirion/SHT40-BD1B-R2?qs=ulEaXIWI0c%252BjgdkzNQkrGw%3D%3D"
-			(at 341.63 742.24 0)
+			(at 341.63 713.03 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10581,7 +10729,7 @@
 			)
 		)
 		(property "Manufacturer_Name" "Sensirion"
-			(at 341.63 842.24 0)
+			(at 341.63 813.03 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10591,7 +10739,7 @@
 			)
 		)
 		(property "Manufacturer_Part_Number" "SHT40-BD1B-R2"
-			(at 341.63 942.24 0)
+			(at 341.63 913.03 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11206,6 +11354,153 @@
 			(project "alarm"
 				(path "/10078caa-7fd0-475a-83d7-2ff1e936c6b6"
 					(reference "S8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "SamacSys_Parts:PEC11S-929K-S0015")
+		(at 318.77 168.91 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "1cb596ea-5959-4d08-9f1c-a0d4690589a2")
+		(property "Reference" "IC5"
+			(at 332.74 161.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "PEC11S-929K-S0015"
+			(at 332.74 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "PEC11S929KS0015"
+			(at 342.9 263.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://componentsearchengine.com/Datasheets/1/PEC11S-929K-S0015.pdf"
+			(at 342.9 363.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "PEC11S Series - 12 mm SMD Incremental Encoder."
+			(at 318.77 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Height" "14"
+			(at 342.9 563.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Mouser Part Number" "652-PEC11S929K-S0015"
+			(at 342.9 663.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Bourns/PEC11S-929K-S0015?qs=80T3JVN997A05YR0wgcotA%3D%3D"
+			(at 342.9 763.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Name" "Bourns"
+			(at 342.9 863.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Part_Number" "PEC11S-929K-S0015"
+			(at 342.9 963.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(pin "B1"
+			(uuid "2c1f04bf-2c9b-440a-a8ca-66387860d7c3")
+		)
+		(pin "MP2"
+			(uuid "bdd8f692-05f9-432d-a273-03e9538ce959")
+		)
+		(pin "MP4"
+			(uuid "46862c40-fbd1-4e9d-a79d-549f38f9666c")
+		)
+		(pin "A1"
+			(uuid "bd48d08c-a3df-41ff-b34d-399f8e30bdf8")
+		)
+		(pin "D1"
+			(uuid "d226492f-2f16-4c1e-9fe7-97e5b8270254")
+		)
+		(pin "MP3"
+			(uuid "b6a05151-a4ed-4302-9e8c-94e88da587da")
+		)
+		(pin "C1"
+			(uuid "537ccf61-d58e-4add-973b-d260c7a55fb7")
+		)
+		(pin "MP6"
+			(uuid "dc7b62e5-959d-426e-89c5-0d9bd93962a7")
+		)
+		(pin "MP1"
+			(uuid "1acc45ba-c66c-425f-bc01-98047917feed")
+		)
+		(pin "MP5"
+			(uuid "25726916-91a9-4ddb-8ab2-9ffcbf14dbe8")
+		)
+		(pin "E1"
+			(uuid "3b41a5a6-976f-4a97-aed4-b49f20008a1a")
+		)
+		(instances
+			(project "alarm"
+				(path "/10078caa-7fd0-475a-83d7-2ff1e936c6b6"
+					(reference "IC5")
 					(unit 1)
 				)
 			)
@@ -12381,6 +12676,72 @@
 			(project "alarm"
 				(path "/10078caa-7fd0-475a-83d7-2ff1e936c6b6"
 					(reference "IC2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 304.8 177.8 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "3f8a791d-0620-429a-a993-a409cda25f11")
+		(property "Reference" "#PWR032"
+			(at 304.8 184.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 304.8 182.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 304.8 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 304.8 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 304.8 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c1170478-f7fd-4d70-b252-2909954d2e91")
+		)
+		(instances
+			(project "alarm"
+				(path "/10078caa-7fd0-475a-83d7-2ff1e936c6b6"
+					(reference "#PWR032")
 					(unit 1)
 				)
 			)
@@ -13876,7 +14237,7 @@
 	)
 	(symbol
 		(lib_id "power:+3.3V")
-		(at 347.98 140.97 0)
+		(at 347.98 111.76 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -13885,7 +14246,7 @@
 		(fields_autoplaced yes)
 		(uuid "7c927274-f7df-42f2-9241-cc8068400d78")
 		(property "Reference" "#PWR05"
-			(at 347.98 144.78 0)
+			(at 347.98 115.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13894,7 +14255,7 @@
 			)
 		)
 		(property "Value" "+3.3V"
-			(at 347.98 135.89 0)
+			(at 347.98 106.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13902,7 +14263,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 347.98 140.97 0)
+			(at 347.98 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13911,7 +14272,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 347.98 140.97 0)
+			(at 347.98 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13920,7 +14281,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
-			(at 347.98 140.97 0)
+			(at 347.98 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14478,72 +14839,6 @@
 			(project "alarm"
 				(path "/10078caa-7fd0-475a-83d7-2ff1e936c6b6"
 					(reference "#PWR01")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 107.95 151.13 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "93c43cdb-d6fd-4846-b4ad-0e21c2c026e1")
-		(property "Reference" "#PWR013"
-			(at 107.95 157.48 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 107.95 156.21 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 107.95 151.13 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 107.95 151.13 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 107.95 151.13 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "ad89be94-77de-40b3-8a00-048d162a6ed8")
-		)
-		(instances
-			(project "alarm"
-				(path "/10078caa-7fd0-475a-83d7-2ff1e936c6b6"
-					(reference "#PWR013")
 					(unit 1)
 				)
 			)
@@ -15318,7 +15613,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 347.98 158.75 0)
+		(at 347.98 129.54 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -15327,7 +15622,7 @@
 		(fields_autoplaced yes)
 		(uuid "b99c1a9e-19eb-44c6-855f-e616a90659d9")
 		(property "Reference" "#PWR08"
-			(at 347.98 165.1 0)
+			(at 347.98 135.89 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15336,7 +15631,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 347.98 163.83 0)
+			(at 347.98 134.62 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15344,7 +15639,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 347.98 158.75 0)
+			(at 347.98 129.54 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15353,7 +15648,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 347.98 158.75 0)
+			(at 347.98 129.54 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15362,7 +15657,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 347.98 158.75 0)
+			(at 347.98 129.54 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15377,6 +15672,134 @@
 			(project "alarm"
 				(path "/10078caa-7fd0-475a-83d7-2ff1e936c6b6"
 					(reference "#PWR08")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "SamacSys_Parts:2462")
+		(at 162.56 68.58 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c00293be-be70-495f-9c2f-b7f4452055ac")
+		(property "Reference" "U3"
+			(at 166.37 77.4699 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "2462"
+			(at 166.37 80.0099 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "2462"
+			(at 67.64 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "http://www.keyelco.com/product-pdf.cfm?p=1027"
+			(at -32.36 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "KEYSTONE - 2462 - BATTERY HOLDER"
+			(at 162.56 68.58 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Height" "16.51"
+			(at -232.36 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Mouser Part Number" "534-2462"
+			(at -332.36 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Keystone-Electronics/2462?qs=3CbvriavsLChvFNADwDLZA%3D%3D"
+			(at -432.36 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Name" "Keystone Electronics"
+			(at -532.36 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Part_Number" "2462"
+			(at -632.36 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e4fea3b0-df65-499a-8c09-ef810fb37cd4")
+		)
+		(pin "3"
+			(uuid "6a78ef4d-ed30-4636-97a4-8edc72a242b3")
+		)
+		(pin "4"
+			(uuid "6f1f50c2-a5d5-4fad-b9f7-79dcdf1c91d7")
+		)
+		(pin "2"
+			(uuid "d00ee89f-0025-4f70-8249-bc5fa4e95742")
+		)
+		(instances
+			(project "alarm"
+				(path "/10078caa-7fd0-475a-83d7-2ff1e936c6b6"
+					(reference "U3")
 					(unit 1)
 				)
 			)
@@ -16003,128 +16426,6 @@
 		)
 	)
 	(symbol
-		(lib_id "SamacSys_Parts:2464")
-		(at 157.48 88.9 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "dbac90ad-051f-4ab3-ba36-363a4168a517")
-		(property "Reference" "BT1"
-			(at 163.83 77.4699 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "2464"
-			(at 163.83 80.0099 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" "2464"
-			(at 252.4 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://4donline.ihs.com/images/VipMasterIC/IC/KEYC/KEYCS01036/KEYCS02795-1.pdf?hkey=6D3A4C79FDBF58556ACFDE234799DDF0"
-			(at 352.4 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Description" "Manufacturer:	Keystone Electronics Product Category:	Cylindrical Battery Contacts, Clips, Holders & Springs RoHS:	 Details Product:	Battery Holders Battery Cell Size:	AA Number of Batteries:	3 Battery Material:	Steel Mounting Style:	PCB Brand:	Keystone Electronics Contact Plating:	Nickel Packaging:	Bulk Product Type:	Cylindrical Battery Contacts, Clips, Holders & Springs 1 Subcategory:	Battery Unit Weight:	0.359794 oz"
-			(at 157.48 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Height" "16.99"
-			(at 552.4 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Mouser Part Number" "534-2464"
-			(at 652.4 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Keystone-Electronics/2464?qs=3CbvriavsLDuYK6W9WnmCg%3D%3D"
-			(at 752.4 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer_Name" "Keystone Electronics"
-			(at 852.4 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer_Part_Number" "2464"
-			(at 952.4 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "951cd88a-351d-45d6-865b-4467675b042b")
-		)
-		(pin "1"
-			(uuid "16247da8-1ea7-400b-9e57-11ed724bff97")
-		)
-		(instances
-			(project "alarm"
-				(path "/10078caa-7fd0-475a-83d7-2ff1e936c6b6"
-					(reference "BT1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "SamacSys_Parts:PT-1241PFQ")
 		(at 213.36 95.25 0)
 		(unit 1)
@@ -16631,72 +16932,6 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 52.07 154.94 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "e4199906-bc3b-4b79-81c4-2f226039a06c")
-		(property "Reference" "#PWR014"
-			(at 52.07 161.29 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 52.07 160.02 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 52.07 154.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 52.07 154.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 52.07 154.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "212015fe-3967-4ff5-9607-3f4caea5d23f")
-		)
-		(instances
-			(project "alarm"
-				(path "/10078caa-7fd0-475a-83d7-2ff1e936c6b6"
-					(reference "#PWR014")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
 		(at 213.36 149.86 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -16756,142 +16991,6 @@
 			(project "alarm"
 				(path "/10078caa-7fd0-475a-83d7-2ff1e936c6b6"
 					(reference "#PWR016")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "SamacSys_Parts:PEC11R-4215F-S0024")
-		(at 87.63 138.43 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "e8cbdac5-a5ee-451f-87a2-50d47becc6eb")
-		(property "Reference" "U2"
-			(at 69.342 132.588 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "PEC11R-4215F-S0024"
-			(at 69.596 135.128 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "PEC11R4215FS0024"
-			(at 0.33 160.02 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.bourns.com/docs/product-datasheets/pec11r.pdf?sfvrsn=bb617cbf_12"
-			(at -99.67 160.02 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Description" "Rotary Encoder Mechanical 24 Quadrature (Incremental) Vertical 15mm SHAFT w/SWITCH"
-			(at 107.442 144.018 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Height" "21.5"
-			(at -299.67 160.02 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Mouser Part Number" "652-PEC11R-4215F-S24"
-			(at -399.67 160.02 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Bourns/PEC11R-4215F-S0024?qs=Zq5ylnUbLm5lAqmKF80wzQ%3D%3D"
-			(at -499.67 160.02 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer_Name" "Bourns"
-			(at -599.67 160.02 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer_Part_Number" "PEC11R-4215F-S0024"
-			(at -699.67 160.02 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "ed47842e-1a3f-42d4-b185-657054e7e2f5")
-		)
-		(pin "MH2"
-			(uuid "07c8a140-8cd2-432c-9e11-3611b532766c")
-		)
-		(pin "C1"
-			(uuid "5cf07bed-4406-444d-bacc-6914343522af")
-		)
-		(pin "1"
-			(uuid "0c87486f-3ee7-4a55-900e-fcc58aca5443")
-		)
-		(pin "B1"
-			(uuid "0163302f-a3cf-4566-9077-3f1aaf1fb03b")
-		)
-		(pin "MH1"
-			(uuid "c9bbd929-9db5-43d3-bb45-1d16e4801a18")
-		)
-		(pin "A1"
-			(uuid "aeab1692-d4eb-4128-aa25-e724d1c433f5")
-		)
-		(instances
-			(project "alarm"
-				(path "/10078caa-7fd0-475a-83d7-2ff1e936c6b6"
-					(reference "U2")
 					(unit 1)
 				)
 			)
@@ -17291,7 +17390,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 147.32 92.71 0)
+		(at 162.56 91.44 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -17300,7 +17399,7 @@
 		(fields_autoplaced yes)
 		(uuid "f23e1dd8-b4b7-45a3-8727-6b6917a21c98")
 		(property "Reference" "#PWR019"
-			(at 147.32 99.06 0)
+			(at 162.56 97.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17309,7 +17408,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 147.32 97.79 0)
+			(at 162.56 96.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17317,7 +17416,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 147.32 92.71 0)
+			(at 162.56 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17326,7 +17425,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 147.32 92.71 0)
+			(at 162.56 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17335,7 +17434,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 147.32 92.71 0)
+			(at 162.56 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17424,7 +17523,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 355.6 148.59 0)
+		(at 355.6 119.38 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -17432,7 +17531,7 @@
 		(dnp no)
 		(uuid "f7593606-21da-4f4c-a50c-9574290474e4")
 		(property "Reference" "C15"
-			(at 352.044 148.59 90)
+			(at 352.044 119.38 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17440,7 +17539,7 @@
 			)
 		)
 		(property "Value" "1uF"
-			(at 359.156 148.59 90)
+			(at 359.156 119.38 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17448,7 +17547,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 356.5652 152.4 0)
+			(at 356.5652 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17457,7 +17556,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 355.6 148.59 0)
+			(at 355.6 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17466,7 +17565,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
-			(at 355.6 148.59 0)
+			(at 355.6 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
