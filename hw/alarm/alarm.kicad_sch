@@ -763,6 +763,309 @@
 				)
 			)
 		)
+		(symbol "CPT_9019A_SMT_TR:CPT-9019A-SMT-TR"
+			(pin_names
+				(offset 0.254)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "LS"
+				(at 7.62 7.62 0)
+				(effects
+					(font
+						(size 1.524 1.524)
+					)
+				)
+			)
+			(property "Value" "CPT-9019A-SMT-TR"
+				(at 20.32 7.62 0)
+				(effects
+					(font
+						(size 1.524 1.524)
+					)
+				)
+			)
+			(property "Footprint" "CPT-9019A_CUD"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(italic yes)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "CPT-9019A-SMT-TR"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(italic yes)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "CPT-9019A-SMT-TR"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "CPT-9019A_CUD CPT-9019A_CUD-M CPT-9019A_CUD-L"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "CPT-9019A-SMT-TR_0_1"
+				(polyline
+					(pts
+						(xy 7.62 -5.08) (xy 12.7 -5.08)
+					)
+					(stroke
+						(width 0.2032)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 7.62 2.54) (xy 7.62 -5.08)
+					)
+					(stroke
+						(width 0.2032)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 12.7 -5.08) (xy 12.7 2.54)
+					)
+					(stroke
+						(width 0.2032)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 12.7 2.54) (xy 7.62 2.54)
+					)
+					(stroke
+						(width 0.2032)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 12.7 2.54) (xy 15.24 3.81)
+					)
+					(stroke
+						(width 0.2032)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 15.24 -6.35) (xy 12.7 -5.08)
+					)
+					(stroke
+						(width 0.2032)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 15.24 3.81) (xy 15.24 -6.35)
+					)
+					(stroke
+						(width 0.2032)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin unspecified line
+					(at 0 0 0)
+					(length 7.62)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 0 -2.54 0)
+					(length 7.62)
+					(name "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Connector:TestPoint"
+			(pin_numbers hide)
+			(pin_names
+				(offset 0.762) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "TP"
+				(at 0 6.858 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "TestPoint"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "test point"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "test point tp"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Pin* Test*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "TestPoint_0_1"
+				(circle
+					(center 0 3.302)
+					(radius 0.762)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "TestPoint_1_1"
+				(pin passive line
+					(at 0 0 90)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "Device:C"
 			(pin_numbers hide)
 			(pin_names
@@ -1848,7 +2151,7 @@
 				)
 			)
 		)
-		(symbol "MCU_Module_RaspberryPi_Pico:RaspberryPi_Pico_DebugPins"
+		(symbol "MCU_Module_RaspberryPi_Pico:RaspberryPi_Pico_SecondaryPins"
 			(pin_names
 				(offset 0.762)
 			)
@@ -1873,7 +2176,7 @@
 					(justify left)
 				)
 			)
-			(property "Footprint" "Module_RaspberryPi_Pico:RaspberryPi_Pico_Original_SMD_HandSolder"
+			(property "Footprint" "Module_RaspberryPi_Pico:RaspberryPi_Pico_Original_SMD"
 				(at 0 -49.53 0)
 				(effects
 					(font
@@ -1891,7 +2194,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "Versatile and inexpensive microcontroller module (with debug pins) powered by RP2040 dual-core Arm Cortex-M0+ processor up to 133 MHz, 264kB SRAM, 2MB QSPI flash"
+			(property "Description" "Versatile and inexpensive microcontroller module (with full pinout for test point and debug connections) powered by RP2040 dual-core Arm Cortex-M0+ processor up to 133 MHz, 264kB SRAM, 2MB QSPI flash"
 				(at 0 -54.61 0)
 				(effects
 					(font
@@ -1909,7 +2212,7 @@
 					(hide yes)
 				)
 			)
-			(property "ki_fp_filters" "RaspberryPi?Pico?Original?SMD*"
+			(property "ki_fp_filters" "RaspberryPi?Pico?Original?SMD RaspberryPi?Pico?Original?SMD?MoutingHoles RaspberryPi?Pico?Original?SMD?MoutingHoles?HandSolder?Castellated"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1918,7 +2221,7 @@
 					(hide yes)
 				)
 			)
-			(symbol "RaspberryPi_Pico_DebugPins_0_1"
+			(symbol "RaspberryPi_Pico_SecondaryPins_0_1"
 				(rectangle
 					(start -19.05 36.83)
 					(end 19.05 -34.29)
@@ -1991,7 +2294,7 @@
 					)
 				)
 			)
-			(symbol "RaspberryPi_Pico_DebugPins_1_1"
+			(symbol "RaspberryPi_Pico_SecondaryPins_1_1"
 				(pin bidirectional line
 					(at -22.86 22.86 0)
 					(length 3.81)
@@ -2905,6 +3208,117 @@
 						)
 					)
 					(number "D3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_out line
+					(at 22.86 25.4 180)
+					(length 3.81)
+					(name "USB_GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "TP1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(alternate "USB_HOST_GND" power_in line)
+				)
+				(pin bidirectional line
+					(at 22.86 27.94 180)
+					(length 3.81)
+					(name "USB_DM"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "TP2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 22.86 30.48 180)
+					(length 3.81)
+					(name "USB_DP"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "TP3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin no_connect line
+					(at 22.86 -27.94 180)
+					(length 3.81)
+					(name "~{SMPS_PS}"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "TP4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(alternate "GPIO23_UNSAFE" output line)
+					(alternate "~{SMPS_PS_UNSAFE}" output line)
+				)
+				(pin output line
+					(at 22.86 20.32 180)
+					(length 3.81)
+					(name "LED_OUT"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "TP5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -22.86 -27.94 0)
+					(length 3.81)
+					(name "~{BOOTSEL}"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "TP6"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -4781,218 +5195,6 @@
 						)
 					)
 					(number "MP6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-		)
-		(symbol "SamacSys_Parts:PT-1241PFQ"
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "LS"
-				(at 11.43 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-				)
-			)
-			(property "Value" "PT-1241PFQ"
-				(at 11.43 -2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-				)
-			)
-			(property "Footprint" "PT1241PFQ"
-				(at 11.43 -102.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "https://componentsearchengine.com/Datasheets/1/PT-1241PFQ.pdf"
-				(at 11.43 -202.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-					(hide yes)
-				)
-			)
-			(property "Description" "Audio Indicators & Alerts Audible Alarm"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Height" "6.2"
-				(at 11.43 -402.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-					(hide yes)
-				)
-			)
-			(property "Mouser Part Number" "539-PT-1241PFQ"
-				(at 11.43 -502.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-					(hide yes)
-				)
-			)
-			(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Mallory-Sonalert/PT-1241PFQ?qs=SXHtpsd1MbZK3moZP%252BuqlA%3D%3D"
-				(at 11.43 -602.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-					(hide yes)
-				)
-			)
-			(property "Manufacturer_Name" "Mallory Sonalert"
-				(at 11.43 -702.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-					(hide yes)
-				)
-			)
-			(property "Manufacturer_Part_Number" "PT-1241PFQ"
-				(at 11.43 -802.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left top)
-					(hide yes)
-				)
-			)
-			(symbol "PT-1241PFQ_1_1"
-				(polyline
-					(pts
-						(xy 5.08 1.27) (xy 5.08 -3.81)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 5.08 1.27) (xy 7.112 1.27)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 7.112 -3.81) (xy 5.08 -3.81)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 7.112 -3.81) (xy 9.652 -6.35)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 9.652 3.81) (xy 7.112 1.27)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 9.652 3.81) (xy 9.652 -6.35)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin passive line
-					(at 0 -2.54 0)
-					(length 5.08)
-					(name "-"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 0 0)
-					(length 5.08)
-					(name "+"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -6985,12 +7187,6 @@
 		(uuid "9918f1bf-7fc1-4045-a90d-40fe2c01b1b5")
 	)
 	(junction
-		(at 209.55 125.73)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "9d405dd7-d6fe-4139-a761-645248c49331")
-	)
-	(junction
 		(at 347.98 113.03)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -7217,6 +7413,16 @@
 			(type default)
 		)
 		(uuid "0daa1d53-d1fb-4e81-9500-783f18f3c37e")
+	)
+	(wire
+		(pts
+			(xy 170.18 134.62) (xy 173.99 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0de2003e-1114-46b9-a97b-6d88a1bcc9fc")
 	)
 	(wire
 		(pts
@@ -7780,6 +7986,16 @@
 	)
 	(wire
 		(pts
+			(xy 170.18 139.7) (xy 173.99 139.7)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3cfc79a0-6a07-482a-8a22-5a82a409126c")
+	)
+	(wire
+		(pts
 			(xy 232.41 276.86) (xy 232.41 279.4)
 		)
 		(stroke
@@ -8070,16 +8286,6 @@
 	)
 	(wire
 		(pts
-			(xy 195.58 123.19) (xy 195.58 149.86)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5bc7135f-cdbe-4275-90aa-2c115289a22e")
-	)
-	(wire
-		(pts
 			(xy 411.48 140.97) (xy 411.48 152.4)
 		)
 		(stroke
@@ -8177,16 +8383,6 @@
 			(type solid)
 		)
 		(uuid "63f352bd-32e1-4330-a3f9-9f2a2a4e936d")
-	)
-	(wire
-		(pts
-			(xy 209.55 125.73) (xy 209.55 129.54)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "64491c85-ae12-40dc-a836-914c8bf67eed")
 	)
 	(wire
 		(pts
@@ -8650,16 +8846,6 @@
 	)
 	(wire
 		(pts
-			(xy 195.58 123.19) (xy 213.36 123.19)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "87394539-c30e-4e7f-a89f-ea3d5a6e60ed")
-	)
-	(wire
-		(pts
 			(xy 408.94 322.58) (xy 412.75 322.58)
 		)
 		(stroke
@@ -8687,6 +8873,16 @@
 			(type default)
 		)
 		(uuid "8da41029-cf4e-459d-8459-c2bed81bfccb")
+	)
+	(wire
+		(pts
+			(xy 170.18 129.54) (xy 173.99 129.54)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8e079812-786f-495a-b50a-b7180dde837c")
 	)
 	(wire
 		(pts
@@ -8757,6 +8953,16 @@
 			(type default)
 		)
 		(uuid "9418904f-c3cf-46c9-8844-87a693df075a")
+	)
+	(wire
+		(pts
+			(xy 120.65 187.96) (xy 124.46 187.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "947dcd75-c8b3-429e-8f85-02af8240b2b4")
 	)
 	(wire
 		(pts
@@ -9290,16 +9496,6 @@
 	)
 	(wire
 		(pts
-			(xy 209.55 125.73) (xy 213.36 125.73)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c9c23460-ba09-4a1a-b6df-65b0a4a8d471")
-	)
-	(wire
-		(pts
 			(xy 207.01 360.68) (xy 207.01 364.49)
 		)
 		(stroke
@@ -9440,7 +9636,7 @@
 	)
 	(wire
 		(pts
-			(xy 209.55 111.76) (xy 209.55 125.73)
+			(xy 209.55 111.76) (xy 209.55 129.54)
 		)
 		(stroke
 			(width 0)
@@ -9780,16 +9976,6 @@
 	)
 	(wire
 		(pts
-			(xy 195.58 149.86) (xy 170.18 149.86)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f3d9258c-b4fd-418f-b330-2460fbaf41ad")
-	)
-	(wire
-		(pts
 			(xy 298.45 52.07) (xy 303.53 52.07)
 		)
 		(stroke
@@ -9827,6 +10013,16 @@
 			(type default)
 		)
 		(uuid "f8572299-8798-4c3d-8fa6-d17cf9320cb4")
+	)
+	(wire
+		(pts
+			(xy 170.18 132.08) (xy 173.99 132.08)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f88607b9-3945-42f5-a981-a93d3a0f37b9")
 	)
 	(wire
 		(pts
@@ -13008,6 +13204,74 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 173.99 132.08 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "51018e9e-3855-4a7a-81e7-c9ba077ccb5d")
+		(property "Reference" "TP2"
+			(at 179.07 130.8099 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 179.07 133.3499 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
+			(at 173.99 137.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 173.99 137.16 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 173.99 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "4bf0902a-da01-4925-a2e5-6a7b624b5307")
+		)
+		(instances
+			(project "alarm"
+				(path "/10078caa-7fd0-475a-83d7-2ff1e936c6b6"
+					(reference "TP2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C")
 		(at 306.07 345.44 90)
 		(unit 1)
@@ -13203,250 +13467,6 @@
 			(project "alarm"
 				(path "/10078caa-7fd0-475a-83d7-2ff1e936c6b6"
 					(reference "C11")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "SamacSys_Parts:PT-1241PFQ")
-		(at 213.36 123.19 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "6239dcaf-5956-402e-8982-5e04dbae334b")
-		(property "Reference" "LS1"
-			(at 224.79 123.1899 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "PT-1241PFQ"
-			(at 224.79 125.7299 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "PT1241PFQ"
-			(at 224.79 225.73 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://componentsearchengine.com/Datasheets/1/PT-1241PFQ.pdf"
-			(at 224.79 325.73 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Description" "Audio Indicators & Alerts Audible Alarm"
-			(at 213.36 123.19 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Height" "6.2"
-			(at 224.79 525.73 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Mouser Part Number" "539-PT-1241PFQ"
-			(at 224.79 625.73 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Mallory-Sonalert/PT-1241PFQ?qs=SXHtpsd1MbZK3moZP%252BuqlA%3D%3D"
-			(at 224.79 725.73 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer_Name" "Mallory Sonalert"
-			(at 224.79 825.73 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer_Part_Number" "PT-1241PFQ"
-			(at 224.79 925.73 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "4da6ef09-8b61-4c36-a914-3ff747e2d983")
-		)
-		(pin "2"
-			(uuid "a3f89f22-5a00-4a3c-bf0b-11a3ebb07089")
-		)
-		(instances
-			(project "alarm"
-				(path "/10078caa-7fd0-475a-83d7-2ff1e936c6b6"
-					(reference "LS1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "SamacSys_Parts:PT-1241PFQ")
-		(at 213.36 109.22 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "6601ea48-0046-43eb-b4b8-08d39de5ac07")
-		(property "Reference" "LS2"
-			(at 224.79 109.2199 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "PT-1241PFQ"
-			(at 224.79 111.7599 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "PT1241PFQ"
-			(at 224.79 211.76 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://componentsearchengine.com/Datasheets/1/PT-1241PFQ.pdf"
-			(at 224.79 311.76 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Description" "Audio Indicators & Alerts Audible Alarm"
-			(at 213.36 109.22 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Height" "6.2"
-			(at 224.79 511.76 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Mouser Part Number" "539-PT-1241PFQ"
-			(at 224.79 611.76 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Mallory-Sonalert/PT-1241PFQ?qs=SXHtpsd1MbZK3moZP%252BuqlA%3D%3D"
-			(at 224.79 711.76 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer_Name" "Mallory Sonalert"
-			(at 224.79 811.76 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer_Part_Number" "PT-1241PFQ"
-			(at 224.79 911.76 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "08c667e4-e50b-4341-bd45-021536cccb6b")
-		)
-		(pin "2"
-			(uuid "95cc781d-bce4-4786-94e6-539f06fa2235")
-		)
-		(instances
-			(project "alarm"
-				(path "/10078caa-7fd0-475a-83d7-2ff1e936c6b6"
-					(reference "LS2")
 					(unit 1)
 				)
 			)
@@ -13656,7 +13676,7 @@
 		)
 	)
 	(symbol
-		(lib_id "MCU_Module_RaspberryPi_Pico:RaspberryPi_Pico_DebugPins")
+		(lib_id "MCU_Module_RaspberryPi_Pico:RaspberryPi_Pico_SecondaryPins")
 		(at 147.32 160.02 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -13683,7 +13703,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Module_RaspberryPi_Pico:RaspberryPi_Pico_Original_SMD_MountingHoles_HandSolder_Castellated"
+		(property "Footprint" "Module_RaspberryPi_Pico:RaspberryPi_Pico_Original_SMD"
 			(at 147.32 209.55 0)
 			(effects
 				(font
@@ -13701,7 +13721,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Versatile and inexpensive microcontroller module (with debug pins) powered by RP2040 dual-core Arm Cortex-M0+ processor up to 133 MHz, 264kB SRAM, 2MB QSPI flash"
+		(property "Description" "Versatile and inexpensive microcontroller module (with full pinout for test point and debug connections) powered by RP2040 dual-core Arm Cortex-M0+ processor up to 133 MHz, 264kB SRAM, 2MB QSPI flash"
 			(at 147.32 214.63 0)
 			(effects
 				(font
@@ -13838,6 +13858,24 @@
 		)
 		(pin "D3"
 			(uuid "773f1692-8409-4ce0-ad01-505bf9c05925")
+		)
+		(pin "TP1"
+			(uuid "0cbffb35-a34e-406f-a5ae-23393ab10673")
+		)
+		(pin "TP5"
+			(uuid "088f9ddc-ac3b-4c49-898d-b8f7c4e1379d")
+		)
+		(pin "TP6"
+			(uuid "c196a2b4-3f4a-465b-ac04-83c42d83628d")
+		)
+		(pin "TP3"
+			(uuid "914cccfe-993f-4e94-85e8-358d1c09e0dd")
+		)
+		(pin "TP2"
+			(uuid "03ffd74b-8369-4158-bbac-bd40ce00efed")
+		)
+		(pin "TP4"
+			(uuid "ead470aa-2bcb-4cd4-a34f-e5b6f33527d8")
 		)
 		(instances
 			(project "alarm"
@@ -14171,6 +14209,78 @@
 		)
 	)
 	(symbol
+		(lib_id "CPT_9019A_SMT_TR:CPT-9019A-SMT-TR")
+		(at 213.36 109.22 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "78779021-ecca-4b99-839d-f197b14a8ea5")
+		(property "Reference" "LS2"
+			(at 229.87 109.2199 0)
+			(effects
+				(font
+					(size 1.524 1.524)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "CPT-9019A-SMT-TR"
+			(at 229.87 111.7599 0)
+			(effects
+				(font
+					(size 1.524 1.524)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "CPT-9019A_CUD"
+			(at 213.36 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "CPT-9019A-SMT-TR"
+			(at 213.36 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 213.36 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "594c23fe-160e-45b3-9bba-4f3ed6b5322f")
+		)
+		(pin "1"
+			(uuid "0d05e136-9181-4a52-89c9-f0c909c6e7a0")
+		)
+		(instances
+			(project "alarm"
+				(path "/10078caa-7fd0-475a-83d7-2ff1e936c6b6"
+					(reference "LS2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+3.3V")
 		(at 302.26 328.93 0)
 		(unit 1)
@@ -14296,6 +14406,74 @@
 			(project "alarm"
 				(path "/10078caa-7fd0-475a-83d7-2ff1e936c6b6"
 					(reference "#PWR05")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 173.99 134.62 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "7cf1e8a4-05e8-4b7d-a590-18b44c5fdcac")
+		(property "Reference" "TP1"
+			(at 179.07 133.3499 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 179.07 135.8899 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
+			(at 173.99 139.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 173.99 139.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 173.99 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a34f606f-1b6c-4a42-a924-22a40b869d31")
+		)
+		(instances
+			(project "alarm"
+				(path "/10078caa-7fd0-475a-83d7-2ff1e936c6b6"
+					(reference "TP1")
 					(unit 1)
 				)
 			)
@@ -15358,6 +15536,142 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 173.99 129.54 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a9bc13cc-9c15-43dd-9df6-ea1c8d3ce8b0")
+		(property "Reference" "TP3"
+			(at 179.07 128.2699 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 179.07 130.8099 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
+			(at 173.99 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 173.99 134.62 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 173.99 129.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "34869dea-1f37-41e5-994d-4514f725c46c")
+		)
+		(instances
+			(project "alarm"
+				(path "/10078caa-7fd0-475a-83d7-2ff1e936c6b6"
+					(reference "TP3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 173.99 139.7 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ad40f7b9-00e3-40c7-995b-cc1c57a23f02")
+		(property "Reference" "TP4"
+			(at 179.07 138.4299 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 179.07 140.9699 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
+			(at 173.99 144.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 173.99 144.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 173.99 139.7 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7f392520-984a-4cec-8d26-c95612237998")
+		)
+		(instances
+			(project "alarm"
+				(path "/10078caa-7fd0-475a-83d7-2ff1e936c6b6"
+					(reference "TP4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "SamacSys_Parts:CM322522-680KL")
 		(at 208.28 321.31 0)
 		(unit 1)
@@ -15472,6 +15786,73 @@
 			(project "alarm"
 				(path "/10078caa-7fd0-475a-83d7-2ff1e936c6b6"
 					(reference "L1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 120.65 187.96 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "afe355fa-b2f5-4e0c-9fed-4da14f71c923")
+		(property "Reference" "TP5"
+			(at 117.348 185.42 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TestPoint"
+			(at 115.57 186.6901 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_1.0x1.0mm"
+			(at 120.65 182.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 120.65 182.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "test point"
+			(at 120.65 187.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3c35bd60-3e36-40ac-a494-f440877a06ea")
+		)
+		(instances
+			(project "alarm"
+				(path "/10078caa-7fd0-475a-83d7-2ff1e936c6b6"
+					(reference "TP5")
 					(unit 1)
 				)
 			)
@@ -16420,128 +16801,6 @@
 			(project "alarm"
 				(path "/10078caa-7fd0-475a-83d7-2ff1e936c6b6"
 					(reference "#PWR011")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "SamacSys_Parts:PT-1241PFQ")
-		(at 213.36 95.25 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "dc6acc31-00d9-462b-aefd-a3755442b7ea")
-		(property "Reference" "LS3"
-			(at 224.79 95.2499 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "PT-1241PFQ"
-			(at 224.79 97.7899 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "PT1241PFQ"
-			(at 224.79 197.79 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://componentsearchengine.com/Datasheets/1/PT-1241PFQ.pdf"
-			(at 224.79 297.79 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Description" "Audio Indicators & Alerts Audible Alarm"
-			(at 213.36 95.25 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Height" "6.2"
-			(at 224.79 497.79 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Mouser Part Number" "539-PT-1241PFQ"
-			(at 224.79 597.79 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Mallory-Sonalert/PT-1241PFQ?qs=SXHtpsd1MbZK3moZP%252BuqlA%3D%3D"
-			(at 224.79 697.79 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer_Name" "Mallory Sonalert"
-			(at 224.79 797.79 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer_Part_Number" "PT-1241PFQ"
-			(at 224.79 897.79 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "83141016-7f89-4599-85bc-0e08c0f1fe9e")
-		)
-		(pin "2"
-			(uuid "31622c28-e8c7-4635-a457-d70ea76e6cff")
-		)
-		(instances
-			(project "alarm"
-				(path "/10078caa-7fd0-475a-83d7-2ff1e936c6b6"
-					(reference "LS3")
 					(unit 1)
 				)
 			)
@@ -17715,6 +17974,78 @@
 			(project "alarm"
 				(path "/10078caa-7fd0-475a-83d7-2ff1e936c6b6"
 					(reference "#PWR012")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "CPT_9019A_SMT_TR:CPT-9019A-SMT-TR")
+		(at 213.36 95.25 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "fffec6d9-382c-47b2-bd92-a92340d6afb7")
+		(property "Reference" "LS1"
+			(at 229.87 95.2499 0)
+			(effects
+				(font
+					(size 1.524 1.524)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "CPT-9019A-SMT-TR"
+			(at 229.87 97.7899 0)
+			(effects
+				(font
+					(size 1.524 1.524)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "CPT-9019A_CUD"
+			(at 213.36 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "CPT-9019A-SMT-TR"
+			(at 213.36 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 213.36 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "b94f7b07-20ee-49e2-91e2-d11e8695a928")
+		)
+		(pin "1"
+			(uuid "08326950-92cf-4805-97c9-60565d93cdc3")
+		)
+		(instances
+			(project "alarm"
+				(path "/10078caa-7fd0-475a-83d7-2ff1e936c6b6"
+					(reference "LS1")
 					(unit 1)
 				)
 			)
