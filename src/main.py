@@ -57,7 +57,7 @@ blink_rate = 0.3
 k_blink = int(blink_rate/dt)
 k = 0
 blink_bool = True
-delta_max = 10  # max alarm ring time, minutes
+delta_max = 10 * 60  # max alarm ring time, seconds
 
 # recall alarm time
 data = read_alarm()
@@ -133,12 +133,14 @@ while True:
         clock.alarm_enable = False
         store_alarm(hour, minute, False)
 
-    if date_str != clock.get_date_str() or alarm_str != clock.get_alarm_str():
+    # refresh inkdisp, make sure 3 minutes have passed before you refresh again
+    if (date_str != clock.get_date_str() or alarm_str != clock.get_alarm_str()) and clock.get_refresh_delta() <= 180:
         date_str = clock.get_date_str()
         alarm_str = clock.get_alarm_str()
         inkdisp.clear()
         inkdisp.apply_info(date=date_str, alarm=alarm_str)
         inkdisp.update()
+        clock.set_refresh()
     
     if clock.alarm_enable is True and clock.alarm_temp_disable is False:
         delta = clock.get_alarm_delta()
@@ -154,6 +156,7 @@ while True:
     
     elif clock.alarm_enable is True and clock.alarm_temp_disable is True:
         buzzer.shutoff()
+        delta = clock.get_alarm_delta()
         if delta < -delta_max:
             clock.alarm_temp_disable = False
     else:

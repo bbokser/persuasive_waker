@@ -68,7 +68,7 @@ class InkDisp():
     def update(self):
         # Add the Group to the Display
         self.display.root_group = self.g
-        # self.display.refresh()
+        self.display.refresh()
 
     def get_idx(self, color: str):
         '''

@@ -21,6 +21,7 @@ class Clock():
         self.alarm_min = 0
         self.alarm_enable = False
         self.alarm_temp_disable = False
+        self.t_refresh = self.get_datetime_now()
         
     def set_date(self, year:int, month:int, day:int):
         self.rtc.datetime = time.struct_time((year, 
@@ -85,16 +86,32 @@ class Clock():
         else:
             return 'None'
     
-    def get_datetime_now(self):
+    def get_alarm_t(self)->adafruit_datetime.date:
+        # get time of next alarm
+        t = self.get_datetime_now()
+        t.replace(hour=int(self.alarm_hour), minute=int(self.alarm_min))
+        return t
+
+    def get_datetime_now(self)->adafruit_datetime.date:
         return adafruit_datetime.datetime.fromtimestamp(time.mktime(self.rtc.datetime))
     
-    def get_alarm_delta(self)->str:
-        # get time until next alarm
+    def get_delta(self, t_then:adafruit_datetime.date)->float:
+         # get difference between now and a specified time
         # https://stackoverflow.com/questions/3096953/how-to-calculate-the-time-interval-between-two-time-strings
-        t_now = self.get_datetime_now()
-        # t_alarm = self.get_datetime_now()
-        t_alarm = t_now.replace(hour=int(self.alarm_hour), minute=int(self.alarm_min))
-        t_delta = t_alarm - t_now
-        return t_delta.total_seconds() / 60  # float of time delta in minutes
+        # if then is in the future, result is positive
+        # if then is in the past, result is negative
+        t_delta = self.get_datetime_now() - t_then
+        return t_delta.total_seconds()  # time delta in seconds
+    
+    def get_alarm_delta(self)->float:
+        # get time until next alarm
+        return self.get_delta(self.get_alarm_t)
+    
+    def get_refresh_delta(self)->float:
+        # get time since last refresh
+        return self.get_delta(self.t_refresh)
+    
+    def set_refresh(self):
+        self.t_refresh = self.get_datetime_now()
 
     
