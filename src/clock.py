@@ -21,7 +21,7 @@ class Clock():
         self.alarm_min = 0
         self.alarm_enable = False
         self.alarm_temp_disable = False
-        self.t_refresh = self.get_datetime_now()
+        self.datetime_refresh = self.get_datetime_now()
         
     def set_date(self, year:int, month:int, day:int):
         self.rtc.datetime = time.struct_time((year, 
@@ -89,8 +89,7 @@ class Clock():
     def get_alarm_t(self)->adafruit_datetime.date:
         # get time of next alarm
         t = self.get_datetime_now()
-        t.replace(hour=int(self.alarm_hour), minute=int(self.alarm_min))
-        return t
+        return t.replace(hour=int(self.alarm_hour), minute=int(self.alarm_min))
 
     def get_datetime_now(self)->adafruit_datetime.date:
         return adafruit_datetime.datetime.fromtimestamp(time.mktime(self.rtc.datetime))
@@ -105,13 +104,13 @@ class Clock():
     
     def get_alarm_delta(self)->float:
         # get time until next alarm
-        return self.get_delta(self.get_alarm_t)
+        return self.get_delta(self.get_alarm_t())
     
     def get_refresh_delta(self)->float:
         # get time since last refresh
-        return self.get_delta(self.t_refresh)
+        return self.get_delta(self.datetime_refresh)
     
     def set_refresh(self):
-        self.t_refresh = self.get_datetime_now()
+        self.datetime_refresh = self.get_datetime_now()
 
     
