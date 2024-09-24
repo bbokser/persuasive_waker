@@ -15,7 +15,7 @@ def fuzzy_pulse_compare(pulse1, pulse2, fuzzyness=0.2):
 
 class IrSensor():
     def __init__(self):
-        self.pulses = pulseio.PulseIn(board.D4, maxlen=200, idle_state=True)
+        self.pulses = pulseio.PulseIn(board.GP22, maxlen=200, idle_state=True)
         self.decoder = adafruit_irremote.GenericDecode()
         self.pulse_expected = [9040, 4463, 573, 581, 571, 
                                583, 571, 582, 570, 584, 570, 

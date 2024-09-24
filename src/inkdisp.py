@@ -1,6 +1,3 @@
-'''For 5.6' 600x448 7-color ACeP display
-'''
-
 import utils
 
 # import gc  # garbage collector
@@ -8,10 +5,11 @@ import utils
 # from ulab import numpy as np
 import board
 import displayio
+from fourwire import FourWire
 import terminalio
 import vectorio
 import busio
-import adafruit_spd1656
+import adafruit_ssd1680
 import supervisor
 from adafruit_display_text.bitmap_label import Label
 
@@ -23,19 +21,25 @@ displayio.release_displays()
 
 
 class InkDisp():
-    def __init__(self, date_init, alarm_init):       
-        # this pinout is for the Feather RP2040 ThinkInk
-        spi = busio.SPI(board.EPD_SCK, MOSI=board.EPD_MOSI, MISO=None)
-        epd_cs = board.EPD_CS
-        epd_dc = board.EPD_DC
-        epd_reset = board.EPD_RESET
-        epd_busy = board.EPD_BUSY
-        display_bus = displayio.FourWire(
+    def __init__(self, date_init, alarm_init):
+        spi = busio.SPI(board.GP2, MOSI=board.GP0, MISO=None)
+        epd_cs = board.GP7
+        epd_dc = board.GP3
+        epd_reset = board.GP20
+        epd_busy = board.GP21
+        display_bus = FourWire(
             spi, command=epd_dc, chip_select=epd_cs, reset=epd_reset, baudrate=1000000)
 
-        # create display object
-        display = adafruit_spd1656.SPD1656(
-            display_bus, width=600, height=448, busy_pin=epd_busy)
+        # For issues with display not updating top/bottom rows correctly set colstart to 8
+        display = adafruit_ssd1680.SSD1680(
+            # for 2.13" 250x122 display (waveshare 12672)
+            display_bus,
+            width=250,
+            height=122,
+            busy_pin=epd_busy,
+            highlight_color=0xFF0000,
+            rotation=270,
+        )
 
         # create displayio group
         g = displayio.Group()

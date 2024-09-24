@@ -2,8 +2,8 @@ import board
 import pwmio
 
 class Piezo():
-    def __init__(self):
-        self.buzzer = pwmio.PWMOut(board.D9, variable_frequency=True)
+    def __init__(self, pin):
+        self.buzzer = pwmio.PWMOut(pin, variable_frequency=True)
         self.duty_max = 2**16  # max duty cycle = 65535 Hz
     
     def play(self, tone: int, amp: float, on: bool):

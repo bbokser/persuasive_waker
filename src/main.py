@@ -1,9 +1,10 @@
 import time
+import board
 
 from fsm import FSM
 
 # hardware
-#from inkdisp import InkDisp
+from inkdisp import InkDisp
 from clock import Clock
 from segment import SegmentDisp
 from inputs import Inputs
@@ -46,11 +47,12 @@ fsm = FSM()
 segment_disp = SegmentDisp()
 clock = Clock()
 inputs = Inputs()
-buzzer = Piezo()
+buzzer = Piezo(board.GP16)
+# buzzer_2 = Piezo(board.GP17)
 ir_sensor = IrSensor()
 date_str = clock.get_date_str()
 alarm_str = clock.get_alarm_str()
-# inkdisp = InkDisp(date_init=date_str, alarm_init=alarm_str)
+inkdisp = InkDisp(date_init=date_str, alarm_init=alarm_str)
 
 dt = 0.1
 blink_rate = 0.3
@@ -137,9 +139,9 @@ while True:
     if (date_str != clock.get_date_str() or alarm_str != clock.get_alarm_str()) and clock.get_refresh_delta() >= 180:
         date_str = clock.get_date_str()
         alarm_str = clock.get_alarm_str()
-        #inkdisp.clear()
-        #inkdisp.apply_info(date=date_str, alarm=alarm_str)
-        # inkdisp.update()
+        inkdisp.clear()
+        inkdisp.apply_info(date=date_str, alarm=alarm_str)
+        inkdisp.update()
         clock.set_refresh()
     
     if clock.alarm_enable is True and clock.alarm_temp_disable is False:
