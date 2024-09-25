@@ -5,9 +5,6 @@ from adafruit_register import i2c_bits
 from busio import I2C
 import time
 
-AS1115_DOT = 0x80
-AS1115_BLANK = 0x00
-
 AS1115_REGISTER = {
 	'DECODE_MODE'		: 0x09,  # Sets the decode mode (BCD or HEX).
 	'GLOBAL_INTENSITY'	: 0x0A,  # Sets the entire display intensity.
@@ -78,45 +75,42 @@ AS1115_DISPLAY_TEST_MODE = {
 	'RSET_SHORT':   6,  #  Checks if external resistor Rset is shorted.
 }
 
-LETTERS = {
-    'A': 0x77,
-    'B': 0x1F,
-    'C': 0x4E,
-    'D': 0x3D,
-    'E': 0x4F,
-    'F': 0x47,
-    'G': 0x5E,
-    'H': 0x37,
-    'I': 0x30,
-    'J': 0x3C,
-    'K': 0x2F,
-    'L': 0x0E,
-    'M': 0x54,
-    'N': 0x15,
-    'O': 0x1D,
-    'P': 0x67,
-    'Q': 0x73,
-    'R': 0x05,
-    'S': 0x5B,
-    'T': 0x0F,
-    'U': 0x3E,
-    'V': 0x1C,
-    'W': 0x2A,
-    'X': 0x49,
-    'Y': 0x3B,
-    'Z': 0x25,
-}
+# AS1115_DOT = 0x80
+# LETTERS = {
+#     'A': 0x77,
+#     'B': 0x1F,
+#     'C': 0x4E,
+#     'D': 0x3D,
+#     'E': 0x4F,
+#     'F': 0x47,
+#     'G': 0x5E,
+#     'H': 0x37,
+#     'I': 0x30,
+#     'J': 0x3C,
+#     'K': 0x2F,
+#     'L': 0x0E,
+#     'M': 0x54,
+#     'N': 0x15,
+#     'O': 0x1D,
+#     'P': 0x67,
+#     'Q': 0x73,
+#     'R': 0x05,
+#     'S': 0x5B,
+#     'T': 0x0F,
+#     'U': 0x3E,
+#     'V': 0x1C,
+#     'W': 0x2A,
+#     'X': 0x49,
+#     'Y': 0x3B,
+#     'Z': 0x25,
+# }
 
 AS1115_DIGIT_REGISTER = [0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08]
 
 NUMBERS = [0x7E, 0x30, 0x6D, 0x79, 0x33, 0x5B, 0x5F, 0x70, 0x7F, 0x7B, 0x77, 0x1F, 0x4E, 0x3D, 0x4F, 0x47]
 
-def nthdigit(value:int, n:int):
-	pow = 1
-	for i in range(n):
-		pow *= 10
-	return ((value / pow) % 10)
-
+def nthdigit(value:int, idx:int):
+    return value // 10**idx % 10
 
 class AS1115:
     """
@@ -126,34 +120,6 @@ class AS1115:
         set. If False, `show` must be called explicitly.
     :param float brightness: 0.0 - 1.0 default brightness level.
     """
-
-    _disp_test_mode = [None] * 7
-    _feature = [None] * 8
-    _digit = [None] * 8
-    _keyA = [None] * 8
-    _keyB = [None] * 8
-    _led_diag = [[None] * 8] * 8
-    
-    for i in range(8):
-        if i != 3:
-            _feature[i] = i2c_bit.RWBit(register_address=AS1115_REGISTER['FEATURE'], bit=i)
-        if i != 7:
-            _disp_test_mode[i] = i2c_bit.RWBit(register_address=AS1115_REGISTER['DISPLAY_TEST_MODE'], bit=i)
-        _digit[i] = i2c_bit.RWBit(register_address=AS1115_DIGIT_REGISTER[i], bit=0)
-        _keyA[i] = i2c_bit.ROBit(register_address=AS1115_REGISTER['KEY_A'], bit=i)
-        _keyB[i] = i2c_bit.ROBit(register_address=AS1115_REGISTER['KEY_B'], bit=i)
-        for j in range(8):
-            _led_diag[i][j] = i2c_bit.ROBit(register_address=AS1115_LED_DIAG_REG[i], bit=i)
-        
-    _scan_limit = i2c_bits.RWBits(num_bits=3, 
-                                  register_address=AS1115_REGISTER['SCAN_LIMIT'])
-    _led_short = i2c_bit.RWBit(register_address=AS1115_REGISTER['DISPLAY_TEST_MODE'], 
-                               bit=AS1115_DISPLAY_TEST_MODE['LED_SHORT'])
-    _led_short = i2c_bit.RWBit(register_address=AS1115_REGISTER['DISPLAY_TEST_MODE'], 
-                               bit=AS1115_DISPLAY_TEST_MODE['LED_SHORT'])
-    _self_addressing = i2c_bit.RWBit(register_address=AS1115_REGISTER['SELF_ADDRESSING'], bit=0)
-    _shutdown_mode_unchanged = i2c_bit.RWBit(register_address=AS1115_REGISTER['SHUTDOWN_MODE'], bit=7)  # no reset
-    _shutdown_mode_normal = i2c_bit.RWBit(register_address=AS1115_REGISTER['SHUTDOWN_MODE'], bit=0)  # normal operation
 
     def __init__(
         self,
@@ -166,20 +132,45 @@ class AS1115:
         self._temp = bytearray(1)  # init bytearray
         self.n_digits = n_digits
 
-        self._writeRegister(AS1115_REGISTER['SHUTDOWN'], 
-                            AS1115_SHUTDOWN_MODE['RESET_FEATURE'] | AS1115_SHUTDOWN_MODE['NORMAL OPERATION'])
+        self._disp_test_mode = [None] * 7
+        self._feature = [None] * 8
+        self._digit = [None] * 8
+        self._keyA = [None] * 8
+        self._keyB = [None] * 8
+        self._led_diag = [[None] * 8] * 8
+        
+        for i in range(8):
+            if i != 3:
+                self._feature[i] = i2c_bit.RWBit(register_address=AS1115_REGISTER['FEATURE'], bit=i)
+            if i != 7:
+                self._disp_test_mode[i] = i2c_bit.RWBit(register_address=AS1115_REGISTER['DISPLAY_TEST_MODE'], bit=i)
+            self._digit[i] = i2c_bits.RWBits(num_bits=4, register_address=AS1115_DIGIT_REGISTER[i], lowest_bit=0)
+            self._keyA[i] = i2c_bit.ROBit(register_address=AS1115_REGISTER['KEY_A'], bit=i)
+            self._keyB[i] = i2c_bit.ROBit(register_address=AS1115_REGISTER['KEY_B'], bit=i)
+            for j in range(8):
+                self._led_diag[i][j] = i2c_bit.ROBit(register_address=AS1115_LED_DIAG_REG[i], bit=i)
+        
+        self._scan_limit = i2c_bits.RWBits(num_bits=3, register_address=AS1115_REGISTER['SCAN_LIMIT'])
+        self._led_short = i2c_bit.RWBit(register_address=AS1115_REGISTER['DISPLAY_TEST_MODE'], 
+                                bit=AS1115_DISPLAY_TEST_MODE['LED_SHORT'])
+        self._led_short = i2c_bit.RWBit(register_address=AS1115_REGISTER['DISPLAY_TEST_MODE'], 
+                                bit=AS1115_DISPLAY_TEST_MODE['LED_SHORT'])
+        self._self_addressing = i2c_bit.RWBit(register_address=AS1115_REGISTER['SELF_ADDRESSING'], bit=0)
+        self._shutdown_mode_unchanged = i2c_bit.RWBit(register_address=AS1115_REGISTER['SHUTDOWN_MODE'], bit=7)  # no reset
+        self._shutdown_mode_normal = i2c_bit.RWBit(register_address=AS1115_REGISTER['SHUTDOWN_MODE'], bit=0)  # normal operation
+
+        # --- start writing to chip --- #
+        self._shutdown_mode_normal = 1
+        self._shutdown_mode_unchanged = 0
 
         if address != 0x00:
-            # TODO: is this even remotely correct??
-            self._writeRegister(AS1115_REGISTER['SELF_ADDRESSING'], address)
+            self._self_addressing = 1
             
         self._blink_rate = None
         self._brightness = None
         
-        # TODO fix this
-        self._writeRegister(AS1115_REGISTER['DECODE_MODE'], 0x00)
+        self._writeRegister(AS1115_REGISTER['DECODE_MODE'], 0x0F)  # this enables decoding on D0-D3
 
-        # TODO fix this
         self._writeRegister(AS1115_REGISTER['SCAN_LIMIT'], n_digits - 1)
 
         self.blink_rate = 0
@@ -207,48 +198,40 @@ class AS1115:
     def clear(self) -> None:
         n = self.n_digits
         for i in range(n):
-            digit = AS1115_DIGIT_REGISTER[i]
-            self._writeRegister(digit, AS1115_BLANK)
+            self._digit[i] = None  # is this how you clear a register?
 
-    def display_ind_int(self, digit: int, value: int) -> None:
+    def clear_idx(self, idx: int) -> None:
+        self._digit[idx] = None
+
+    def display_idx(self, idx: int, value: int) -> None:
         # display int 0-9 on an individual digit
-        digit = AS1115_DIGIT_REGISTER[digit]
-        self._writeRegister(digit, value)
+        self._digit[idx] = hex(value)
 
     def display_int(self, value: int) -> None:
         # display int on entire display
-        # TODO: check that this is correct
         n = self.n_digits
         for i in range(n):
-            digit = AS1115_DIGIT_REGISTER[i]
-            self._writeRegister(digit, nthdigit(value, i))
-    
-    def display_ind_letter(self, digit: int, letter: str) -> None:
-        # display letter on an individual digit
-        digit = AS1115_DIGIT_REGISTER[digit]
-        self._writeRegister(digit, LETTERS[letter])
+            self._digit[i] = hex(nthdigit(value, i))
 
     def visualTest(self) -> None:
-        # TODO: Figure this out
-        # testMode = self._readRegister(AS1115_REGISTER['DISPLAY_TEST_MODE'])
-        self._writeRegister(AS1115_REGISTER['DISPLAY_TEST_MODE'], AS1115_DISPLAY_TEST_MODE['DISP_TEST'])
+        self._disp_test_mode[AS1115_DISPLAY_TEST_MODE['DISP_TEST']] = 1
 
     def ledTest(self) -> None:
-        self._writeRegister(AS1115_REGISTER['DISPLAY_TEST_MODE'], AS1115_DISPLAY_TEST_MODE['LED_SHORT'])
-        self._writeRegister(AS1115_REGISTER['DISPLAY_TEST_MODE'], AS1115_DISPLAY_TEST_MODE['LED_OPEN'])
+        self._disp_test_mode[AS1115_DISPLAY_TEST_MODE['LED_SHORT']] = 1
+        self._disp_test_mode[AS1115_DISPLAY_TEST_MODE['LED_OPEN']] = 1
         test_ongoing = True
         while test_ongoing:
             print('test ongoing...')
-            test_ongoing = self._readRegister(AS1115_REGISTER['DISPLAY_TEST_MODE'], AS1115_DISPLAY_TEST_MODE['LED_TEST'])
+            test_ongoing = self._disp_test_mode[AS1115_DISPLAY_TEST_MODE['LED_TEST']]
             time.sleep(1)
-        result = self._readRegister(AS1115_REGISTER['DISPLAY_TEST_MODE'], AS1115_DISPLAY_TEST_MODE['LED_GLOBAL'])
+        result = self._disp_test_mode[AS1115_DISPLAY_TEST_MODE['LED_GLOBAL']]
         if result is True:
             print('ledTest has detected an error')
         return result
 
     def rsetTest(self) -> None:
-        rset_open = self._readRegister(AS1115_REGISTER['DISPLAY_TEST_MODE'], AS1115_DISPLAY_TEST_MODE['RSET_OPEN'])
-        rset_short = self._readRegister(AS1115_REGISTER['DISPLAY_TEST_MODE'], AS1115_DISPLAY_TEST_MODE['RSET_SHORT'])
+        rset_open = self._disp_test_mode[AS1115_DISPLAY_TEST_MODE['RSET_OPEN']]
+        rset_short = self._disp_test_mode[AS1115_DISPLAY_TEST_MODE['RSET_SHORT']]
         if rset_open is True:
             print('rsetTest has detected an open circuit')
         elif rset_short is True:
@@ -262,12 +245,14 @@ class AS1115:
 
     @blink_rate.setter
     def blink_rate(self, rate: int) -> None:
-        if rate not in [0, 1]:
-            raise ValueError("Blink rate must be an integer in the set: 0, 1")
-        # rate = rate & 0x03
+        if rate not in [0, 1, 2]:
+            raise ValueError("Blink rate must be an integer in the set: 0, 1, 2")
         self._blink_rate = rate
-        self._writeRegister(AS1115_REGISTER['AS1115_FEATURE'], AS1115_FEATURE['BLINK_ENABLE']) 
-        # self._writeRegister(AS1115_REGISTER['AS1115_FEATURE'], AS1115_FEATURE['BLINK_FREQ_SEL']) 
+        if rate != 0:
+            self._feature[AS1115_FEATURE['BLINK_ENABLE']] = 1
+            self._feature[AS1115_FEATURE['BLINK_FREQ_SEL']] = rate - 1
+        else:
+            self._feature[AS1115_FEATURE['BLINK_ENABLE']] = 0
 
     @property
     def brightness(self) -> float:
@@ -282,8 +267,7 @@ class AS1115:
             )
 
         self._brightness = brightness
-        self._writeRegister(AS1115_REGISTER['GLOBAL_INTENSITY'], brightness)
-
-
+        duty_cycle = int(brightness * 15)
+        self._writeRegister(AS1115_REGISTER['GLOBAL_INTENSITY'], hex(duty_cycle))
 
     
