@@ -6,7 +6,7 @@ from busio import I2C
 import time
 
 AS1115_REGISTER = {
-	'DECODE_MODE'		: 0x09,  # Sets the decode mode (BCD or HEX).
+	'DECODE_MODE'		: 0x09,  # Enables decoding on selected digits
 	'GLOBAL_INTENSITY'	: 0x0A,  # Sets the entire display intensity.
 	'SCAN_LIMIT'		: 0x0B,  # Controls how many digits are to be displayed.
 	'SHUTDOWN'			: 0x0C,  #
@@ -19,17 +19,6 @@ AS1115_REGISTER = {
 	'DIG67_INTENSITY'	: 0x13,  # Sets the display intensity for digit 6 and 7.
 	'KEY_A'				: 0x1C,  # Gets the result of the debounced keyscan for KEYA.
 	'KEY_B'				: 0x1D	 # Gets the result of the debounced keyscan for KEYB.
-}
-
-AS1115_LED_DIAG_REG = {
-    'DIAG_DIGIT0'		: 0x14,  # Gets the results of the LEDS open/short test for digit 0.
-	'DIAG_DIGIT1'		: 0x15,  # Gets the results of the LEDS open/short test for digit 1.
-	'DIAG_DIGIT2'		: 0x16,  # Gets the results of the LEDS open/short test for digit 2.
-	'DIAG_DIGIT3'		: 0x17,  # Gets the results of the LEDS open/short test for digit 3.
-	'DIAG_DIGIT4'		: 0x18,  # Gets the results of the LEDS open/short test for digit 4.
-	'DIAG_DIGIT5'		: 0x19,  # Gets the results of the LEDS open/short test for digit 5.
-	'DIAG_DIGIT6'		: 0x1A,  # Gets the results of the LEDS open/short test for digit 6.
-	'DIAG_DIGIT7'		: 0x1B,  # Gets the results of the LEDS open/short test for digit 7.
 }
 
 LED_DIGIT = {
@@ -53,16 +42,6 @@ AS1115_SHUTDOWN_MODE = {
 AS1115_DECODE_SEL ={
 	'CODE_B_DECODING'	: 0x00,
 	'HEX_DECODING'	    : 0x01,
-}
-
-AS1115_FEATURE = {
-	'CLOCK_ACTIVE'	    : 0,  #  Enables the external clock.
-	'RESET_ALL'		    : 1,  #  Resets all control register except the FEATURE register.
-	'DECODE_SEL'	    : 2,  #  Enable Code-B or HEX decoding for the selected digits.
-	'BLINK_ENABLE'	    : 4,  #  Enables blinking.
-	'BLINK_FREQ_SEL'	: 5,  #  Sets the blinking frequency.
-	'SYNC'			    : 6,  #  Synchronize blinking with LD/CS pin.
-	'BLINK_START'		: 7,  #  Sets whether to start the blinking with the display turned on or off.
 }
 
 AS1115_DISPLAY_TEST_MODE = {
@@ -106,11 +85,183 @@ AS1115_DISPLAY_TEST_MODE = {
 # }
 
 AS1115_DIGIT_REGISTER = [0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08]
-
+AS1115_LED_DIAG_REG = [0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1A, 0x1B]
 NUMBERS = [0x7E, 0x30, 0x6D, 0x79, 0x33, 0x5B, 0x5F, 0x70, 0x7F, 0x7B, 0x77, 0x1F, 0x4E, 0x3D, 0x4F, 0x47]
 
 def nthdigit(value:int, idx:int):
     return value // 10**idx % 10
+
+try:
+    from typing import Optional, Type, NoReturn
+    from circuitpython_typing.device_drivers import I2CDeviceDriver
+except ImportError:
+    pass
+
+
+class RWBitsExplicit:
+    def __init__(  # pylint: disable=too-many-arguments
+        self,
+        obj: Optional[I2CDeviceDriver],
+        num_bits: int,
+        register_address: int,
+        lowest_bit: int,
+        register_width: int = 1,
+        lsb_first: bool = True,
+        signed: bool = False,
+        objtype: Optional[Type[I2CDeviceDriver]] = None,
+    ) -> None:
+        self.bit_mask = ((1 << num_bits) - 1) << lowest_bit
+        # print("bitmask: ",hex(self.bit_mask))
+        if self.bit_mask >= 1 << (register_width * 8):
+            raise ValueError("Cannot have more bits than register size")
+        self.lowest_bit = lowest_bit
+        self.buffer = bytearray(1 + register_width)
+        self.buffer[0] = register_address
+        self.lsb_first = lsb_first
+        self.sign_bit = (1 << (num_bits - 1)) if signed else 0
+        self.obj = obj
+
+    def get(self) -> int:
+        with self.obj as i2c:
+            i2c.write_then_readinto(self.buffer, self.buffer, out_end=1, in_start=1)
+        # read the number of bytes into a single variable
+        reg = 0
+        order = range(len(self.buffer) - 1, 0, -1)
+        if not self.lsb_first:
+            order = reversed(order)
+        for i in order:
+            reg = (reg << 8) | self.buffer[i]
+        reg = (reg & self.bit_mask) >> self.lowest_bit
+        # If the value is signed and negative, convert it
+        if reg & self.sign_bit:
+            reg -= 2 * self.sign_bit
+        return reg
+
+    def set(self, value: int) -> None:
+        value <<= self.lowest_bit  # shift the value over to the right spot
+        with self.obj as i2c:
+            i2c.write_then_readinto(self.buffer, self.buffer, out_end=1, in_start=1)
+            reg = 0
+            order = range(len(self.buffer) - 1, 0, -1)
+            if not self.lsb_first:
+                order = range(1, len(self.buffer))
+            for i in order:
+                reg = (reg << 8) | self.buffer[i]
+            # print("old reg: ", hex(reg))
+            reg &= ~self.bit_mask  # mask off the bits we're about to change
+            reg |= value  # then or in our new value
+            # print("new reg: ", hex(reg))
+            for i in reversed(order):
+                self.buffer[i] = reg & 0xFF
+                reg >>= 8
+            i2c.write(self.buffer)
+
+
+class RWBitExplicit:
+    """
+    Single bit register that is readable and writeable.
+
+    Values are `bool`
+
+    :param int register_address: The register address to read the bit from
+    :param int bit: The bit index within the byte at ``register_address``
+    :param int register_width: The number of bytes in the register. Defaults to 1.
+    :param bool lsb_first: Is the first byte we read from I2C the LSB? Defaults to true
+
+    """
+
+    def __init__(
+        self,
+        obj,
+        register_address: int,
+        bit: int,
+        register_width: int = 1,
+        lsb_first: bool = True,
+    ) -> None:
+        self.obj = obj
+        self.bit_mask = 1 << (bit % 8)  # the bitmask *within* the byte!
+        self.buffer = bytearray(1 + register_width)
+        self.buffer[0] = register_address
+        if lsb_first:
+            self.byte = bit // 8 + 1  # the byte number within the buffer
+        else:
+            self.byte = register_width - (bit // 8)  # the byte number within the buffer
+
+    def get(self) -> bool:
+        with self.obj as i2c:
+            i2c.write_then_readinto(self.buffer, self.buffer, out_end=1, in_start=1)
+        return bool(self.buffer[self.byte] & self.bit_mask)
+
+    def set(self, value: bool) -> None:
+        with self.obj as i2c:
+            i2c.write_then_readinto(self.buffer, self.buffer, out_end=1, in_start=1)
+            if value:
+                self.buffer[self.byte] |= self.bit_mask
+            else:
+                self.buffer[self.byte] &= ~self.bit_mask
+            i2c.write(self.buffer)
+
+
+class ROBitExplicit(RWBitExplicit):
+    def set(self, value: bool) -> NoReturn:
+        raise AttributeError()
+
+
+
+class AS1115_REG:
+    # enables external clock
+    feature_clock_active = i2c_bit.RWBit(register_address=AS1115_REGISTER['FEATURE'], bit=0)
+    # resets all control registers except for feature register
+    feature_reset_all = i2c_bit.RWBit(register_address=AS1115_REGISTER['FEATURE'], bit=1)
+    # enable Code-B or HEX decoding for the selected digits
+    feature_decode_sel = i2c_bit.RWBit(register_address=AS1115_REGISTER['FEATURE'], bit=2)
+    # enable blinking
+    feature_blink_enable = i2c_bit.RWBit(register_address=AS1115_REGISTER['FEATURE'], bit=4)
+    # set blinking frequency
+    feature_blink_freq_sel = i2c_bit.RWBit(register_address=AS1115_REGISTER['FEATURE'], bit=5)
+    # sync blinking with LD/CS pin
+    feature_blink_freq_sel = i2c_bit.RWBit(register_address=AS1115_REGISTER['FEATURE'], bit=6)
+    # whether to start blinking w/ display turned on or off
+    feature_blink_freq_sel = i2c_bit.RWBit(register_address=AS1115_REGISTER['FEATURE'], bit=7)
+
+    #  Optical display test.
+    disp_test_visual = i2c_bit.RWBit(register_address=AS1115_REGISTER['DISPLAY_TEST_MODE'], bit=0)
+    #  Starts a test for shorted LEDs.
+    disp_test_led_short = i2c_bit.RWBit(register_address=AS1115_REGISTER['DISPLAY_TEST_MODE'], bit=1)
+    #  Starts a test for open LEDs.
+    disp_test_led_open = i2c_bit.RWBit(register_address=AS1115_REGISTER['DISPLAY_TEST_MODE'], bit=2)
+    #  Indicates an ongoing open/short LED test.
+    disp_test_led_test = i2c_bit.RWBit(register_address=AS1115_REGISTER['DISPLAY_TEST_MODE'], bit=3)
+    #  Indicates that the last open/short LED test has detected an error.
+    disp_test_led_global = i2c_bit.RWBit(register_address=AS1115_REGISTER['DISPLAY_TEST_MODE'], bit=4)
+    #  Checks if external resistor Rset is open.
+    disp_test_rset_open = i2c_bit.RWBit(register_address=AS1115_REGISTER['DISPLAY_TEST_MODE'], bit=5)
+    #  Checks if external resistor Rset is shorted.
+    disp_test_rset_short = i2c_bit.RWBit(register_address=AS1115_REGISTER['DISPLAY_TEST_MODE'], bit=6)
+
+    global_intensity = i2c_bits.RWBits(num_bits=4, register_address=AS1115_REGISTER['GLOBAL_INTENSITY'], lowest_bit=0)
+    scan_limit = i2c_bits.RWBits(num_bits=3, register_address=AS1115_REGISTER['SCAN_LIMIT'], lowest_bit=0)
+    decode_mode = i2c_bits.RWBits(num_bits=4, register_address=AS1115_REGISTER['DECODE_MODE'], lowest_bit=0)
+    self_addressing = i2c_bit.RWBit(register_address=AS1115_REGISTER['SELF_ADDRESSING'], bit=0)
+    shutdown_mode_unchanged = i2c_bit.RWBit(register_address=AS1115_REGISTER['SHUTDOWN'], bit=7)  # no reset
+    shutdown_mode_normal = i2c_bit.RWBit(register_address=AS1115_REGISTER['SHUTDOWN'], bit=0)  # normal operation
+
+    def __init__(self,
+                    i2c: I2C,
+                    address: int = 0x00
+                    ) -> None:
+        self.i2c_device = i2c_device.I2CDevice(i2c, address)
+        self.digit = [None] * 8
+        self.keyA = [None] * 8
+        self.keyB = [None] * 8
+        self.led_diag = [[[None] for i in range(8)] for i in range(8)]
+
+        for i in range(8):
+            self.digit[i] = RWBitsExplicit(obj=self.i2c_device, num_bits=4, register_address=AS1115_DIGIT_REGISTER[i], lowest_bit=0)
+            self.keyA[i] = ROBitExplicit(obj=self.i2c_device, register_address=AS1115_REGISTER['KEY_A'], bit=i)
+            self.keyB[i] = ROBitExplicit(obj=self.i2c_device, register_address=AS1115_REGISTER['KEY_B'], bit=i)
+            for j in range(8):
+                self.led_diag[i][j] = ROBitExplicit(obj=self.i2c_device, register_address=AS1115_LED_DIAG_REG[i], bit=i)
 
 class AS1115:
     """
@@ -120,118 +271,93 @@ class AS1115:
         set. If False, `show` must be called explicitly.
     :param float brightness: 0.0 - 1.0 default brightness level.
     """
-
     def __init__(
         self,
         i2c: I2C,
         address: int = 0x00,
         brightness: float = 1.0,
-        n_digits: int = 4,
+        n_digits: int = 6,
     ) -> None:
-        self.i2c_device = i2c_device.I2CDevice(i2c, address)
+        self.device = AS1115_REG(i2c, address)
+
         self._temp = bytearray(1)  # init bytearray
         self.n_digits = n_digits
 
-        self._disp_test_mode = [None] * 7
-        self._feature = [None] * 8
-        self._digit = [None] * 8
-        self._keyA = [None] * 8
-        self._keyB = [None] * 8
-        self._led_diag = [[None] * 8] * 8
-        
-        for i in range(8):
-            if i != 3:
-                self._feature[i] = i2c_bit.RWBit(register_address=AS1115_REGISTER['FEATURE'], bit=i)
-            if i != 7:
-                self._disp_test_mode[i] = i2c_bit.RWBit(register_address=AS1115_REGISTER['DISPLAY_TEST_MODE'], bit=i)
-            self._digit[i] = i2c_bits.RWBits(num_bits=4, register_address=AS1115_DIGIT_REGISTER[i], lowest_bit=0)
-            self._keyA[i] = i2c_bit.ROBit(register_address=AS1115_REGISTER['KEY_A'], bit=i)
-            self._keyB[i] = i2c_bit.ROBit(register_address=AS1115_REGISTER['KEY_B'], bit=i)
-            for j in range(8):
-                self._led_diag[i][j] = i2c_bit.ROBit(register_address=AS1115_LED_DIAG_REG[i], bit=i)
-        
-        self._scan_limit = i2c_bits.RWBits(num_bits=3, register_address=AS1115_REGISTER['SCAN_LIMIT'])
-        self._led_short = i2c_bit.RWBit(register_address=AS1115_REGISTER['DISPLAY_TEST_MODE'], 
-                                bit=AS1115_DISPLAY_TEST_MODE['LED_SHORT'])
-        self._led_short = i2c_bit.RWBit(register_address=AS1115_REGISTER['DISPLAY_TEST_MODE'], 
-                                bit=AS1115_DISPLAY_TEST_MODE['LED_SHORT'])
-        self._self_addressing = i2c_bit.RWBit(register_address=AS1115_REGISTER['SELF_ADDRESSING'], bit=0)
-        self._shutdown_mode_unchanged = i2c_bit.RWBit(register_address=AS1115_REGISTER['SHUTDOWN_MODE'], bit=7)  # no reset
-        self._shutdown_mode_normal = i2c_bit.RWBit(register_address=AS1115_REGISTER['SHUTDOWN_MODE'], bit=0)  # normal operation
-
         # --- start writing to chip --- #
-        self._shutdown_mode_normal = 1
-        self._shutdown_mode_unchanged = 0
+        self.device.shutdown_mode_normal = 1
+        self.device.shutdown_mode_unchanged = 0
 
         if address != 0x00:
-            self._self_addressing = 1
-            
+            self.device.self_addressing = 1
+
         self._blink_rate = None
         self._brightness = None
-        
-        self._writeRegister(AS1115_REGISTER['DECODE_MODE'], 0x0F)  # this enables decoding on D0-D3
 
-        self._writeRegister(AS1115_REGISTER['SCAN_LIMIT'], n_digits - 1)
+        self.device.decode_mode = 0x0F  # this enables decoding on D0-D3
+        self.device.feature_decode_sel = 0
+        self.device.scan_limit = n_digits - 1
 
         self.blink_rate = 0
         self.brightness = brightness
 
-    def _write_cmd(self, byte: int) -> None:
-        self._temp[0] = byte
-        with self.i2c_device as bus_device:
-            bus_device.write(self._temp)
-    
-    def _writeRegister(self, reg: int, value: int) -> None:
-        self._temp[0] = reg
-        self._temp.extend(value)
-        with self.i2c_device as bus_device:
-            bus_device.write(self._temp)
-
-    def _readRegister(self, reg: int) -> int:
-        self._write_cmd(reg)
-        with self.i2c_device as bus_device:
-            bus_device.write(bytes([reg]))
-            result = bytearray(1)
-            bus_device.readinto(result)
-        return result
-
     def clear(self) -> None:
         n = self.n_digits
         for i in range(n):
-            self._digit[i] = None  # is this how you clear a register?
+            self.device.digit[i].set(None)  # is this how you clear a register?
 
     def clear_idx(self, idx: int) -> None:
-        self._digit[idx] = None
+        self.device.digit[idx].set(None)
 
     def display_idx(self, idx: int, value: int) -> None:
         # display int 0-9 on an individual digit
-        self._digit[idx] = hex(value)
+        self.device.digit[idx].set(value)
 
     def display_int(self, value: int) -> None:
         # display int on entire display
         n = self.n_digits
         for i in range(n):
-            self._digit[i] = hex(nthdigit(value, i))
+            self.device.digit[i].set(nthdigit(value, i))
 
     def visualTest(self) -> None:
-        self._disp_test_mode[AS1115_DISPLAY_TEST_MODE['DISP_TEST']] = 1
+        self.device.disp_test_visual = 1
 
-    def ledTest(self) -> None:
-        self._disp_test_mode[AS1115_DISPLAY_TEST_MODE['LED_SHORT']] = 1
-        self._disp_test_mode[AS1115_DISPLAY_TEST_MODE['LED_OPEN']] = 1
+    def ledShortTest(self) -> None:
+        self.device.disp_test_led_short = 1
+        self.device.disp_test_led_open = 0
         test_ongoing = True
         while test_ongoing:
             print('test ongoing...')
-            test_ongoing = self._disp_test_mode[AS1115_DISPLAY_TEST_MODE['LED_TEST']]
+            test_ongoing = self.device.disp_test_led_test
             time.sleep(1)
-        result = self._disp_test_mode[AS1115_DISPLAY_TEST_MODE['LED_GLOBAL']]
+        result = self.device.disp_test_led_global
         if result is True:
             print('ledTest has detected an error')
+            for i in range(8):
+                for j in range(8):
+                    led_diag_i_j = self.device.led_diag[i][j].get()
+                    print(i, j, led_diag_i_j)
+        return result
+
+    def ledOpenTest(self) -> None:
+        self.device.disp_test_led_short = 0
+        self.device.disp_test_led_open = 1
+        test_ongoing = True
+        while test_ongoing:
+            print('test ongoing...')
+            test_ongoing = self.device.disp_test_led_test
+            time.sleep(1)
+        result = self.device.disp_test_led_global
+        if result is True:
+            print('ledTest has detected an error')
+            for i in range(8):
+                for j in range(8):
+                    led_diag_i_j = self.device.led_diag[i][j].get()
+                    print(i, j, led_diag_i_j)
         return result
 
     def rsetTest(self) -> None:
-        rset_open = self._disp_test_mode[AS1115_DISPLAY_TEST_MODE['RSET_OPEN']]
-        rset_short = self._disp_test_mode[AS1115_DISPLAY_TEST_MODE['RSET_SHORT']]
+        rset_open = self.device.disp_test_rset_open
+        rset_short = self.device.disp_test_rset_short
         if rset_open is True:
             print('rsetTest has detected an open circuit')
         elif rset_short is True:
@@ -249,10 +375,10 @@ class AS1115:
             raise ValueError("Blink rate must be an integer in the set: 0, 1, 2")
         self._blink_rate = rate
         if rate != 0:
-            self._feature[AS1115_FEATURE['BLINK_ENABLE']] = 1
-            self._feature[AS1115_FEATURE['BLINK_FREQ_SEL']] = rate - 1
+            self.device.feature_blink_enable = 1
+            self.device.feature_blink_freq_sel = rate - 1
         else:
-            self._feature[AS1115_FEATURE['BLINK_ENABLE']] = 0
+            self.device.feature_blink_enable = 0
 
     @property
     def brightness(self) -> float:
@@ -268,6 +394,6 @@ class AS1115:
 
         self._brightness = brightness
         duty_cycle = int(brightness * 15)
-        self._writeRegister(AS1115_REGISTER['GLOBAL_INTENSITY'], hex(duty_cycle))
+        self.device.global_intensity = duty_cycle
 
-    
+

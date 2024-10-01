@@ -8,6 +8,16 @@
 - Better LED cover integration
 - Remove SRAM?
 - Change 0603s to 0805s?
+- Labels on silkscreen
+- IR circuit
+    - Add missing resistor to IR circuit
+    - Fix LED/resistor values
+    - Change LED to thru-hole so it sticks through cover
+- Don't run signal trace under ds3231
+- Voltage plane unnecessary?
+- AS1115 IRQ pullup?
+- JST 4-pin footprint all pins are incorrect
+- SHT40 has voltage and ground swapped
 
 ### Software
 - Integrate FSM better
