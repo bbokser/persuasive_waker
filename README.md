@@ -16,8 +16,10 @@
 - Don't run signal trace under ds3231
 - Voltage plane unnecessary?
 - AS1115 IRQ pullup?
+- AS1115 recommended 10uF and 0.1uF cap
 - JST 4-pin footprint all pins are incorrect
 - SHT40 has voltage and ground swapped
+- Segment display: can't anodes L1_L2 and L3 just be tied to ground? Maybe test
 
 ### Software
 - Integrate FSM better
