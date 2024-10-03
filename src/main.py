@@ -1,58 +1,34 @@
 import time
 import board
+import busio
 
 from fsm import FSM
-
+import utils
 # hardware
-from inkdisp import InkDisp
+#from inkdisp import InkDisp
 from clock import Clock
-from segment import SegmentDisp
-from inputs import Inputs
+from as1115 import AS1115
+from encoder import Encoder
 from piezo import Piezo
 from ir import IrSensor
-import utils
 
-filename = '/alarm.txt'
-
-def store_alarm(hour:int, min:int, enable:bool):
-    try:
-        with open(filename, 'w') as file:
-            file.write(str(hour) + ',' + str(min) + ',' + str(enable))
-            file.flush()
-    except OSError as e:
-        print('Lacking permission to write to file')
-        pass
-
-def read_alarm()->dict:
-    try:
-        with open(filename, "r") as file:
-            data = file.readline().split(',')
-        output = {
-            'hour': int(data[0]),
-            'min': int(data[1]),
-            'enable': bool(data[2])
-        }
-    except:
-        output = {
-            'hour': 8,
-            'min': 0,
-            'enable': False
-        }
-    return output
 
 time.sleep(5)  # to ensure serial connection does not fail
 
 # initialize class objects
 fsm = FSM()
-segment_disp = SegmentDisp()
-clock = Clock()
-inputs = Inputs()
-buzzer = Piezo(board.GP16)
-# buzzer_2 = Piezo(board.GP17)
+
+i2c = busio.I2C(scl=board.GP5, sda=board.GP4)
+as1115 = AS1115(i2c)
+clock = Clock(i2c)
+
+encoder = Encoder()
+buzzer_1 = Piezo(board.GP16)
+buzzer_2 = Piezo(board.GP17)
 ir_sensor = IrSensor()
 date_str = clock.get_date_str()
 alarm_str = clock.get_alarm_str()
-inkdisp = InkDisp(date_init=date_str, alarm_init=alarm_str)
+#inkdisp = InkDisp(date_init=date_str, alarm_init=alarm_str)
 
 dt = 0.1
 blink_rate = 0.3
@@ -61,108 +37,111 @@ k = 0
 blink_bool = True
 delta_max = 10 * 60  # max alarm ring time, seconds
 
-# recall alarm time
-data = read_alarm()
-clock.set_alarm(hour=data['hour'], min=data['min'], enable=data['enable'])
 
 while True:
     if k >= k_blink:
         k = 0
         blink_bool = not blink_bool
     
-    button_e_val = inputs.update_button_e()
-    button_b_val = inputs.update_button_b()
+    button_e_val = encoder.update_button()
+    buttons = as1115.scan_keys()
     state = fsm.execute(enter=button_e_val,
-                        back=button_b_val,
-                        set_date=inputs.get_button_d(), 
-                        set_time=inputs.get_button_t(), 
-                        set_alarm=inputs.get_button_a()) #,
+                        back=buttons[0],
+                        set_date=buttons[1], 
+                        set_time=buttons[2], 
+                        set_alarm=buttons[3]) #,
                         #set_blinds=inputs.button_s.value)
     print('state = ', state)
 
     if state == 'default':
-        segment_disp.print_2vals(clock.get_hour(), clock.get_min())
-
+        as1115.display_hourmin(clock.get_hour(), clock.get_min())
+        as1115.blink_rate = 0
     elif state in ['start_set_month', 'start_set_day', 'start_set_min', 'start_set_alarm_min']:
-        inputs.rezero()
+        encoder.rezero()
 
     elif state == 'start_set_year':
         year = clock.get_year()
         month = clock.get_month()
         day = clock.get_day()
-        inputs.rezero()
+        encoder.rezero()
     elif state == 'set_year':
-        year_new = utils.wrap_to_range(year + inputs.get_encoder_pos(), a=-999, b=9999)
-        segment_disp.print(year_new, blink_bool)
+        year_new = utils.wrap_to_range(year + encoder.get_encoder_pos(), a=-999, b=9999)
+        as1115.display_int(year_new)
+        as1115.blink_rate = 1
     elif state == 'set_month':
-        month_new = utils.wrap_to_range(month + inputs.get_encoder_pos(), a=1, b=12)
-        segment_disp.print_2vals(month_new, day, wink_left=blink_bool)
+        month_new = utils.wrap_to_range(month + encoder.get_encoder_pos(), a=1, b=12)
+        as1115.display_half(month_new)
+        as1115.blink_rate = 1
     elif state == 'set_day':
         day_max = utils.get_max_day(year=year_new, month=month_new)
-        day_new = utils.wrap_to_range(day + inputs.get_encoder_pos(), a=1, b=day_max)
-        segment_disp.print_2vals(month_new, day_new, wink_right=blink_bool)
+        day_new = utils.wrap_to_range(day + encoder.get_encoder_pos(), a=1, b=day_max)
+        as1115.display_half(day_new)
+        as1115.blink_rate = 1
     elif state == 'end_set_day':
         clock.set_date(year=year_new, month=month_new, day=day_new)
+        as1115.blink_rate = 0
 
     elif state == 'start_set_hour':
         hour = clock.get_hour()
         minute = clock.get_min()
-        inputs.rezero()
+        encoder.rezero()
     elif state == 'set_hour':
-        hour_new = (hour + inputs.get_encoder_pos()) % 24
-        segment_disp.print_2vals(hour_new, minute, wink_left=blink_bool)
+        hour_new = (hour + encoder.get_encoder_pos()) % 24
+        as1115.display_hourmin(hour_new, minute)
+        as1115.blink_rate = 1
     elif state == 'set_min':
-        min_new = (minute + inputs.get_encoder_pos()) % 60
-        segment_disp.print_2vals(hour_new, min_new, wink_right=blink_bool)
+        min_new = (minute + encoder.get_encoder_pos()) % 60
+        as1115.display_hourmin(hour_new, min_new)
+        as1115.blink_rate = 1
     elif state == 'end_set_min':
         clock.set_time(hour=hour_new, min=min_new)
+        as1115.blink_rate = 0
     
     elif state == 'start_set_alarm':
         hour = clock.get_alarm_hour()
         minute = clock.get_alarm_min()
-        inputs.rezero()
+        encoder.rezero()
     elif state == 'set_alarm_hour':
-        hour_new = (hour + inputs.get_encoder_pos()) % 24
-        segment_disp.print_2vals(hour_new, minute, wink_left=blink_bool)
+        hour_new = (hour + encoder.get_encoder_pos()) % 24
+        as1115.display_hourmin(hour_new, minute)
+        as1115.blink_rate = 1
     elif state == 'set_alarm_min':
-        min_new = (minute + inputs.get_encoder_pos()) % 60
-        segment_disp.print_2vals(hour_new, min_new, wink_right=blink_bool)
+        min_new = (minute + encoder.get_encoder_pos()) % 60
+        as1115.display_hourmin(hour_new, min_new)
+        as1115.blink_rate = 1
     elif state == 'end_set_alarm_min':
         clock.set_alarm(hour=hour_new, min=min_new)
-        store_alarm(hour_new, min_new, True)
+        as1115.blink_rate = 0
 
     elif state == 'set_no_alarm':
-        clock.alarm_enable = False
-        store_alarm(hour, minute, False)
+        clock.disable_alarm()
 
-    # refresh inkdisp, make sure 3 minutes have passed before you refresh again
-    if (date_str != clock.get_date_str() or alarm_str != clock.get_alarm_str()) and clock.get_refresh_delta() >= 180:
-        date_str = clock.get_date_str()
-        alarm_str = clock.get_alarm_str()
-        inkdisp.clear()
-        inkdisp.apply_info(date=date_str, alarm=alarm_str)
-        inkdisp.update()
-        clock.set_refresh()
+    # # refresh inkdisp, make sure 3 minutes have passed before you refresh again
+    # if (date_str != clock.get_date_str() or alarm_str != clock.get_alarm_str()) and clock.get_refresh_delta() >= 180:
+    #     date_str = clock.get_date_str()
+    #     alarm_str = clock.get_alarm_str()
+    #     inkdisp.clear()
+    #     inkdisp.apply_info(date=date_str, alarm=alarm_str)
+    #     inkdisp.update()
+    #     clock.set_refresh()
     
-    if clock.alarm_enable is True and clock.alarm_temp_disable is False:
+    if clock.alarm_enable is True and clock.get_alarm_status() == True:
         delta = clock.get_alarm_delta()
         if -delta_max < delta <= 0:
             if ir_sensor.check_ir() is True:
-                clock.alarm_temp_disable = True
-            magnitude = abs(delta/delta_max)
-            amp = utils.clip(magnitude, 0.1, 1.)
-            tone = utils.translate(magnitude, 262, 464)
-            buzzer.play(tone=tone, amp=amp, on=blink_bool)
+                clock.reset_alarm()
+            else:
+                magnitude = abs(delta/delta_max)
+                amp = utils.clip(magnitude, 0.1, 1.)
+                tone = utils.translate(magnitude, 262, 464)
+                buzzer_1.play(tone=tone, amp=amp, on=blink_bool)
+                buzzer_2.play(tone=tone, amp=amp, on=blink_bool)
         else:
-            buzzer.shutoff()
-    
-    elif clock.alarm_enable is True and clock.alarm_temp_disable is True:
-        buzzer.shutoff()
-        delta = clock.get_alarm_delta()
-        if delta < -delta_max:
-            clock.alarm_temp_disable = False
+            buzzer_1.shutoff()
+            buzzer_2.shutoff()
     else:
-        buzzer.shutoff()
+        buzzer_1.shutoff()
+        buzzer_2.shutoff()
 
     k += 1
     time.sleep(dt)

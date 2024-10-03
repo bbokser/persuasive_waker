@@ -20,13 +20,15 @@
 - JST 4-pin footprint all pins are incorrect
 - SHT40 has voltage and ground swapped
 - Segment display: can't anodes L1_L2 and L3 just be tied to ground? Maybe test
+- Wire encoder button to as1115 keyscan, whynot?
+- Piezos too quiet?
 
 ### Software
+- Use brightness for blinking?
 - Integrate FSM better
+- Improve IR accuracy (or switch to better method)
 - Piezo music
 - Battery voltage monitoring
-- Use DS3231 alarm API
-- Use AS1115 blinking API?
 - Add display brightness setting
 
 ### Available Pins

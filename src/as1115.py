@@ -5,6 +5,7 @@ from adafruit_register import i2c_bits
 from busio import I2C
 import time
 
+AS1115_CLEAR = 15  # BCD
 AS1115_REGISTER = {
 	'DECODE_MODE'		: 0x09,  # Enables decoding on selected digits
 	'GLOBAL_INTENSITY'	: 0x0A,  # Sets the entire display intensity
@@ -19,17 +20,6 @@ AS1115_REGISTER = {
 	'DIG67_INTENSITY'	: 0x13,  # Sets the display intensity for digit 6 and 7
 	'KEY_A'				: 0x1C,  # Gets the result of the debounced keyscan for KEYA
 	'KEY_B'				: 0x1D	 # Gets the result of the debounced keyscan for KEYB
-}
-
-LED_DIGIT = {
-    'G': 0,
-    'F': 1,
-    'E': 2,
-    'D': 3,
-    'C': 4,
-    'B': 5,
-    'A': 6,
-    'DP': 7
 }
 
 AS1115_SHUTDOWN_MODE = {
@@ -88,8 +78,13 @@ AS1115_DIGIT_REGISTER = [0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08]
 AS1115_LED_DIAG_REG = [0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1A, 0x1B]
 NUMBERS = [0x7E, 0x30, 0x6D, 0x79, 0x33, 0x5B, 0x5F, 0x70, 0x7F, 0x7B, 0x77, 0x1F, 0x4E, 0x3D, 0x4F, 0x47]
 
-def nthdigit(value:int, idx:int):
+def nth(value:int, idx:int):
     return value // 10**idx % 10
+
+def reversed_nth(value:int, idx:int, n:int):
+    # n is the number of digits
+    idx_reversed = n - 1 - idx
+    return nth(value, idx_reversed)
 
 
 class AS1115_REG:
@@ -104,9 +99,9 @@ class AS1115_REG:
     # set blinking frequency
     feature_blink_freq_sel = i2c_bit.RWBit(register_address=AS1115_REGISTER['FEATURE'], bit=5)
     # sync blinking with LD/CS pin
-    feature_blink_freq_sel = i2c_bit.RWBit(register_address=AS1115_REGISTER['FEATURE'], bit=6)
+    feature_blink_sync = i2c_bit.RWBit(register_address=AS1115_REGISTER['FEATURE'], bit=6)
     # whether to start blinking w/ display turned on or off
-    feature_blink_freq_sel = i2c_bit.RWBit(register_address=AS1115_REGISTER['FEATURE'], bit=7)
+    feature_blink_start = i2c_bit.RWBit(register_address=AS1115_REGISTER['FEATURE'], bit=7)
 
     #  Optical display test.
     disp_test_visual = i2c_bit.RWBit(register_address=AS1115_REGISTER['DISPLAY_TEST_MODE'], bit=0)
@@ -129,19 +124,20 @@ class AS1115_REG:
     self_addressing = i2c_bit.RWBit(register_address=AS1115_REGISTER['SELF_ADDRESSING'], bit=0)
     shutdown_mode_unchanged = i2c_bit.RWBit(register_address=AS1115_REGISTER['SHUTDOWN'], bit=7)  # no reset
     shutdown_mode_normal = i2c_bit.RWBit(register_address=AS1115_REGISTER['SHUTDOWN'], bit=0)  # normal operation
-    
+
     digit_1 = i2c_bits.RWBits(num_bits=4, register_address=AS1115_DIGIT_REGISTER[0], lowest_bit=0)
     digit_2 = i2c_bits.RWBits(num_bits=4, register_address=AS1115_DIGIT_REGISTER[1], lowest_bit=0)
     digit_3 = i2c_bits.RWBits(num_bits=4, register_address=AS1115_DIGIT_REGISTER[3], lowest_bit=0)
     digit_4 = i2c_bits.RWBits(num_bits=4, register_address=AS1115_DIGIT_REGISTER[4], lowest_bit=0)
 
-    keyA = [None] * 8
-    keyB = [None] * 8
-    led_diag = [[[None] for i in range(8)] for i in range(8)]
+    keyA = [None] * 6
+    #keyB = [None] * 8
+    for i in range(6):
+        keyA[i] = i2c_bit.ROBit(register_address=AS1115_REGISTER['KEY_A'], bit=i+1)
+        #keyB[i] = i2c_bit.ROBit(register_address=AS1115_REGISTER['KEY_B'], bit=i)
 
+    led_diag = [[[None] for i in range(8)] for i in range(8)]
     for i in range(8):
-        keyA[i] = i2c_bit.ROBit(register_address=AS1115_REGISTER['KEY_A'], bit=i)
-        keyB[i] = i2c_bit.ROBit(register_address=AS1115_REGISTER['KEY_B'], bit=i)
         for j in range(8):
             led_diag[i][j] = i2c_bit.ROBit(register_address=AS1115_LED_DIAG_REG[i], bit=i)
 
@@ -150,7 +146,7 @@ class AS1115_REG:
                     address: int = 0x00
                     ) -> None:
         self.i2c_device = i2c_device.I2CDevice(i2c, address)
-    
+
     def set_digit(self, idx: int, value: int) -> None:
         if idx == 0:
             self.digit_1 = value
@@ -162,7 +158,7 @@ class AS1115_REG:
             self.digit_4 = value
         else:
             raise ValueError('Digit specified does not exist')
-        
+
 
 class AS1115:
     """
@@ -176,12 +172,10 @@ class AS1115:
         self,
         i2c: I2C,
         address: int = 0x00,
-        brightness: float = 1.0,
+        brightness: int = 2,
         n_digits: int = 4,
     ) -> None:
         self.device = AS1115_REG(i2c, address)
-        
-        self._temp = bytearray(1)  # init bytearray
         self.n_digits = n_digits
 
         # --- start writing to chip --- #
@@ -190,6 +184,7 @@ class AS1115:
 
         self._blink_rate = None
         self._brightness = None
+        self.keyscan = [None] * 6
 
         self.device.decode_mode = 0x1B  # this enables decoding on D0, D1, D3, D4
         self.device.feature_decode_sel = 0
@@ -200,13 +195,18 @@ class AS1115:
         self.blink_rate = 0
         self.brightness = brightness
 
+    def scan_keys(self)->list:
+        for i in range(6):
+            self.keyscan[i] = self.device.keyA[i].__get__(obj=self.device)
+        return [not x for x in self.keyscan]  # flip the bool values
+
     def clear(self) -> None:
         n = self.n_digits
         for i in range(n):
-            self.device.set_digit(i, None)
-            
+            self.clear_idx(i)
+
     def clear_idx(self, idx: int) -> None:
-        self.device.set_digit(idx, None)
+        self.device.set_digit(idx, AS1115_CLEAR)
 
     def display_idx(self, idx: int, value: int) -> None:
         # display int 0-9 on an individual digit
@@ -214,9 +214,21 @@ class AS1115:
 
     def display_int(self, value: int) -> None:
         # display int on entire display
-        n = self.n_digits
-        for i in range(n):
-            self.device.set_digit(i, value)
+        value = int('{:04d}'.format(value))
+        for i in range(self.n_digits):
+            self.device.set_digit(i, reversed_nth(value, i, self.n_digits))
+
+    def display_half(self, value:int) -> None:
+        self.clear_idx(0)
+        self.clear_idx(1)
+        self.display_idx(2, nth(value, 1))
+        self.display_idx(3, nth(value, 0))
+
+    def display_hourmin(self, hour:int, minute:int) -> None:
+        self.display_idx(0, nth(hour, 1))
+        self.display_idx(1, nth(hour, 0))
+        self.display_idx(2, nth(minute, 1))
+        self.display_idx(3, nth(minute, 0))
 
     def visualTest(self) -> None:
         self.device.disp_test_visual = 1
@@ -234,7 +246,7 @@ class AS1115:
             print('ledTest has detected an error')
             for i in range(8):
                 for j in range(8):
-                    led_diag_i_j = self.device.led_diag[i][j].__get__(obj=self.device.i2c_device)
+                    led_diag_i_j = self.device.led_diag[i][j].__get__(obj=self.device)
                     print(i, j, led_diag_i_j)
         return result
 
@@ -264,19 +276,18 @@ class AS1115:
             self.device.feature_blink_enable = 0
 
     @property
-    def brightness(self) -> float:
-        """The brightness. Range 0.0-1.0"""
+    def brightness(self) -> int:
+        """The brightness. Range 0 - 15"""
         return self._brightness
 
     @brightness.setter
-    def brightness(self, brightness: float) -> None:
-        if not 0.0 <= brightness <= 1.0:
+    def brightness(self, brightness: int) -> None:
+        if not 0 <= brightness <= 15:
             raise ValueError(
-                "Brightness must be a decimal number in the range: 0.0-1.0"
+                "Brightness must be an int in the range: 0 - 15"
             )
 
-        self._brightness = brightness
-        duty_cycle = int(brightness * 15)
-        self.device.global_intensity = duty_cycle
+        self._brightness = int(brightness)
+        self.device.global_intensity = self._brightness
 
 

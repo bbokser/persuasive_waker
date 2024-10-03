@@ -1,9 +1,8 @@
 import adafruit_ds3231
-import board
 import time
 # from ulab import numpy as np
 import adafruit_datetime
-
+from busio import I2C
 import utils
 
 def get_suffix(n: int):
@@ -14,13 +13,11 @@ def get_suffix(n: int):
         return utils.number_suffix[last_digit]
     
 class Clock():
-    def __init__(self):
-        i2c = board.I2C()  #busio.I2C(board.SCL0, board.SDA0)
+    def __init__(self, i2c: I2C):
         self.rtc = adafruit_ds3231.DS3231(i2c)
+        self.alarm_enable = False
         self.alarm_hour = 0
         self.alarm_min = 0
-        self.alarm_enable = False
-        self.alarm_temp_disable = False
         self.datetime_refresh = self.get_datetime_now()
         
     def set_date(self, year:int, month:int, day:int):
@@ -70,10 +67,26 @@ class Clock():
     
     # alarm functions
     def set_alarm(self, hour:int, min:int, enable=True):
+        self.rtc.alarm1 = (time.struct_time((self.rtc.datetime.tm_year, 
+                                              self.rtc.datetime.tm_mon, 
+                                              self.rtc.datetime.tm_mday, 
+                                              hour, 
+                                              min, 
+                                              0, 
+                                              self.rtc.datetime.tm_wday, -1, -1)), "daily")
+        self.alarm_enable = enable
         self.alarm_hour = hour
         self.alarm_min = min
-        self.alarm_enable = enable
 
+    def get_alarm_status(self)->bool:
+        return self.rtc.alarm1_status
+    
+    def reset_alarm(self)->None:
+        self.rtc.alarm1_status = False
+
+    def disable_alarm(self)->None:
+        self.alarm_enable = False
+        
     def get_alarm_hour(self)->int:
         return self.alarm_hour
     
@@ -82,7 +95,7 @@ class Clock():
     
     def get_alarm_str(self)->str:
         if self.alarm_enable is True:
-            return '{:d}:{:02d}'.format(self.alarm_hour, self.alarm_min)
+            return '{:d}:{:02d}'.format(self.get_alarm_hour(), self.get_alarm_min())
         else:
             return 'None'
     
