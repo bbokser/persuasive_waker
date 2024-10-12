@@ -23,11 +23,11 @@ class Encoder():
     
     def rezero(self):
         # re-zero encoder
-        self.zero_pos = -self.encoder.position
+        self.zero_pos = self.encoder.position
 
     def get_encoder_pos(self):
         # encoder feedback
-        return -self.encoder.position - self.zero_pos
+        return self.encoder.position - self.zero_pos
         
     def update_button(self):
         # this must run every timestep to work

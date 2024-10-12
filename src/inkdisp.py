@@ -10,6 +10,7 @@ import terminalio
 import vectorio
 import busio
 import adafruit_ssd1680
+# import adafruit_spd1656
 import supervisor
 from adafruit_display_text.bitmap_label import Label
 
@@ -22,7 +23,7 @@ displayio.release_displays()
 
 class InkDisp():
     def __init__(self, date_init, alarm_init):
-        spi = busio.SPI(board.GP2, MOSI=board.GP0, MISO=None)
+        spi = busio.SPI(board.GP2, MOSI=board.GP19, MISO=None)
         epd_cs = board.GP7
         epd_dc = board.GP3
         epd_reset = board.GP20
@@ -40,6 +41,9 @@ class InkDisp():
             highlight_color=0xFF0000,
             rotation=270,
         )
+
+        # display = adafruit_spd1656.SPD1656(
+        #     display_bus, width=600, height=448, busy_pin=epd_busy)
 
         # create displayio group
         g = displayio.Group()
@@ -93,7 +97,7 @@ class InkDisp():
         self.draw_text(text=date, 
                        x=display.width // 2, y=display.height // 2, color='black')
         self.draw_text(text='Alarm: ' + alarm, 
-                       x=display.width // 2, y=display.height // 2 - 15, color='red')
+                       x=display.width // 2, y=display.height // 2 - 15, color='black')
         return None
     
     def draw_polygon(self, points: list, color: str):

@@ -62,7 +62,7 @@ def wrap_to_range(x:int, a:int, b:int)->int:
     '''
     return int((x - a) % (b - a + 1) + a)
 
-def clip(input:float, min:float, max:float):
+def clip(input:float, min:float, max:float)->float:
     if input < min:
         return min
     elif input > max:
@@ -70,7 +70,12 @@ def clip(input:float, min:float, max:float):
     else:
         return input
     
-def translate(percent:float, min:float, max:float):
+def translate(percent:float, min:float, max:float)->float:
     # map range from 0 to 1 to a range from spec'd min and max
     diff = max - min
     return percent * diff + min
+
+def percentize(value:float, min:float, max:float)->float:
+    # map range from from spec'd min and max to range from 0 to 1
+    diff = max - min
+    return (value - min)/diff

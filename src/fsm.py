@@ -27,6 +27,9 @@ class Default(State):
         elif self.FSM.set_alarm == True:
             self.FSM.to_transition('toSetAlarmHour')
             return str('start_set_alarm')
+        elif self.FSM.set_brightness == True:
+            self.FSM.to_transition('toSetBrightness')
+            return str('start_set_brightness')
         else:
             pass
         return str('default')
@@ -124,6 +127,19 @@ class SetAlarmMin(State):
             self.FSM.to_transition('toDefault')
             return str('set_no_alarm')
         return str('set_alarm_min')
+    
+class SetBrightness(State):
+    def __init__(self, fsm):
+        super().__init__(fsm)
+
+    def execute(self):
+        if self.FSM.enter == True:
+            self.FSM.to_transition('toDefault')
+            return str('end_set_brightness')
+        elif self.FSM.back == True:
+            self.FSM.to_transition('toDefault')
+            return str('set_no_brightness')
+        return str('set_brightness')
 
 
 class Transition:
@@ -157,6 +173,7 @@ class FSM:
         self.add_state('set_min', SetMin(self))
         self.add_state('set_alarm_hour', SetAlarmHour(self))
         self.add_state('set_alarm_min', SetAlarmMin(self))
+        self.add_state('set_brightness', SetBrightness(self))
 
         self.add_transition('toSetYear', Transition('set_year'))
         self.add_transition('toSetMonth', Transition('set_month'))
@@ -165,6 +182,7 @@ class FSM:
         self.add_transition('toSetMin', Transition('set_min'))
         self.add_transition('toSetAlarmHour', Transition('set_alarm_hour'))
         self.add_transition('toSetAlarmMin', Transition('set_alarm_min'))
+        self.add_transition('toSetBrightness', Transition('set_brightness'))
         self.add_transition('toDefault', Transition('default'))
 
         self.setstate('default')

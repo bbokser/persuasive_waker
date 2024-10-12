@@ -86,6 +86,11 @@ def reversed_nth(value:int, idx:int, n:int):
     idx_reversed = n - 1 - idx
     return nth(value, idx_reversed)
 
+def check_brightness_value(value:int)->None:
+    if not 0 <= value <= 15:
+        raise ValueError(
+            "Brightness must be an int in the range: 0 - 15"
+        )
 
 class AS1115_REG:
     # enables external clock
@@ -119,6 +124,11 @@ class AS1115_REG:
     disp_test_rset_short = i2c_bit.RWBit(register_address=AS1115_REGISTER['DISPLAY_TEST_MODE'], bit=6)
 
     global_intensity = i2c_bits.RWBits(num_bits=4, register_address=AS1115_REGISTER['GLOBAL_INTENSITY'], lowest_bit=0)
+    intensity_1 = i2c_bits.RWBits(num_bits=4, register_address=AS1115_REGISTER['DIG01_INTENSITY'], lowest_bit=0)
+    intensity_2 = i2c_bits.RWBits(num_bits=4, register_address=AS1115_REGISTER['DIG01_INTENSITY'], lowest_bit=4)
+    intensity_3 = i2c_bits.RWBits(num_bits=4, register_address=AS1115_REGISTER['DIG23_INTENSITY'], lowest_bit=4)
+    intensity_4 = i2c_bits.RWBits(num_bits=4, register_address=AS1115_REGISTER['DIG45_INTENSITY'], lowest_bit=0)
+
     scan_limit = i2c_bits.RWBits(num_bits=3, register_address=AS1115_REGISTER['SCAN_LIMIT'], lowest_bit=0)
     decode_mode = i2c_bits.RWBits(num_bits=4, register_address=AS1115_REGISTER['DECODE_MODE'], lowest_bit=0)
     self_addressing = i2c_bit.RWBit(register_address=AS1115_REGISTER['SELF_ADDRESSING'], bit=0)
@@ -259,6 +269,20 @@ class AS1115:
             print('rsetTest has detected a short circuit')
         return rset_open or rset_short
 
+    def wink_left(self, bool:bool)->None:
+        value = bool * self.brightness
+        self.device.intensity_1 = value
+        self.device.intensity_2 = value
+    
+    def wink_right(self, bool:bool)->None:
+        value = bool * self.brightness
+        self.device.intensity_3 = value
+        self.device.intensity_4 = value
+
+    def unwink(self)->None:
+        # reset winkness
+        self.brightness = self.brightness 
+
     @property
     def blink_rate(self) -> int:
         """The blink rate."""
@@ -281,13 +305,9 @@ class AS1115:
         return self._brightness
 
     @brightness.setter
-    def brightness(self, brightness: int) -> None:
-        if not 0 <= brightness <= 15:
-            raise ValueError(
-                "Brightness must be an int in the range: 0 - 15"
-            )
-
-        self._brightness = int(brightness)
+    def brightness(self, value: int) -> None:
+        check_brightness_value(value)
+        self._brightness = int(value)
         self.device.global_intensity = self._brightness
 
 
