@@ -30,7 +30,11 @@ buzzer2 = Piezo(board.GP17)
 ir_sensor = IrSensor()
 date_str = clock.get_date_str()
 alarm_str = clock.get_alarm_str()
-inkdisp = InkDisp(date_init=date_str, alarm_init=alarm_str)
+inkdisp = InkDisp(date_init=date_str, 
+                  alarm_init=alarm_str, 
+                  batt=battery.get_batt_frac(), 
+                  usb=battery.usb_power.value)
+clock.set_refresh()
 
 dt = 0.1
 blink_rate = 0.3
@@ -45,9 +49,8 @@ while True:
         k = 0
         blink_bool = not blink_bool
     
-    button_e_val = encoder.update_button()
     buttons = as1115.scan_keys()
-    state = fsm.execute(enter=button_e_val,
+    state = fsm.execute(enter=encoder.update_button(),
                         back=buttons[0],
                         set_date=buttons[1], 
                         set_time=buttons[2], 
@@ -66,7 +69,7 @@ while True:
         day = clock.get_day()
         encoder.rezero()
     elif state == 'set_year':
-        year_new = utils.wrap_to_range(year + encoder.get_encoder_pos(), a=-999, b=9999)
+        year_new = utils.wrap_to_range(year + encoder.get_encoder_pos(), a=1970, b=2037)
         as1115.display_int(year_new)
         as1115.wink_left(blink_bool)
         as1115.wink_right(blink_bool)
@@ -120,14 +123,15 @@ while True:
 
     elif state == 'start_set_brightness':
         encoder.rezero()
+        brightness_new = as1115.brightness
     elif state == 'set_brightness':
-        as1115.brightness = (as1115.brightness + encoder.get_encoder_pos()) % 15
+        as1115.brightness = (brightness_new + encoder.get_encoder_pos()) % 8
         as1115.display_int(as1115.brightness)
     elif state == 'end_set_brightness':
         pass
 
     # refresh inkdisp, make sure at least 3 minutes have passed before you refresh again
-    if (date_str != clock.get_date_str() or alarm_str != clock.get_alarm_str()) and clock.get_refresh_delta() >= 180:
+    if (date_str != clock.get_date_str() or alarm_str != clock.get_alarm_str()) and clock.get_refresh_delta() > 180:
         date_str = clock.get_date_str()
         alarm_str = clock.get_alarm_str()
         inkdisp.clear()
@@ -141,7 +145,9 @@ while True:
     if clock.alarm_enable is True and clock.get_alarm_status() == True:
         delta = clock.get_alarm_delta()
         if -delta_max < delta <= 0:
-            if ir_sensor.check_ir() is True:
+            # if ir_sensor.check_ir() is True:
+            # temporary solution to IR problem
+            if buttons[5] is True:
                 clock.reset_alarm()
             else:
                 magnitude = abs(delta/delta_max)

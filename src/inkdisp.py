@@ -22,7 +22,7 @@ displayio.release_displays()
 
 
 class InkDisp():
-    def __init__(self, date_init, alarm_init):
+    def __init__(self, date_init, alarm_init, batt, usb):
         spi = busio.SPI(board.GP2, MOSI=board.GP19, MISO=None)
         epd_cs = board.GP7
         epd_dc = board.GP3
@@ -66,7 +66,7 @@ class InkDisp():
 
         # initialization routine
         self.draw_bg(color='white')
-        self.apply_info(date=date_init, alarm=alarm_init)
+        self.apply_info(date=date_init, alarm=alarm_init, batt=batt, usb=usb)
         self.update()
     
     def clear(self):
@@ -92,12 +92,17 @@ class InkDisp():
         self.g.append(lbl)
         return None
     
-    def apply_info(self, date: str, alarm: str):
+    def apply_info(self, date:str, alarm:str, batt:float, usb:float):
         display = self.display
         self.draw_text(text=date, 
-                       x=display.width // 2, y=display.height // 2, color='black')
+                       x=display.width // 2, y=display.height // 2 + 15, color='black')
         self.draw_text(text='Alarm: ' + alarm, 
+                       x=display.width // 2, y=display.height // 2, color='black')
+        self.draw_text(text='Batt: ' + str(batt * 100) + '%', 
                        x=display.width // 2, y=display.height // 2 - 15, color='black')
+        usb_msg = 'USB In' if usb else 'Unplugged'
+        self.draw_text(text=usb_msg, 
+                       x=display.width // 2, y=display.height // 2 - 30, color='black')
         return None
     
     def draw_polygon(self, points: list, color: str):

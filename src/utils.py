@@ -63,6 +63,7 @@ def wrap_to_range(x:int, a:int, b:int)->int:
     return int((x - a) % (b - a + 1) + a)
 
 def clip(input:float, min:float, max:float)->float:
+    assert min <= max
     if input < min:
         return min
     elif input > max:

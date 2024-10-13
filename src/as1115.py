@@ -124,10 +124,9 @@ class AS1115_REG:
     disp_test_rset_short = i2c_bit.RWBit(register_address=AS1115_REGISTER['DISPLAY_TEST_MODE'], bit=6)
 
     global_intensity = i2c_bits.RWBits(num_bits=4, register_address=AS1115_REGISTER['GLOBAL_INTENSITY'], lowest_bit=0)
-    intensity_1 = i2c_bits.RWBits(num_bits=4, register_address=AS1115_REGISTER['DIG01_INTENSITY'], lowest_bit=0)
-    intensity_2 = i2c_bits.RWBits(num_bits=4, register_address=AS1115_REGISTER['DIG01_INTENSITY'], lowest_bit=4)
-    intensity_3 = i2c_bits.RWBits(num_bits=4, register_address=AS1115_REGISTER['DIG23_INTENSITY'], lowest_bit=4)
-    intensity_4 = i2c_bits.RWBits(num_bits=4, register_address=AS1115_REGISTER['DIG45_INTENSITY'], lowest_bit=0)
+    intensity_01 = i2c_bits.RWBits(num_bits=8, register_address=AS1115_REGISTER['DIG01_INTENSITY'], lowest_bit=0)
+    intensity_2 = i2c_bits.RWBits(num_bits=4, register_address=AS1115_REGISTER['DIG23_INTENSITY'], lowest_bit=4)
+    intensity_3 = i2c_bits.RWBits(num_bits=4, register_address=AS1115_REGISTER['DIG45_INTENSITY'], lowest_bit=0)
 
     scan_limit = i2c_bits.RWBits(num_bits=3, register_address=AS1115_REGISTER['SCAN_LIMIT'], lowest_bit=0)
     decode_mode = i2c_bits.RWBits(num_bits=4, register_address=AS1115_REGISTER['DECODE_MODE'], lowest_bit=0)
@@ -135,10 +134,10 @@ class AS1115_REG:
     shutdown_mode_unchanged = i2c_bit.RWBit(register_address=AS1115_REGISTER['SHUTDOWN'], bit=7)  # no reset
     shutdown_mode_normal = i2c_bit.RWBit(register_address=AS1115_REGISTER['SHUTDOWN'], bit=0)  # normal operation
 
-    digit_1 = i2c_bits.RWBits(num_bits=4, register_address=AS1115_DIGIT_REGISTER[0], lowest_bit=0)
-    digit_2 = i2c_bits.RWBits(num_bits=4, register_address=AS1115_DIGIT_REGISTER[1], lowest_bit=0)
-    digit_3 = i2c_bits.RWBits(num_bits=4, register_address=AS1115_DIGIT_REGISTER[3], lowest_bit=0)
-    digit_4 = i2c_bits.RWBits(num_bits=4, register_address=AS1115_DIGIT_REGISTER[4], lowest_bit=0)
+    digit_0 = i2c_bits.RWBits(num_bits=4, register_address=AS1115_DIGIT_REGISTER[0], lowest_bit=0)
+    digit_1 = i2c_bits.RWBits(num_bits=4, register_address=AS1115_DIGIT_REGISTER[1], lowest_bit=0)
+    digit_2 = i2c_bits.RWBits(num_bits=4, register_address=AS1115_DIGIT_REGISTER[3], lowest_bit=0)
+    digit_3 = i2c_bits.RWBits(num_bits=4, register_address=AS1115_DIGIT_REGISTER[4], lowest_bit=0)
 
     keyA = [None] * 6
     #keyB = [None] * 8
@@ -159,13 +158,13 @@ class AS1115_REG:
 
     def set_digit(self, idx: int, value: int) -> None:
         if idx == 0:
-            self.digit_1 = value
+            self.digit_0 = value
         elif idx == 1:
-            self.digit_2 = value
+            self.digit_1 = value
         elif idx == 2:
-            self.digit_3 = value
+            self.digit_2 = value
         elif idx == 3:
-            self.digit_4 = value
+            self.digit_3 = value
         else:
             raise ValueError('Digit specified does not exist')
 
@@ -271,13 +270,12 @@ class AS1115:
 
     def wink_left(self, bool:bool)->None:
         value = bool * self.brightness
-        self.device.intensity_1 = value
-        self.device.intensity_2 = value
+        self.device.intensity_01 = value | (value << 4)
     
     def wink_right(self, bool:bool)->None:
         value = bool * self.brightness
+        self.device.intensity_2 = value
         self.device.intensity_3 = value
-        self.device.intensity_4 = value
 
     def unwink(self)->None:
         # reset winkness

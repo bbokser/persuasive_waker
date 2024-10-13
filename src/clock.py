@@ -16,11 +16,10 @@ class Clock():
     def __init__(self, i2c: I2C):
         self.rtc = adafruit_ds3231.DS3231(i2c)
         self.alarm_enable = False
-        self.alarm_hour = 0
-        self.alarm_min = 0
         self.datetime_refresh = self.get_datetime_now()
         
     def set_date(self, year:int, month:int, day:int):
+        year = utils.clip(year, 1970, 2037)  # duct-tape Y2038 problem
         self.rtc.datetime = time.struct_time((year, 
                                               month, 
                                               day, 
@@ -28,6 +27,8 @@ class Clock():
                                               self.rtc.datetime.tm_min, 
                                               self.rtc.datetime.tm_sec, 
                                               self.rtc.datetime.tm_wday, -1, -1))
+        # prevents premature refresh due to time confusion
+        self.datetime_refresh = self.get_datetime_now()
 
     def set_time(self, hour:int, min:int):
         self.rtc.datetime = time.struct_time((self.rtc.datetime.tm_year, 
@@ -37,6 +38,7 @@ class Clock():
                                               min, 
                                               0, 
                                               self.rtc.datetime.tm_wday, -1, -1))
+        self.datetime_refresh = self.get_datetime_now()
 
     def get_date_str(self)-> str:
         current = self.rtc.datetime
@@ -75,8 +77,6 @@ class Clock():
                                               0, 
                                               self.rtc.datetime.tm_wday, -1, -1)), "daily")
         self.alarm_enable = enable
-        self.alarm_hour = hour
-        self.alarm_min = min
 
     def get_alarm_status(self)->bool:
         return self.rtc.alarm1_status
@@ -88,10 +88,12 @@ class Clock():
         self.alarm_enable = False
         
     def get_alarm_hour(self)->int:
-        return self.alarm_hour
+        alarm_time, _ = self.rtc.alarm1
+        return alarm_time.tm_hour
     
     def get_alarm_min(self)->int:
-        return self.alarm_min
+        alarm_time, _ = self.rtc.alarm1
+        return alarm_time.tm_min
     
     def get_alarm_str(self)->str:
         if self.alarm_enable is True:
@@ -102,7 +104,7 @@ class Clock():
     def get_alarm_t(self)->adafruit_datetime.date:
         # get time of next alarm
         t = self.get_datetime_now()
-        return t.replace(hour=int(self.alarm_hour), minute=int(self.alarm_min))
+        return t.replace(hour=self.get_alarm_hour(), minute=self.get_alarm_hour())
 
     def get_datetime_now(self)->adafruit_datetime.date:
         return adafruit_datetime.datetime.fromtimestamp(time.mktime(self.rtc.datetime))

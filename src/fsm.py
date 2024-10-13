@@ -164,6 +164,7 @@ class FSM:
         self.set_date = False
         self.set_time = False
         self.set_alarm = False
+        self.set_brightness = False
 
         self.add_state('default', Default(self))
         self.add_state('set_year', SetYear(self))
@@ -202,12 +203,13 @@ class FSM:
         # set the transition state
         self.trans = self.transitions[to_trans]
 
-    def execute(self, enter, back, set_date, set_time, set_alarm):
+    def execute(self, enter, back, set_date, set_time, set_alarm, set_brightness):
         self.enter = enter
         self.back = back
         self.set_date = set_date
         self.set_time = set_time
         self.set_alarm = set_alarm
+        self.set_brightness = set_brightness
         
         if self.trans:
             self.curState.exit()

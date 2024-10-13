@@ -9,7 +9,7 @@ class Encoder():
     def __init__(self):
         # encoder
         self.encoder = rotaryio.IncrementalEncoder(board.GP8, board.GP9) #, divisor=2)
-        self.zero_pos = -self.encoder.position
+        self.zero_pos = self.encoder.position
 
         # encoder button (enter)
         self.button = self.config_button(board.GP10)
