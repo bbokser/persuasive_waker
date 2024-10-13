@@ -48,6 +48,8 @@
 - Improve IR accuracy (or switch to better method)
 - Piezo music
 - Get temperature reading from DS3231
+- Gradual vs immediate alarm setting?
+- The midnight-crossing problem
 
 ### Available Pins
 board.A0 board.GP26 board.GP26_A0 (GPIO26)

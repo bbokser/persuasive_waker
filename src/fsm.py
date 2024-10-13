@@ -12,12 +12,28 @@ class State:
     def exit(self):
         pass
 
+    def execute_default(self):
+        if self.FSM.alarm_status is True:
+            self.FSM.to_transition('toAlarming')
+
+
+class Alarming(State):
+    def __init__(self, fsm):
+        super().__init__(fsm)
+
+    def execute(self):
+        if self.FSM.alarm_status == False:
+            self.FSM.to_transition('toDefault')
+            return str('end_alarming')
+        return str('alarming')
+    
 
 class Default(State):
     def __init__(self, fsm):
         super().__init__(fsm)
 
     def execute(self):
+        self.execute_default()
         if self.FSM.set_date == True:
             self.FSM.to_transition('toSetYear')
             return str('start_set_year')
@@ -33,12 +49,13 @@ class Default(State):
         else:
             pass
         return str('default')
-
+    
 class SetYear(State):
     def __init__(self, fsm):
         super().__init__(fsm)
 
     def execute(self):
+        self.execute_default()
         if self.FSM.enter == True:
             self.FSM.to_transition('toSetMonth')
             return str('start_set_month')
@@ -53,6 +70,7 @@ class SetMonth(State):
         super().__init__(fsm)
 
     def execute(self):
+        self.execute_default()
         if self.FSM.enter == True:
             self.FSM.to_transition('toSetDay')
             return str('start_set_day')
@@ -67,6 +85,7 @@ class SetDay(State):
         super().__init__(fsm)
 
     def execute(self):
+        self.execute_default()
         if self.FSM.enter == True:
             self.FSM.to_transition('toDefault')
             return str('end_set_day')
@@ -81,6 +100,7 @@ class SetHour(State):
         super().__init__(fsm)
 
     def execute(self):
+        self.execute_default()
         if self.FSM.enter == True:
             self.FSM.to_transition('toSetMin')
             return str('start_set_min')
@@ -95,6 +115,7 @@ class SetMin(State):
         super().__init__(fsm)
 
     def execute(self):
+        self.execute_default()
         if self.FSM.enter == True or self.FSM.back == True:
             self.FSM.to_transition('toDefault')
             return str('end_set_min')
@@ -107,6 +128,7 @@ class SetAlarmHour(State):
         super().__init__(fsm)
 
     def execute(self):
+        self.execute_default()
         if self.FSM.enter == True:
             self.FSM.to_transition('toSetAlarmMin')
             return str('start_set_alarm_min')
@@ -120,6 +142,7 @@ class SetAlarmMin(State):
         super().__init__(fsm)
 
     def execute(self):
+        self.execute_default()
         if self.FSM.enter == True:
             self.FSM.to_transition('toDefault')
             return str('end_set_alarm_min')
@@ -133,6 +156,7 @@ class SetBrightness(State):
         super().__init__(fsm)
 
     def execute(self):
+        self.execute_default()
         if self.FSM.enter == True:
             self.FSM.to_transition('toDefault')
             return str('end_set_brightness')
@@ -166,7 +190,10 @@ class FSM:
         self.set_alarm = False
         self.set_brightness = False
 
+        self.alarm_status = False
+
         self.add_state('default', Default(self))
+        self.add_state('alarming', Alarming(self))
         self.add_state('set_year', SetYear(self))
         self.add_state('set_month', SetMonth(self))
         self.add_state('set_day', SetDay(self))
@@ -176,6 +203,7 @@ class FSM:
         self.add_state('set_alarm_min', SetAlarmMin(self))
         self.add_state('set_brightness', SetBrightness(self))
 
+        self.add_transition('toAlarming', Transition('alarming'))
         self.add_transition('toSetYear', Transition('set_year'))
         self.add_transition('toSetMonth', Transition('set_month'))
         self.add_transition('toSetDay', Transition('set_day'))
@@ -203,13 +231,16 @@ class FSM:
         # set the transition state
         self.trans = self.transitions[to_trans]
 
-    def execute(self, enter, back, set_date, set_time, set_alarm, set_brightness):
+    def execute(self, enter, back, 
+                set_date, set_time, set_alarm, set_brightness, 
+                alarm_status):
         self.enter = enter
         self.back = back
         self.set_date = set_date
         self.set_time = set_time
         self.set_alarm = set_alarm
         self.set_brightness = set_brightness
+        self.alarm_status = alarm_status
         
         if self.trans:
             self.curState.exit()

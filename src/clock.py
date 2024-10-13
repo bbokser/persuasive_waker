@@ -16,6 +16,7 @@ class Clock():
     def __init__(self, i2c: I2C):
         self.rtc = adafruit_ds3231.DS3231(i2c)
         self.alarm_enable = False
+        self.alarm_delta_max = 10 * 60  # max alarm ring time, seconds
         self.datetime_refresh = self.get_datetime_now()
         
     def set_date(self, year:int, month:int, day:int):
@@ -78,15 +79,28 @@ class Clock():
                                               self.rtc.datetime.tm_wday, -1, -1)), "daily")
         self.alarm_enable = enable
 
-    def get_alarm_status(self)->bool:
-        return self.rtc.alarm1_status
+    def get_alarm_status(self, cancel:bool)->bool:
+        '''
+        A large number of criteria must be reached for the alarm to 
+        really, truly be allowed to sound
+        '''
+        if self.alarm_enable and self.rtc.alarm1_status and not cancel:
+            alarm_delta = self.get_alarm_delta()
+            if 0 <= alarm_delta <= self.alarm_delta_max:
+                alarm_status = True
+            else:
+                self.reset_alarm()
+                alarm_status = False
+        else:
+            alarm_status = False
+        return alarm_status
     
     def reset_alarm(self)->None:
         self.rtc.alarm1_status = False
 
     def disable_alarm(self)->None:
         self.alarm_enable = False
-        
+    
     def get_alarm_hour(self)->int:
         alarm_time, _ = self.rtc.alarm1
         return alarm_time.tm_hour
@@ -100,13 +114,13 @@ class Clock():
             return '{:d}:{:02d}'.format(self.get_alarm_hour(), self.get_alarm_min())
         else:
             return 'None'
-    
-    def get_alarm_t(self)->adafruit_datetime.date:
+
+    def get_datetime_alarm(self)->adafruit_datetime.datetime:
         # get time of next alarm
         t = self.get_datetime_now()
-        return t.replace(hour=self.get_alarm_hour(), minute=self.get_alarm_min())
-
-    def get_datetime_now(self)->adafruit_datetime.date:
+        return t.replace(hour=self.get_alarm_hour(), minute=self.get_alarm_min(), second=0)
+    
+    def get_datetime_now(self)->adafruit_datetime.datetime:
         return adafruit_datetime.datetime.fromtimestamp(time.mktime(self.rtc.datetime))
     
     def get_delta(self, t_then:adafruit_datetime.date)->float:
@@ -119,7 +133,7 @@ class Clock():
     
     def get_alarm_delta(self)->float:
         # get time until next alarm
-        return self.get_delta(self.get_alarm_t())
+        return self.get_delta(self.get_datetime_alarm())
     
     def get_refresh_delta(self)->float:
         # get time since last refresh
