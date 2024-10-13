@@ -144,7 +144,7 @@ while True:
     
     if clock.alarm_enable is True and clock.get_alarm_status() == True:
         delta = clock.get_alarm_delta()
-        if -delta_max < delta <= 0:
+        if 0 <= delta <= delta_max:
             # if ir_sensor.check_ir() is True:
             # temporary solution to IR problem
             if buttons[5] is True:

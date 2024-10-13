@@ -104,7 +104,7 @@ class Clock():
     def get_alarm_t(self)->adafruit_datetime.date:
         # get time of next alarm
         t = self.get_datetime_now()
-        return t.replace(hour=self.get_alarm_hour(), minute=self.get_alarm_hour())
+        return t.replace(hour=self.get_alarm_hour(), minute=self.get_alarm_min())
 
     def get_datetime_now(self)->adafruit_datetime.date:
         return adafruit_datetime.datetime.fromtimestamp(time.mktime(self.rtc.datetime))
@@ -112,8 +112,8 @@ class Clock():
     def get_delta(self, t_then:adafruit_datetime.date)->float:
          # get difference between now and a specified time
         # https://stackoverflow.com/questions/3096953/how-to-calculate-the-time-interval-between-two-time-strings
-        # if then is in the future, result is positive
-        # if then is in the past, result is negative
+        # if then is in the future, result is negative
+        # if then is in the past, result is positive
         t_delta = self.get_datetime_now() - t_then
         return t_delta.total_seconds()  # time delta in seconds
     
