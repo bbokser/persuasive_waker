@@ -43,6 +43,8 @@
     - At least move it closer to the pico
 
 ### Software
+- Add functionality to set day of week...?
+- Make e-ink update for any of the displayed info changing
 - Figure out why variable_frequency is invalid
 - Integrate FSM better
 - Improve IR accuracy (or switch to better method)
@@ -50,6 +52,9 @@
 - Get temperature reading from DS3231
 - Gradual vs immediate alarm setting?
 - The midnight-crossing problem
+- Lowest brightness setting won't have visible winking
+- Make disp blink when alarm sounds 
+    - temp disabled because blinking interferes with button presses
 
 ### Available Pins
 board.A0 board.GP26 board.GP26_A0 (GPIO26)

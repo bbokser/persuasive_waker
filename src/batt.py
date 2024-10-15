@@ -12,4 +12,5 @@ class Batt():
         self.usb_power = digitalio.DigitalInOut(board.VBUS_SENSE)
     
     def get_batt_frac(self)->float:
-        return percentize(self._v_batt.value, min=self._v_batt_min, max=self._v_batt_max)
+        volts = self._v_batt.value * 3.3/65536
+        return percentize(volts, min=self._v_batt_min, max=self._v_batt_max)

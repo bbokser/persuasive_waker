@@ -5,12 +5,10 @@ import utils
 # from ulab import numpy as np
 import board
 import displayio
-from fourwire import FourWire
 import terminalio
 import vectorio
 import busio
 import adafruit_ssd1680
-# import adafruit_spd1656
 import supervisor
 from adafruit_display_text.bitmap_label import Label
 
@@ -28,23 +26,20 @@ class InkDisp():
         epd_dc = board.GP3
         epd_reset = board.GP20
         epd_busy = board.GP21
-        display_bus = FourWire(
-            spi, command=epd_dc, chip_select=epd_cs, reset=epd_reset, baudrate=1000000)
-
+        display_bus = displayio.FourWire(
+            spi, command=epd_dc, chip_select=epd_cs, reset=epd_reset, baudrate=1000000
+        )
+        # time.sleep(1)
         # For issues with display not updating top/bottom rows correctly set colstart to 8
         display = adafruit_ssd1680.SSD1680(
             # for 2.13" 250x122 display (waveshare 12672)
             display_bus,
+            colstart=0,
             width=250,
             height=122,
-            busy_pin=epd_busy,
             highlight_color=0xFF0000,
-            rotation=270,
+            rotation=90,
         )
-
-        # display = adafruit_spd1656.SPD1656(
-        #     display_bus, width=600, height=448, busy_pin=epd_busy)
-
         # create displayio group
         g = displayio.Group()
 
@@ -86,7 +81,7 @@ class InkDisp():
     
     def draw_text(self, text: str, x: int, y: int, color: str):
         # display = self.display
-        lbl = Label(terminalio.FONT, text=text, color=utils.colors[color], scale=3)
+        lbl = Label(terminalio.FONT, text=text, color=utils.colors[color], scale=1)
         lbl.anchor_point = (0.5, 0.5)
         lbl.anchored_position = (x, y)  # (display.width // 2, display.height // 2) 
         self.g.append(lbl)

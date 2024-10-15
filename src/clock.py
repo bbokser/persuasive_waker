@@ -22,7 +22,7 @@ class Clock():
     def set_date(self, year:int, month:int, day:int):
         year = utils.clip(year, 1970, 2037)  # duct-tape Y2038 problem
         self.rtc.datetime = time.struct_time((year, 
-                                              month, 
+                                              month,
                                               day, 
                                               self.rtc.datetime.tm_hour, 
                                               self.rtc.datetime.tm_min, 
