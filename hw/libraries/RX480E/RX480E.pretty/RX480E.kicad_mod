@@ -1,0 +1,220 @@
+(footprint "RX480E"
+	(version 20240108)
+	(generator "pcbnew")
+	(generator_version "8.0")
+	(layer "F.Cu")
+	(property "Reference" "REF**"
+		(at 22.86 -2.54 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "5b055f38-b7d0-443a-b501-fb1e28dd99bd")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+		)
+	)
+	(property "Value" "RX480E"
+		(at 15.24 1 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "d91bbda1-ba02-4c65-a34f-f36ed8f56d50")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Footprint" "RX480E"
+		(at 10.16 -6.35 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "71d705a2-a152-428b-9021-935daa43a780")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "2fb00340-7ef3-4820-a638-1e65468a2c47")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "2118178e-2302-4a9f-8d78-e5fcb463e971")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr through_hole)
+	(fp_line
+		(start 0 -5.08)
+		(end 20.32 -5.08)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "63a9531b-8022-496f-811f-cdc03d5ed65a")
+	)
+	(fp_line
+		(start 0 5.08)
+		(end 0 -5.08)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "85b204eb-b856-4bdb-a7d8-26583b94d376")
+	)
+	(fp_line
+		(start 20.32 -5.08)
+		(end 20.32 -1.27)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "d080ecb2-c8a4-4395-94fc-5c6907f0864a")
+	)
+	(fp_line
+		(start 20.32 -1.27)
+		(end 30.48 -1.27)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "a9b1f3e3-727a-4aee-bd6c-fdbe6b1184ba")
+	)
+	(fp_line
+		(start 30.48 -1.27)
+		(end 30.48 5.08)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "a7b2a1d9-e892-4b73-b2e8-91b4012c52f6")
+	)
+	(fp_line
+		(start 30.48 5.08)
+		(end 0 5.08)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(layer "F.SilkS")
+		(uuid "3a85a47d-efff-4544-b069-bcc7997e6b02")
+	)
+	(fp_circle
+		(center 1.27 -3.73)
+		(end 1.52 -3.73)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(fill solid)
+		(layer "F.SilkS")
+		(uuid "53a94d46-21a9-46f6-a95a-ebfa14cd841d")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 15.24 2.54 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "20aceab8-27b3-436f-98ff-3eefa14285cf")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "1" thru_hole rect
+		(at 2.54 -2.54)
+		(size 2 2)
+		(drill 1.016)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "458aad4b-9648-400a-8cd9-6174f588a865")
+	)
+	(pad "2" thru_hole circle
+		(at 5.08 -2.54)
+		(size 2 2)
+		(drill 1.016)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "2b9d3afd-8044-4042-a111-174f9bf542dc")
+	)
+	(pad "3" thru_hole circle
+		(at 7.62 -2.54)
+		(size 2 2)
+		(drill 1.016)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "ececa6eb-7461-4632-a7a9-9aa09f37b4a5")
+	)
+	(pad "4" thru_hole circle
+		(at 10.16267 -2.54267)
+		(size 2 2)
+		(drill 1.016)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "dbfcf551-f56e-4ef9-8397-6db94cbdae8a")
+	)
+	(pad "5" thru_hole circle
+		(at 12.7 -2.54)
+		(size 2 2)
+		(drill 1.016)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "19edcfa1-763a-49c6-bf94-348306cd77ac")
+	)
+	(pad "6" thru_hole circle
+		(at 15.24 -2.54)
+		(size 2 2)
+		(drill 1.016)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "77338bd7-3358-44c7-ae03-d8b82d9a0010")
+	)
+	(pad "7" thru_hole circle
+		(at 17.78 -2.54)
+		(size 2 2)
+		(drill 1.016)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "184f370d-d721-4fbf-88ed-54cdfae1d5e9")
+	)
+	(model "C:/Users/bboks/Documents/git_windows/source/rp2040-alarm-clock/hw/libraries/RX480E/RX480E-4.STEP"
+		(offset
+			(xyz 15.3 -1.7 6.5)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz -90 0 180)
+		)
+	)
+)
