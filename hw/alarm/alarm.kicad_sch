@@ -3551,7 +3551,7 @@
 				(pin passive line
 					(at 0 -5.08 0)
 					(length 5.08)
-					(name "-"
+					(name "+"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -3587,7 +3587,7 @@
 				(pin passive line
 					(at 0 0 0)
 					(length 5.08)
-					(name "+"
+					(name "-"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -8249,16 +8249,6 @@
 	)
 	(wire
 		(pts
-			(xy 191.77 73.66) (xy 184.15 73.66)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "687f6d99-9c22-4836-b76d-bfb3cb1b459f")
-	)
-	(wire
-		(pts
 			(xy 396.24 175.26) (xy 403.86 175.26)
 		)
 		(stroke
@@ -9689,7 +9679,7 @@
 	)
 	(wire
 		(pts
-			(xy 191.77 73.66) (xy 191.77 74.93)
+			(xy 158.75 73.66) (xy 173.99 73.66)
 		)
 		(stroke
 			(width 0)
@@ -9959,6 +9949,16 @@
 	)
 	(wire
 		(pts
+			(xy 179.07 73.66) (xy 179.07 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f8f43863-1493-46b7-b93e-27e43b81339e")
+	)
+	(wire
+		(pts
 			(xy 186.69 278.13) (xy 194.31 278.13)
 		)
 		(stroke
@@ -9966,16 +9966,6 @@
 			(type default)
 		)
 		(uuid "f9f3f3d1-6e48-46c8-9d42-e28f00012f25")
-	)
-	(wire
-		(pts
-			(xy 179.07 73.66) (xy 179.07 74.93)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fa39028f-4d4a-404b-8386-0565cb3bff30")
 	)
 	(wire
 		(pts
@@ -16129,7 +16119,7 @@
 	)
 	(symbol
 		(lib_id "SamacSys_Parts:975")
-		(at 179.07 73.66 90)
+		(at 173.99 73.66 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -16138,7 +16128,7 @@
 		(fields_autoplaced yes)
 		(uuid "9ede3082-7a1b-4d39-9ef0-83bf54c7fa3a")
 		(property "Reference" "J3"
-			(at 187.96 62.2299 90)
+			(at 182.88 62.2299 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16147,7 +16137,7 @@
 			)
 		)
 		(property "Value" "975"
-			(at 187.96 64.7699 90)
+			(at 182.88 64.7699 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16156,7 +16146,7 @@
 			)
 		)
 		(property "Footprint" "975"
-			(at 273.99 57.15 0)
+			(at 268.91 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16166,7 +16156,7 @@
 			)
 		)
 		(property "Datasheet" "https://componentsearchengine.com/Datasheets/1/975.pdf"
-			(at 373.99 57.15 0)
+			(at 368.91 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16176,7 +16166,7 @@
 			)
 		)
 		(property "Description" "Headers & Wire Housings WIRE TO BOARD THM CONN, 3 TERM, VERT"
-			(at 179.07 73.66 0)
+			(at 173.99 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16185,7 +16175,7 @@
 			)
 		)
 		(property "Height" "7.7"
-			(at 573.99 57.15 0)
+			(at 568.91 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16195,7 +16185,7 @@
 			)
 		)
 		(property "Mouser Part Number" "534-975"
-			(at 673.99 57.15 0)
+			(at 668.91 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16205,7 +16195,7 @@
 			)
 		)
 		(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Keystone-Electronics/975?qs=5aG0NVq1C4xEu03Xxaum1g%3D%3D"
-			(at 773.99 57.15 0)
+			(at 768.91 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16215,7 +16205,7 @@
 			)
 		)
 		(property "Manufacturer_Name" "Keystone Electronics"
-			(at 873.99 57.15 0)
+			(at 868.91 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16225,7 +16215,7 @@
 			)
 		)
 		(property "Manufacturer_Part_Number" "975"
-			(at 973.99 57.15 0)
+			(at 968.91 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18785,7 +18775,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 191.77 74.93 0)
+		(at 158.75 73.66 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -18794,7 +18784,7 @@
 		(fields_autoplaced yes)
 		(uuid "f23e1dd8-b4b7-45a3-8727-6b6917a21c98")
 		(property "Reference" "#PWR019"
-			(at 191.77 81.28 0)
+			(at 152.4 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18803,7 +18793,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 191.77 80.01 0)
+			(at 153.67 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18811,7 +18801,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 191.77 74.93 0)
+			(at 158.75 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18820,7 +18810,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 191.77 74.93 0)
+			(at 158.75 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18829,7 +18819,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 191.77 74.93 0)
+			(at 158.75 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
