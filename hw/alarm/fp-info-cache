@@ -1,4 +1,4 @@
-23461454559653683
+23466678955456031
 4328
 ADAFRUIT_4328
 
@@ -87920,6 +87920,20 @@ Schottky Diode
 3
 3
 SamacSys_Parts
+FFC2B3524T
+FFC2B35-24-T-1
+Connector
+0
+26
+26
+SamacSys_Parts
+FH19C24S05SH10
+FH19C-24S-0.5SH(10)-1
+Connector
+0
+26
+26
+SamacSys_Parts
 HPZRC18QX
 HPZR-C18-QX-2
 Diode
@@ -88038,6 +88052,13 @@ Integrated Circuit
 0
 4
 4
+SamacSys_Parts
+SM04BSRSSTBLFSNP
+SM04B-SRSS-TB(LF)(SN)(P)-1
+Connector
+0
+6
+6
 SamacSys_Parts
 SMF24VTR
 SMF24VTR-1

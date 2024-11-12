@@ -1,36 +1,248 @@
-(module "SOT96P240X115-3N" (layer F.Cu)
-  (descr "DMG2305UX-7")
-  (tags "MOSFET (P-Channel)")
-  (attr smd)
-  (fp_text reference Q** (at 0 0) (layer F.SilkS)
-    (effects (font (size 1.27 1.27) (thickness 0.254)))
-  )
-  (fp_text user %R (at 0 0) (layer F.Fab)
-    (effects (font (size 1.27 1.27) (thickness 0.254)))
-  )
-  (fp_text value "SOT96P240X115-3N" (at 0 0) (layer F.SilkS) hide
-    (effects (font (size 1.27 1.27) (thickness 0.254)))
-  )
-  (fp_line (start -1.925 -1.75) (end 1.925 -1.75) (layer F.CrtYd) (width 0.05))
-  (fp_line (start 1.925 -1.75) (end 1.925 1.75) (layer F.CrtYd) (width 0.05))
-  (fp_line (start 1.925 1.75) (end -1.925 1.75) (layer F.CrtYd) (width 0.05))
-  (fp_line (start -1.925 1.75) (end -1.925 -1.75) (layer F.CrtYd) (width 0.05))
-  (fp_line (start -0.65 -1.45) (end 0.65 -1.45) (layer F.Fab) (width 0.1))
-  (fp_line (start 0.65 -1.45) (end 0.65 1.45) (layer F.Fab) (width 0.1))
-  (fp_line (start 0.65 1.45) (end -0.65 1.45) (layer F.Fab) (width 0.1))
-  (fp_line (start -0.65 1.45) (end -0.65 -1.45) (layer F.Fab) (width 0.1))
-  (fp_line (start -0.65 -0.49) (end 0.31 -1.45) (layer F.Fab) (width 0.1))
-  (fp_line (start -0.175 -1.45) (end 0.175 -1.45) (layer F.SilkS) (width 0.2))
-  (fp_line (start 0.175 -1.45) (end 0.175 1.45) (layer F.SilkS) (width 0.2))
-  (fp_line (start 0.175 1.45) (end -0.175 1.45) (layer F.SilkS) (width 0.2))
-  (fp_line (start -0.175 1.45) (end -0.175 -1.45) (layer F.SilkS) (width 0.2))
-  (fp_line (start -1.675 -1.51) (end -0.525 -1.51) (layer F.SilkS) (width 0.2))
-  (pad 1 smd rect (at -1.1 -0.96 90) (size 0.6 1.15) (layers F.Cu F.Paste F.Mask))
-  (pad 2 smd rect (at -1.1 0.96 90) (size 0.6 1.15) (layers F.Cu F.Paste F.Mask))
-  (pad 3 smd rect (at 1.1 0 90) (size 0.6 1.15) (layers F.Cu F.Paste F.Mask))
-  (model "C:\\Users\\bboks\\Documents\\SamacSys_PCB_Library\\SamacSys_Parts.3dshapes\\DMG2305UX-7.stp"
-    (at (xyz 0 0 0))
-    (scale (xyz 1 1 1))
-    (rotate (xyz 0 0 0))
-  )
+(footprint "SOT96P240X115-3N"
+	(version 20240108)
+	(generator "pcbnew")
+	(generator_version "8.0")
+	(layer "F.Cu")
+	(descr "DMG2305UX-7")
+	(tags "MOSFET (P-Channel)")
+	(property "Reference" "Q**"
+		(at -3.5 -1 0)
+		(layer "F.SilkS")
+		(uuid "3fcafe5c-081f-4620-bdbb-277bf2e480a8")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+			)
+		)
+	)
+	(property "Value" "SOT96P240X115-3N"
+		(at 0 0 0)
+		(layer "F.SilkS")
+		(hide yes)
+		(uuid "c7d6e44b-8295-4da2-9538-479a99aeb226")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+			)
+		)
+	)
+	(property "Footprint" "SOT96P240X115-3N"
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "5e9e36fe-bb8e-4e18-b18b-b42621ce99d8")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "1951a341-0138-4034-9dd5-7d09aad347ec")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "caf5ac00-bdcb-4f91-ba3f-f17118c4a1f6")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(attr smd)
+	(fp_line
+		(start -1.675 -1.51)
+		(end -0.525 -1.51)
+		(stroke
+			(width 0.2)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "799dc74a-8925-4b1c-aec4-d62bb0eda9d4")
+	)
+	(fp_line
+		(start -0.175 -1.45)
+		(end 0.175 -1.45)
+		(stroke
+			(width 0.2)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "d77417b7-f27e-4340-a170-13925f6e3dd9")
+	)
+	(fp_line
+		(start -0.175 1.45)
+		(end -0.175 -1.45)
+		(stroke
+			(width 0.2)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "2feba389-72f8-4f13-b702-5fc4a4ffbf90")
+	)
+	(fp_line
+		(start 0.175 -1.45)
+		(end 0.175 1.45)
+		(stroke
+			(width 0.2)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "55c29ce8-cbde-4fcd-8563-a42d390dfb0c")
+	)
+	(fp_line
+		(start 0.175 1.45)
+		(end -0.175 1.45)
+		(stroke
+			(width 0.2)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "32b00a24-0834-4068-83a8-8309bc0a8f29")
+	)
+	(fp_line
+		(start -1.925 -1.75)
+		(end 1.925 -1.75)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "a5e5214d-f5af-4134-ba95-ea7d6f0c077a")
+	)
+	(fp_line
+		(start -1.925 1.75)
+		(end -1.925 -1.75)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "56b7ed8c-6247-4b45-bf70-be1f546df00e")
+	)
+	(fp_line
+		(start 1.925 -1.75)
+		(end 1.925 1.75)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "16a382f5-96d2-42f8-8029-ee989acaecee")
+	)
+	(fp_line
+		(start 1.925 1.75)
+		(end -1.925 1.75)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "8ed22974-97e4-4729-b4ff-7c09830bfbff")
+	)
+	(fp_line
+		(start -0.65 -1.45)
+		(end 0.65 -1.45)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "e689f781-51e5-45ff-babd-999561ea7a37")
+	)
+	(fp_line
+		(start -0.65 -0.49)
+		(end 0.31 -1.45)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "f8a7302a-427f-4ebf-b124-a0f3146f30e7")
+	)
+	(fp_line
+		(start -0.65 1.45)
+		(end -0.65 -1.45)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "af2e2766-3f43-4936-ac0d-5c9911e37fe6")
+	)
+	(fp_line
+		(start 0.65 -1.45)
+		(end 0.65 1.45)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "8b6354b2-ed86-4d40-80f6-9b99ba679c4e")
+	)
+	(fp_line
+		(start 0.65 1.45)
+		(end -0.65 1.45)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "ef0ec4ff-af58-4e90-bfee-32d3f603ca04")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(uuid "7caac33f-4494-4b07-921c-6f5d5b953751")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+			)
+		)
+	)
+	(pad "1" smd rect
+		(at -1.1 -0.96 90)
+		(size 0.6 1.15)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(uuid "c236158a-9f2c-4aec-b02e-e89eb5177633")
+	)
+	(pad "2" smd rect
+		(at -1.1 0.96 90)
+		(size 0.6 1.15)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(uuid "22338868-d6be-4803-9e58-0c0b5c5a1ba9")
+	)
+	(pad "3" smd rect
+		(at 1.1 0 90)
+		(size 0.6 1.15)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(uuid "532f489a-9569-4a4c-9d6a-6257f4e10673")
+	)
+	(model "C:\\Users\\bboks\\Documents\\SamacSys_PCB_Library\\SamacSys_Parts.3dshapes\\DMG2305UX-7.stp"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
 )

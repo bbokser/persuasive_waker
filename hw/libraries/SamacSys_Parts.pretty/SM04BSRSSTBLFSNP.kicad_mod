@@ -1,0 +1,298 @@
+(footprint "SM04BSRSSTBLFSNP"
+	(version 20240108)
+	(generator "pcbnew")
+	(generator_version "8.0")
+	(layer "F.Cu")
+	(descr "SM04B-SRSS-TB(LF)(SN)(P)-1")
+	(tags "Connector")
+	(property "Reference" "J**"
+		(at 0 -0.287 0)
+		(layer "F.SilkS")
+		(uuid "9eee8098-7393-47b1-ae53-e142edbf052e")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+			)
+		)
+	)
+	(property "Value" "SM04BSRSSTBLFSNP"
+		(at 0 -0.287 0)
+		(layer "F.SilkS")
+		(hide yes)
+		(uuid "8fee492d-b06f-439c-836d-dc7b1d4546ad")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+			)
+		)
+	)
+	(property "Footprint" "SM04BSRSSTBLFSNP"
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "f7bafefd-cf8a-45b1-a5f3-3ccb574ef2ec")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "dbed9889-b488-456d-a398-b3a980bfe4ae")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "245ff506-7f69-45f2-863d-7de67205c401")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(attr smd)
+	(fp_line
+		(start -3 -1.963)
+		(end -3 0.288)
+		(stroke
+			(width 0.2)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "7f66347d-b0a9-47df-9826-62f93ebd2c06")
+	)
+	(fp_line
+		(start -2.2 -1.963)
+		(end -3 -1.963)
+		(stroke
+			(width 0.2)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "470f6b90-fd1d-495f-ae1f-11bb3e52f61f")
+	)
+	(fp_line
+		(start -1.8 2.287)
+		(end 1.8 2.287)
+		(stroke
+			(width 0.2)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "e61a1593-0c2e-472c-95e4-6d2d15d91058")
+	)
+	(fp_line
+		(start -1.5 -3.6)
+		(end -1.5 -3.6)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "3ec18a76-bc03-4748-841b-4c06dc7a9f03")
+	)
+	(fp_line
+		(start -1.5 -3.5)
+		(end -1.5 -3.5)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "1587708e-645a-476a-a535-0f0b09b6a0d6")
+	)
+	(fp_line
+		(start 2.2 -1.963)
+		(end 3 -1.963)
+		(stroke
+			(width 0.2)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "8d366794-1fb6-478e-abd5-72a03e9cdf2a")
+	)
+	(fp_line
+		(start 3 -1.963)
+		(end 3 0.288)
+		(stroke
+			(width 0.2)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "24cb7e0f-aebe-47e6-bd10-a64857d71086")
+	)
+	(fp_arc
+		(start -1.5 -3.6)
+		(mid -1.45 -3.55)
+		(end -1.5 -3.5)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "cfe7d9ab-6add-4c44-ba4b-c33e58c77811")
+	)
+	(fp_arc
+		(start -1.5 -3.5)
+		(mid -1.55 -3.55)
+		(end -1.5 -3.6)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "8a654603-1db1-4607-aebf-fe5ab3784670")
+	)
+	(fp_line
+		(start -4.4 -4.063)
+		(end 4.4 -4.063)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "23339d7d-efff-4b7a-af0e-7f2fad1dd9cd")
+	)
+	(fp_line
+		(start -4.4 3.487)
+		(end -4.4 -4.063)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "49ac499b-3fb8-4ef6-ac34-c681128d24fe")
+	)
+	(fp_line
+		(start 4.4 -4.063)
+		(end 4.4 3.487)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "dc1ffa13-d4bc-46a2-a7f9-b5b4816da085")
+	)
+	(fp_line
+		(start 4.4 3.487)
+		(end -4.4 3.487)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "b7e59135-f00b-44fe-ae7a-3f1a6843adb0")
+	)
+	(fp_line
+		(start -3 -1.963)
+		(end 3 -1.963)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "312bf72f-26cd-41fa-a3c4-2a63659e00b8")
+	)
+	(fp_line
+		(start -3 2.287)
+		(end -3 -1.963)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "5146b39b-249f-4b49-8450-69a09aae4e3a")
+	)
+	(fp_line
+		(start 3 -1.963)
+		(end 3 2.287)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "f65c637f-c3df-4e97-b7c4-4eccbd8baea2")
+	)
+	(fp_line
+		(start 3 2.287)
+		(end -3 2.287)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "3a51605c-37d9-4699-9238-bbf6d4c23c4b")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 0 -0.287 0)
+		(layer "F.Fab")
+		(uuid "5cebd54a-f0f1-432c-a609-5e59d55726ef")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+			)
+		)
+	)
+	(pad "1" smd rect
+		(at -1.5 -2.287)
+		(size 0.6 1.55)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(uuid "54a67b86-37bf-4303-82ac-b15f218f4501")
+	)
+	(pad "2" smd rect
+		(at -0.5 -2.287)
+		(size 0.6 1.55)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(uuid "eeb716ee-20d6-4602-ba6d-aa9faed0d2db")
+	)
+	(pad "3" smd rect
+		(at 0.5 -2.287)
+		(size 0.6 1.55)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(uuid "ee8aa82c-226d-44be-b73a-61373e3b1b8e")
+	)
+	(pad "4" smd rect
+		(at 1.5 -2.287)
+		(size 0.6 1.55)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(uuid "db3f0009-10a3-4593-877f-1889f05a9b40")
+	)
+	(pad "5" smd rect
+		(at -2.8 1.587)
+		(size 1.2 1.8)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(uuid "76d9ca58-d5f1-4817-b10f-a462f5672904")
+	)
+	(pad "6" smd rect
+		(at 2.8 1.587)
+		(size 1.2 1.8)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(uuid "a545989d-d1a4-462f-8b49-95eaa1739bd2")
+	)
+	(model "C:/Users/bboks/Documents/git_windows/source/rp2040-alarm-clock/hw/libraries/PRT-14417.stp"
+		(offset
+			(xyz 0 1.5 -0.4)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz -90 0 0)
+		)
+	)
+)

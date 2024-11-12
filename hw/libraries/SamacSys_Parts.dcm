@@ -162,4 +162,10 @@ K
 F https://gct.co/connector/ffc2b35
 $ENDCMP
 #
+$CMP SM04B-SRSS-TB_LF__SN__P_
+D Connector Header Surface Mount, Right Angle 4 position 0.039" (1.00mm)
+K
+F https://www.jst-mfg.com/product/pdf/eng/eSH.pdf
+$ENDCMP
+#
 #End Doc Library
