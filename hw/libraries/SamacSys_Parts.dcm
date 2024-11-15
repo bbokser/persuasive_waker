@@ -168,4 +168,10 @@ K
 F https://www.jst-mfg.com/product/pdf/eng/eSH.pdf
 $ENDCMP
 #
+$CMP M20-7920642R
+D 2.54mm (0.1") Pitch DIL Horizontal SMT Socket Assembly, selective gold + tin (Tape & Reel packing), 6+6 contacts
+K
+F https://cdn.harwin.com/pdfs/M20-792R.pdf
+$ENDCMP
+#
 #End Doc Library
