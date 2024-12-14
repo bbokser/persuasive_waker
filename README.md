@@ -2,40 +2,22 @@
 
 # TODO
 
-## Case
-- Cover
-- Encoder cap
-- Buttons
+## Mechanical
+- Top Cover
 
-## Electrical Hardware
+## Electrical
 ### Schematic
-- Reverse voltage protection
-- Use MAX31328 interrupt pin?
-- Since MAX31328 already has temp sense, is SHT40 still best choice?
-- IR circuit
-    - Add missing resistor to IR circuit
-    - Fix LED/resistor values
-    - Change LED to thru-hole so it sticks through cover
-    - Or just switch to NRF452?
-- AS1115 Brightness: max is too high and min isn't low enough
-    - change Rset
-- Piezos too quiet? Switch to one big one
-    - Might need pwm driver
+- Consider whether we really need the interrupts on MAX31328 and AS1115
+- Does the encoder really need an EMI filter?
+
+### Footprints
+- Done
+
 ### Board Layout
-- Better LED cover integration
-- Change 0603s to 0805s?
-- Labels on silkscreen
-- Voltage plane unnecessary?
-- JST 4-pin footprint all pins are incorrect
-- SHT40 has voltage and ground swapped
-- Put ALL surface mount on front
-- FPC Connector has weird-ass feature blocking insertion
-- FPC connector pins are flipped!???
-    - Could be fine if we just use FPC bottom contact rather than top contact
-- Could battery case overlap with thru-hole stuff? It might be doable
-    - At least move it closer to the pico
+- Done
 
 ## Software
+- Encoder 1 increment per tick, not per 2 ticks
 - Add functionality to figure out day of week...?
 - Make e-ink update for any of the displayed info changing
 - Figure out why variable_frequency is invalid
