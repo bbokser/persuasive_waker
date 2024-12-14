@@ -1,5 +1,4 @@
 import rotaryio
-import digitalio
 
 
 class Encoder:
