@@ -78,6 +78,7 @@ while True:
     print("state = ", state)
 
     if state == "default":
+        seg_colon.on()
         as1115.display_hourmin(clock.get_hour(), clock.get_min())
     elif state in [
         "start_set_month",
@@ -88,6 +89,7 @@ while True:
         encoder.rezero()
 
     elif state == "start_set_year":
+        seg_colon.off()
         year = clock.get_year()
         month = clock.get_month()
         day = clock.get_day()
@@ -146,6 +148,7 @@ while True:
         clock.disable_alarm()
 
     elif state == "start_set_brightness":
+        seg_colon.off()
         encoder.rezero()
         brightness_new = as1115.brightness
     elif state == "set_brightness":
