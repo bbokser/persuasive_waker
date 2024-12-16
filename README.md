@@ -7,24 +7,22 @@
 
 ## Electrical
 ### Schematic
-- Consider whether we really need the interrupts on MAX31328 and AS1115
-- Does the encoder really need an EMI filter?
+- Fix the R13 location mistake
+- Test the RF programmer button
 
 ### Footprints
 - Done
 
 ### Board Layout
-- Done
+- Fix button spacing
 
 ## Software
-- Encoder 1 increment per tick, not per 2 ticks
 - Add functionality to figure out day of week...?
 - Make e-ink update for any of the displayed info changing
 - Figure out why variable_frequency is invalid
 - Integrate FSM better
-- Improve IR accuracy (or switch to better method)
 - Piezo music
-- Get temperature reading from DS3231
+- SHT40
 - Gradual vs immediate alarm setting?
 - The midnight-crossing problem
 - Lowest brightness setting won't have visible winking

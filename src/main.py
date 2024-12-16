@@ -12,7 +12,7 @@ from clock import Clock
 from as1115 import AS1115
 from encoder import Encoder
 from piezo import Piezo
-from button import Button
+from button import PinButton, ScanButton
 
 time.sleep(5)  # to ensure serial connection does not fail
 
@@ -20,7 +20,8 @@ time.sleep(5)  # to ensure serial connection does not fail
 i2c = busio.I2C(scl=board.GP5, sda=board.GP4)
 as1115 = AS1115(i2c)
 clock = Clock(i2c)
-rf = Button(board.GP15)
+rf = PinButton(board.GP15)
+enc_button = ScanButton()
 battery = Batt(pin_vbatt=board.VOLTAGE_MONITOR, pin_usb=board.VBUS_SENSE)
 encoder = Encoder(pinA=board.GP1, pinB=board.GP0)
 buzzer = Piezo(board.GP2)
@@ -55,13 +56,13 @@ while True:
     # buttons physical order
     # 3, 4, 5, 6, 2, 1, 0
     state = fsm.execute(
-        enter=buttons[7],
+        enter=enc_button.update(buttons[7]),
         back=buttons[3],
         set_date=buttons[4],
         set_time=buttons[5],
         set_alarm=buttons[6],
         set_brightness=buttons[2],
-        alarm_status=clock.get_alarm_status(rf.get_button()),
+        alarm_status=clock.get_alarm_status(rf.update()),
     )
     print("state = ", state)
 
@@ -143,7 +144,7 @@ while True:
         pass
 
     elif state == "alarming":
-        rf.update_button()
+        rf.update()
         as1115.display_hourmin(clock.get_hour(), clock.get_min())
         # as1115.blink_rate = 1  # this interferes with button presses, add back later
         alarm_delta = clock.get_alarm_delta()
