@@ -13,8 +13,10 @@ from as1115 import AS1115
 from encoder import Encoder
 from piezo import Piezo
 from button import PinButton, ScanButton
+from sense_ht import HTSensor
+from led import LED
 
-time.sleep(5)  # to ensure serial connection does not fail
+# time.sleep(5)  # to ensure serial connection does not fail
 
 # initialize class objects
 i2c = busio.I2C(scl=board.GP5, sda=board.GP4)
@@ -25,6 +27,13 @@ enc_button = ScanButton()
 battery = Batt(pin_vbatt=board.VOLTAGE_MONITOR, pin_usb=board.VBUS_SENSE)
 encoder = Encoder(pinA=board.GP1, pinB=board.GP0)
 buzzer = Piezo(board.GP2)
+sensor = HTSensor(i2c)
+seg_colon = LED(board.GP13)  # segment display colon
+seg_apost = LED(board.GP12)  # segment display apostrophe
+seg_colon.on()
+
+temp_str = sensor.get_temperature()
+humidity_str = sensor.get_humidity()
 date_str = clock.get_date_str()
 alarm_str = clock.get_alarm_str()
 inkdisp = InkDisp(
@@ -33,8 +42,10 @@ inkdisp = InkDisp(
     reset=board.GP17,
     date_init=date_str,
     alarm_init=alarm_str,
-    batt=battery.get_batt_frac(),
-    usb=battery.usb_power.value,
+    temp_init=temp_str,
+    humidity_init=humidity_str,
+    batt_init=battery.get_batt_frac(),
+    usb_init=battery.usb_power.value,
 )
 clock.set_refresh()
 
@@ -140,19 +151,19 @@ while True:
     elif state == "set_brightness":
         as1115.brightness = (brightness_new + encoder.get_encoder_pos()) % 8
         as1115.display_int(as1115.brightness)
+        seg_colon.set_brightness(as1115.brightness / 15)
+        seg_apost.set_brightness(as1115.brightness / 15)
     elif state == "end_set_brightness":
         pass
 
     elif state == "alarming":
         rf.update()
         as1115.display_hourmin(clock.get_hour(), clock.get_min())
-        # as1115.blink_rate = 1  # this interferes with button presses, add back later
         alarm_delta = clock.get_alarm_delta()
         magnitude = utils.clip(abs(alarm_delta / clock.alarm_delta_max), 0.1, 1.0)
         tone = 200  # utils.translate(utils.clip(magnitude, 0.1, 1.), 262, 464)
         buzzer.play(tone=tone, amp=magnitude, on=heartbeat)
     elif state == "end_alarming":
-        # as1115.blink_rate = 0
         clock.reset_alarm()
         buzzer.shutoff()
 

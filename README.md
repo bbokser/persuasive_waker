@@ -6,12 +6,17 @@
 - Top Cover
 
 ## Electrical
+### Testing
+- Test the RF programmer button
+- Test reverse voltage
+- Test midnight-crossing
+- Test reset button for alarm
+
 ### Schematic
 - Fix the R13 location mistake
-- Test the RF programmer button
 
 ### Footprints
-- Done
+- Longer buttons?
 
 ### Board Layout
 - Fix button spacing
@@ -22,12 +27,9 @@
 - Figure out why variable_frequency is invalid
 - Integrate FSM better
 - Piezo music
-- SHT40
 - Gradual vs immediate alarm setting?
 - The midnight-crossing problem
 - Lowest brightness setting won't have visible winking
-- Make disp blink when alarm sounds 
-    - temp disabled because blinking interferes with button presses
 
 ## Available Pins
 board.A0 board.GP26 board.GP26_A0 (GPIO26)
