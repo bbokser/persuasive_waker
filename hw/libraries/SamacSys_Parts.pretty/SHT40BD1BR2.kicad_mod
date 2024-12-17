@@ -1,35 +1,236 @@
-(module "SHT40BD1BR2" (layer F.Cu)
-  (descr "SHT40-BD1B-R2-2")
-  (tags "Integrated Circuit")
-  (attr smd)
-  (fp_text reference IC** (at 0.000 -0) (layer F.SilkS)
-    (effects (font (size 1.27 1.27) (thickness 0.254)))
-  )
-  (fp_text user %R (at 0.000 -0) (layer F.Fab)
-    (effects (font (size 1.27 1.27) (thickness 0.254)))
-  )
-  (fp_text value "SHT40BD1BR2" (at 0.000 -0) (layer F.SilkS) hide
-    (effects (font (size 1.27 1.27) (thickness 0.254)))
-  )
-  (fp_line (start -0.75 0.75) (end 0.75 0.75) (layer F.Fab) (width 0.1))
-  (fp_line (start 0.75 0.75) (end 0.75 -0.75) (layer F.Fab) (width 0.1))
-  (fp_line (start 0.75 -0.75) (end -0.75 -0.75) (layer F.Fab) (width 0.1))
-  (fp_line (start -0.75 -0.75) (end -0.75 0.75) (layer F.Fab) (width 0.1))
-  (fp_line (start -1.95 -1.75) (end 1.95 -1.75) (layer F.CrtYd) (width 0.1))
-  (fp_line (start 1.95 -1.75) (end 1.95 1.75) (layer F.CrtYd) (width 0.1))
-  (fp_line (start 1.95 1.75) (end -1.95 1.75) (layer F.CrtYd) (width 0.1))
-  (fp_line (start -1.95 1.75) (end -1.95 -1.75) (layer F.CrtYd) (width 0.1))
-  (fp_line (start -1.3 -0.4) (end -1.3 -0.4) (layer F.SilkS) (width 0.1))
-  (fp_line (start -1.4 -0.4) (end -1.4 -0.4) (layer F.SilkS) (width 0.1))
-  (fp_arc (start -1.35 -0.4) (end -1.300 -0.4) (angle -180) (layer F.SilkS) (width 0.1))
-  (fp_arc (start -1.35 -0.4) (end -1.400 -0.4) (angle -180) (layer F.SilkS) (width 0.1))
-  (pad 1 smd rect (at -0.700 -0.4 90) (size 0.300 0.500) (layers F.Cu F.Paste F.Mask))
-  (pad 2 smd rect (at -0.700 0.4 90) (size 0.300 0.500) (layers F.Cu F.Paste F.Mask))
-  (pad 3 smd rect (at 0.700 0.4 90) (size 0.300 0.500) (layers F.Cu F.Paste F.Mask))
-  (pad 4 smd rect (at 0.700 -0.4 90) (size 0.300 0.500) (layers F.Cu F.Paste F.Mask))
-  (model "C:\\Users\\bboks\\Documents\\git_windows\\source\\rp2040-alarm-clock\\hw\\libraries\\SamacSys_Parts.3dshapes\\SHT40-BD1B-R2.stp"
-    (at (xyz 0 0 0))
-    (scale (xyz 1 1 1))
-    (rotate (xyz 90 -180 0))
-  )
+(footprint "SHT40BD1BR2"
+	(version 20240108)
+	(generator "pcbnew")
+	(generator_version "8.0")
+	(layer "F.Cu")
+	(descr "SHT40-BD1B-R2-2")
+	(tags "Integrated Circuit")
+	(property "Reference" "IC**"
+		(at 3.81 -1.27 0)
+		(layer "F.SilkS")
+		(uuid "b5d7c1aa-317e-4799-8f16-e253d8fb7059")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+			)
+		)
+	)
+	(property "Value" "SHT40BD1BR2"
+		(at 0 -3.81 0)
+		(layer "F.SilkS")
+		(hide yes)
+		(uuid "16754a3a-b8b4-4bff-b290-223adad4af7e")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+			)
+		)
+	)
+	(property "Footprint" "SHT40BD1BR2"
+		(at 0 3.81 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "07b2bbae-085b-4b55-989e-60328833e67c")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "44eb15c3-35ff-4991-ba5f-0a7aa12620d7")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "3e425736-1c26-4c32-8ec6-9c1af617c759")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(attr smd)
+	(fp_line
+		(start -1.4 -0.4)
+		(end -1.4 -0.4)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "08ff3c8d-5456-435a-a6c6-530fddc4aa30")
+	)
+	(fp_line
+		(start -1.3 -0.4)
+		(end -1.3 -0.4)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "75a3b6ad-6810-4f0e-a956-1aa7874fb9c7")
+	)
+	(fp_arc
+		(start -1.4 -0.4)
+		(mid -1.35 -0.45)
+		(end -1.3 -0.4)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "08bbe45c-a298-4058-afe1-15d31c567289")
+	)
+	(fp_arc
+		(start -1.3 -0.4)
+		(mid -1.35 -0.35)
+		(end -1.4 -0.4)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "f83fd14d-54ff-495e-9b12-92f2c61ec11f")
+	)
+	(fp_line
+		(start -1.95 -1.75)
+		(end 1.95 -1.75)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "7816e38d-2aa6-47cc-bb3f-55bc7f3c152a")
+	)
+	(fp_line
+		(start -1.95 1.75)
+		(end -1.95 -1.75)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "e818e995-f9bc-4f51-ae96-5c006b6b1578")
+	)
+	(fp_line
+		(start 1.95 -1.75)
+		(end 1.95 1.75)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "f67f0e17-4860-4c45-865f-e335511afed2")
+	)
+	(fp_line
+		(start 1.95 1.75)
+		(end -1.95 1.75)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "553aee18-85ee-4a27-b5b6-9edf797d794d")
+	)
+	(fp_line
+		(start -0.75 -0.75)
+		(end -0.75 0.75)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "35e60670-d465-48e4-8886-2b7ecc0abff6")
+	)
+	(fp_line
+		(start -0.75 0.75)
+		(end 0.75 0.75)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "98568e51-7bf9-4b16-94b7-1dc62189643e")
+	)
+	(fp_line
+		(start 0.75 -0.75)
+		(end -0.75 -0.75)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "0ea42464-270e-44ff-b9e9-a151d7ac57f5")
+	)
+	(fp_line
+		(start 0.75 0.75)
+		(end 0.75 -0.75)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "09795531-0c38-450b-a950-cde591ccc49c")
+	)
+	(fp_text user "${REFERENCE}"
+		(at 0 6.35 0)
+		(layer "F.Fab")
+		(uuid "6ddf45cd-339e-45c6-81e8-b3707275deca")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+			)
+		)
+	)
+	(pad "1" smd rect
+		(at -0.7 -0.4 90)
+		(size 0.3 0.5)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(uuid "7bfb0b2f-6d7b-474d-8ffd-0e372f1f5d21")
+	)
+	(pad "2" smd rect
+		(at -0.7 0.4 90)
+		(size 0.3 0.5)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(uuid "9dce7282-9790-493e-bad3-ff3b25f76836")
+	)
+	(pad "3" smd rect
+		(at 0.7 0.4 90)
+		(size 0.3 0.5)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(uuid "81e54f19-56eb-4c55-8a98-2df27c2933b8")
+	)
+	(pad "4" smd rect
+		(at 0.7 -0.4 90)
+		(size 0.3 0.5)
+		(layers "F.Cu" "F.Paste" "F.Mask")
+		(uuid "d375e381-06b6-4f2a-9d1d-42ef13e25b55")
+	)
+	(model "C:\\Users\\bboks\\Documents\\git_windows\\source\\rp2040-alarm-clock\\hw\\libraries\\SamacSys_Parts.3dshapes\\SHT40-BD1B-R2.stp"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 90 -180 0)
+		)
+	)
 )

@@ -116,17 +116,17 @@
         "min_hole_to_hole": 0.25,
         "min_microvia_diameter": 0.2,
         "min_microvia_drill": 0.1,
-        "min_resolved_spokes": 2,
+        "min_resolved_spokes": 1,
         "min_silk_clearance": 0.0,
         "min_text_height": 0.8,
         "min_text_thickness": 0.08,
         "min_through_hole_diameter": 0.3,
-        "min_track_width": 0.0,
+        "min_track_width": 0.1524,
         "min_via_annular_width": 0.1,
-        "min_via_diameter": 0.5,
+        "min_via_diameter": 0.1524,
         "solder_mask_clearance": 0.0,
         "solder_mask_min_width": 0.0,
-        "solder_mask_to_copper_clearance": 0.0,
+        "solder_mask_to_copper_clearance": 0.005,
         "use_height_for_length_calcs": true
       },
       "teardrop_options": [
@@ -471,7 +471,7 @@
       "plot": "C:/Users/bboks/Downloads/08102024alarm/",
       "pos_files": "",
       "specctra_dsn": "",
-      "step": "",
+      "step": "../../../../../../Desktop/alarmv2.step",
       "svg": "",
       "vrml": ""
     },
@@ -641,6 +641,24 @@
           "group_by": false,
           "label": "Description",
           "name": "Description",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Arrow Price/Stock",
+          "name": "Arrow Price/Stock",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "LCSC Part #",
+          "name": "LCSC Part #",
+          "show": true
+        },
+        {
+          "group_by": false,
+          "label": "Arrow Part Number",
+          "name": "Arrow Part Number",
           "show": false
         }
       ],

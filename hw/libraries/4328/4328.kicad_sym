@@ -19,7 +19,7 @@
 			)
 		)
 		(property "Value" "4328"
-			(at -6.604 -10.414 0)
+			(at -5.08 -5.334 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -28,7 +28,7 @@
 			)
 		)
 		(property "Footprint" "4328:ADAFRUIT_4328"
-			(at 0 0 0)
+			(at 0 11.938 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -56,7 +56,7 @@
 			)
 		)
 		(property "MF" "Adafruit"
-			(at 0 0 0)
+			(at 0 35.052 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -66,7 +66,7 @@
 			)
 		)
 		(property "MAXIMUM_PACKAGE_HEIGHT" "4.25mm"
-			(at 0 0 0)
+			(at 0 31.496 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -76,7 +76,7 @@
 			)
 		)
 		(property "Package" "None"
-			(at 0 0 0)
+			(at 0.254 -25.4 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -86,7 +86,7 @@
 			)
 		)
 		(property "Price" "None"
-			(at 0 0 0)
+			(at 0.254 20.32 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -96,7 +96,7 @@
 			)
 		)
 		(property "Check_prices" "https://www.snapeda.com/parts/4328/Adafruit+Industries/view-part/?ref=eda"
-			(at 0 0 0)
+			(at 0.254 -14.986 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -106,7 +106,7 @@
 			)
 		)
 		(property "STANDARD" "Manufacturer Recommendations"
-			(at 0 0 0)
+			(at 0.254 -22.606 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -116,7 +116,7 @@
 			)
 		)
 		(property "PARTREV" "23/3/21"
-			(at 0 0 0)
+			(at 0 24.384 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -126,7 +126,7 @@
 			)
 		)
 		(property "SnapEDA_Link" "https://www.snapeda.com/parts/4328/Adafruit+Industries/view-part/?ref=snap"
-			(at 0 0 0)
+			(at 0.254 -18.288 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -136,7 +136,7 @@
 			)
 		)
 		(property "MP" "4328"
-			(at 0 0 0)
+			(at 5.334 -5.334 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -146,7 +146,7 @@
 			)
 		)
 		(property "Description_1" "\nAdafruit Accessories JST SH 4-pin Vertical Connector (10-pack) - Qwiic Compatible\n"
-			(at 0 0 0)
+			(at 0.508 16.51 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -156,7 +156,7 @@
 			)
 		)
 		(property "Availability" "In Stock"
-			(at 0 0 0)
+			(at 0 28.194 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -166,7 +166,7 @@
 			)
 		)
 		(property "MANUFACTURER" "Adafruit"
-			(at 0 0 0)
+			(at 8.89 19.812 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -177,58 +177,14 @@
 		)
 		(symbol "4328_0_0"
 			(rectangle
-				(start -6.35 -7.62)
-				(end 6.35 10.16)
+				(start -5.08 10.16)
+				(end 7.62 -2.54)
 				(stroke
 					(width 0.254)
 					(type default)
 				)
 				(fill
 					(type background)
-				)
-			)
-			(rectangle
-				(start -5.715 -0.3175)
-				(end -4.1275 0.3175)
-				(stroke
-					(width 0.1)
-					(type default)
-				)
-				(fill
-					(type outline)
-				)
-			)
-			(rectangle
-				(start -5.715 2.2225)
-				(end -4.1275 2.8575)
-				(stroke
-					(width 0.1)
-					(type default)
-				)
-				(fill
-					(type outline)
-				)
-			)
-			(rectangle
-				(start -5.715 4.7625)
-				(end -4.1275 5.3975)
-				(stroke
-					(width 0.1)
-					(type default)
-				)
-				(fill
-					(type outline)
-				)
-			)
-			(rectangle
-				(start -5.715 7.3025)
-				(end -4.1275 7.9375)
-				(stroke
-					(width 0.1)
-					(type default)
-				)
-				(fill
-					(type outline)
 				)
 			)
 			(pin passive line
@@ -303,9 +259,11 @@
 					)
 				)
 			)
+		)
+		(symbol "4328_1_0"
 			(pin passive line
-				(at -11.43 -3.81 0)
-				(length 5.08)
+				(at 12.7 7.62 180)
+				(length 5.08) hide
 				(name "SHIELD"
 					(effects
 						(font
@@ -322,8 +280,8 @@
 				)
 			)
 			(pin passive line
-				(at -11.43 -6.35 0)
-				(length 5.08)
+				(at 12.7 0 180)
+				(length 5.08) hide
 				(name "SHIELD"
 					(effects
 						(font

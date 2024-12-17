@@ -108,4 +108,70 @@ K
 F https://componentsearchengine.com/Datasheets/1/PEC11S-929K-S0015.pdf
 $ENDCMP
 #
+$CMP MAX31328NELB+
+D Package: 5mm x 5mm 10-Pin LGA
+K
+F https://www.analog.com/MAX31328/datasheet
+$ENDCMP
+#
+$CMP CMI-1295IC-0385T
+D Piezo Buzzers & Audio Indicators buzzer, 12 mm x 9.5 mm deep, M, 3 V, 85 dB, Through Hole, Integrated Circuit Audio Indicator
+K
+F https://www.arrow.com/en/products/cmi-1295ic-0385t/cui-devices
+$ENDCMP
+#
+$CMP 2SC5585TL
+D Bipolar Transistors - BJT NPN 12V 0.5A SOT-416
+K
+F https://fscdn.rohm.com/en/products/databook/datasheet/discrete/transistor/bipolar/2sc5585tl-e.pdf
+$ENDCMP
+#
+$CMP 975
+D Headers & Wire Housings WIRE TO BOARD THM CONN, 3 TERM, VERT
+K
+F https://componentsearchengine.com/Datasheets/1/975.pdf
+$ENDCMP
+#
+$CMP CSS-I4B20-SMT-TR
+D Piezo Buzzers & Audio Indicators 8.5 mm, 3.6 V, 85 dB, Surface Mount (SMT), Magnetic Audio Transducer Buzzer
+K
+F https://www.cuidevices.com/product/resource/css-i4b20-smt-tr.pdf
+$ENDCMP
+#
+$CMP nRF24L01P
+D Single Chip 2.4GHz Transceiver
+K
+F 
+$ENDCMP
+#
+$CMP WP710A10LID
+D Kingbright WP710A10LID, WP710A10L Series Red LED, 617 nm, 3mm (T-1) Diffused, Dome Lens Through Hole Package
+K
+F https://www.kingbrightusa.com/images/catalog/SPEC/WP710A10LID.pdf
+$ENDCMP
+#
+$CMP FH19C-24S-0.5SH_10_
+D CONN FFC BOTTOM 24POS 0.50MM R/A
+K
+F https://componentsearchengine.com/Datasheets/2/FH19C-24S-0.5SH(10).pdf
+$ENDCMP
+#
+$CMP FFC2B35-24-T
+D FFC & FPC Connectors .5mm SideEntry Flat Flex Cbl Conn 24P Sn
+K
+F https://gct.co/connector/ffc2b35
+$ENDCMP
+#
+$CMP SM04B-SRSS-TB_LF__SN__P_
+D Connector Header Surface Mount, Right Angle 4 position 0.039" (1.00mm)
+K
+F https://www.jst-mfg.com/product/pdf/eng/eSH.pdf
+$ENDCMP
+#
+$CMP M20-7920642R
+D 2.54mm (0.1") Pitch DIL Horizontal SMT Socket Assembly, selective gold + tin (Tape & Reel packing), 6+6 contacts
+K
+F https://cdn.harwin.com/pdfs/M20-792R.pdf
+$ENDCMP
+#
 #End Doc Library

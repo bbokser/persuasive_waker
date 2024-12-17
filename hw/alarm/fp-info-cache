@@ -1,4 +1,4 @@
-23445887723597045
+23466678955456031
 4328
 ADAFRUIT_4328
 
@@ -84447,6 +84447,13 @@ Skyworks
 0
 7
 7
+RFM69HCW
+RFM69HCW
+
+
+0
+16
+16
 RF_Antenna
 AVX_M620720
 868Mhz, 915Mhz ISM antenna, 6 x 2 x 1.08mm, http://datasheets.avx.com/ethertronics/AVX-E_M620720.pdf
@@ -85623,6 +85630,13 @@ WiFi IEEE802.11 b/g/n
 0
 44
 44
+RX480E
+RX480E
+
+
+0
+7
+7
 Relay_SMD
 Relay_2P2T_10x6mm_TE_IMxxG
 Signal Relay, 10x6mm, 2 Form C, Gull Wings, https://www.te.com/commerce/DocumentDelivery/DDEController?Action=showdoc&DocId=Data+Sheet%7F108-98001%7FZ.1%7Fpdf%7FEnglish%7FENG_DS_108-98001_Z.1.pdf
@@ -87829,6 +87843,20 @@ rotary encoder illuminated switch vertical
 9
 8
 SamacSys_Parts
+2SC5585TL
+2SC5585TL-6
+Transistor BJT NPN
+0
+3
+3
+SamacSys_Parts
+975
+975-4
+Connector
+0
+3
+3
+SamacSys_Parts
 2462
 2462
 Undefined or Miscellaneous
@@ -87842,6 +87870,20 @@ Battery
 0
 2
 2
+SamacSys_Parts
+CMI1295IC0385T
+CMI-1295IC-0385T-1
+Loudspeaker or Buzzer
+0
+2
+2
+SamacSys_Parts
+CSSI4B20SMTTR
+CSS-I4B20-SMT-TR-1
+Loudspeaker or Buzzer
+0
+4
+4
 SamacSys_Parts
 DIOM5336X250N
 SMB_
@@ -87878,6 +87920,20 @@ Schottky Diode
 3
 3
 SamacSys_Parts
+FFC2B3524T
+FFC2B35-24-T-1
+Connector
+0
+26
+26
+SamacSys_Parts
+FH19C24S05SH10
+FH19C-24S-0.5SH(10)-1
+Connector
+0
+26
+26
+SamacSys_Parts
 HPZRC18QX
 HPZR-C18-QX-2
 Diode
@@ -87905,6 +87961,13 @@ Integrated Circuit
 0
 13
 13
+SamacSys_Parts
+MAX31328NELB
+MAX31328NELB+-3
+Integrated Circuit
+0
+10
+10
 SamacSys_Parts
 NE555DR
 D (R-PDSO-G8)
@@ -87955,6 +88018,13 @@ Switch
 4
 4
 SamacSys_Parts
+QFN50P400X400X95-21N-D
+Saw QFN20 (4x4 mm)
+Integrated Circuit
+0
+21
+21
+SamacSys_Parts
 QFP50P1200X1200X120-65N
 tqfp64
 Integrated Circuit
@@ -87982,6 +88052,13 @@ Integrated Circuit
 0
 4
 4
+SamacSys_Parts
+SM04BSRSSTBLFSNP
+SM04B-SRSS-TB(LF)(SN)(P)-1
+Connector
+0
+6
+6
 SamacSys_Parts
 SMF24VTR
 SMF24VTR-1
@@ -88080,6 +88157,13 @@ Integrated Circuit
 0
 3
 3
+SamacSys_Parts
+WP710A10LID
+WP710A10LID-2
+LED
+0
+2
+2
 Sensor
 ASAIR_AM2302_P2.54mm_Lead2.75mm_TabDown
 Temperature and humidity module, http://akizukidenshi.com/download/ds/aosong/AM2302.pdf
