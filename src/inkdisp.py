@@ -46,7 +46,7 @@ class InkDisp:
             width=250,
             height=122,
             highlight_color=0xFF0000,
-            rotation=90,
+            rotation=270,
         )
         # create displayio group
         g = displayio.Group()
@@ -98,7 +98,7 @@ class InkDisp:
         self, text: str, x: int, y: int, color: str = "black", scale: int = 1
     ):
         # display = self.display
-        lbl = Label(terminalio.FONT, text=text, color=utils.colors[color], scale=1)
+        lbl = Label(terminalio.FONT, text=text, color=utils.colors[color], scale=scale)
         lbl.anchor_point = (0.5, 0.5)
         lbl.anchored_position = (x, y)  # (display.width // 2, display.height // 2)
         self.g.append(lbl)
@@ -124,7 +124,7 @@ class InkDisp:
         self.draw_text(text="Alarm: " + alarm, x=x_center, y=y_center)
         self.draw_text(text=date, x=x_center, y=y_center + 30, scale=2)
         self.draw_text(
-            text=temp + " °C, " + humidity + " % Humid",
+            text=temp + " C, " + humidity + " % Humid",
             x=x_center,
             y=y_center + 60,
         )

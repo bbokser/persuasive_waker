@@ -17,9 +17,12 @@
 
 ### Footprints
 - Longer buttons?
+- Find a tall surface mount LED
+- Swich to shorter encoder
 
 ### Board Layout
 - Fix button spacing
+- Rear usb conn?
 
 ## Software
 - Add functionality to figure out day of week...?
@@ -30,6 +33,9 @@
 - Gradual vs immediate alarm setting?
 - The midnight-crossing problem
 - Lowest brightness setting won't have visible winking
+- Tie colon brightness to as1115
+- Figure out SHT40 heating
+- Fix batt message
 
 ## Available Pins
 board.A0 board.GP26 board.GP26_A0 (GPIO26)

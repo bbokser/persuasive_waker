@@ -27,10 +27,11 @@ enc_button = ScanButton()
 battery = Batt(pin_vbatt=board.VOLTAGE_MONITOR, pin_usb=board.VBUS_SENSE)
 encoder = Encoder(pinA=board.GP1, pinB=board.GP0)
 buzzer = Piezo(board.GP2)
-sensor = HTSensor(i2c)
+sensor = HTSensor(i2c, address=0x45)
 seg_colon = LED(board.GP13)  # segment display colon
 seg_apost = LED(board.GP12)  # segment display apostrophe
 seg_colon.on()
+seg_colon.set_brightness(0.5)
 
 temp_str = sensor.get_temperature()
 humidity_str = sensor.get_humidity()
@@ -64,6 +65,7 @@ while True:
 
     buttons = as1115.scan_keys()
 
+    rf_input = rf.update()
     # buttons physical order
     # 3, 4, 5, 6, 2, 1, 0
     state = fsm.execute(
@@ -73,7 +75,7 @@ while True:
         set_time=buttons[5],
         set_alarm=buttons[6],
         set_brightness=buttons[2],
-        alarm_status=clock.get_alarm_status(rf.update()),
+        alarm_status=clock.get_alarm_status(rf_input),
     )
     print("state = ", state)
 
@@ -176,10 +178,14 @@ while True:
     ) and clock.get_refresh_delta() > 180:
         date_str = clock.get_date_str()
         alarm_str = clock.get_alarm_str()
+        temp_str = sensor.get_temperature()
+        humidity_str = sensor.get_humidity()
         inkdisp.clear()
         inkdisp.apply_info(
             date=date_str,
             alarm=alarm_str,
+            temp=temp_str,
+            humidity=humidity_str,
             batt=battery.get_batt_frac(),
             usb=battery.usb_power.value,
         )
