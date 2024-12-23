@@ -14,3 +14,6 @@ class Batt:
     def get_batt_frac(self) -> float:
         volts = self._v_batt.value * 3.3 / 65536
         return percentize(volts, min=self._v_batt_min, max=self._v_batt_max)
+
+    def get_batt_str(self) -> str:
+        return "{:.1f}".format(self.get_batt_frac() * 100)

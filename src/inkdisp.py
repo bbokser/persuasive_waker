@@ -76,7 +76,7 @@ class InkDisp:
     ):
         # display = self.display
         lbl = Label(terminalio.FONT, text=text, color=utils.colors[color], scale=scale)
-        lbl.anchor_point = (0.5, 0.5)
+        lbl.anchor_point = (0.0, 1.0)
         lbl.anchored_position = (x, y)  # (display.width // 2, display.height // 2)
         self.g.append(lbl)
         return None
@@ -85,33 +85,47 @@ class InkDisp:
         display = self.display
         self.draw_bg(color="white")
         x_center = display.width // 2
-        y_center = display.height // 2
-        self.draw_text(text=info["weekday"], x=x_center - 30, y=y_center - 30, scale=3)
+        col_1 = 5
+        col_2 = x_center + 40
+        row_1 = 20
+        row_2 = row_1 + 20
+        row_3 = row_2 + 20
+        row_4 = row_3 + 20
+        row_5 = row_4 + 20
+        row_6 = row_5 + 20
+
+        self.draw_text(text=info["weekday"], x=col_1, y=row_3, scale=5)
         self.draw_text(
             text=info["month"] + " " + info["day"],
-            x=x_center - 30,
-            y=y_center,
-            scale=2,
+            x=col_1,
+            y=row_4 + 10,
+            scale=3,
         )
 
-        self.draw_text(text="Alarm: " + info["alarm"], x=x_center - 30, y=y_center + 30)
+        self.draw_text(text="Alarm: " + info["alarm"], x=col_1, y=row_6, scale=2)
 
         usb_msg = "USB In" if info["usb"] else "Unplugged"
         self.draw_text(
             text=usb_msg,
-            x=x_center + 30,
-            y=y_center - 45,
+            x=col_2,
+            y=row_1,
         )
         self.draw_text(
-            text="Batt: " + str(info["batt"] * 100) + "%",
-            x=x_center + 30,
-            y=y_center - 30,
+            text="Batt:" + info["batt"] + "%",
+            x=col_2,
+            y=row_2,
         )
 
         self.draw_text(
-            text=info["temp"] + " C, " + info["humidity"] + " % Humid",
-            x=x_center,
-            y=y_center + 45,
+            text="Temp:" + info["temp"] + " C",
+            x=col_2,
+            y=row_3,
+        )
+
+        self.draw_text(
+            text="Humid:" + info["humidity"] + " %",
+            x=col_2,
+            y=row_4,
         )
         return None
 
