@@ -57,15 +57,20 @@ class Clock:
         )
         self.datetime_refresh = self.get_datetime_now()
 
-    def get_date_str(self) -> str:
+    def get_weekday_str(self) -> str:
+        return utils.weekday[self.rtc.datetime.tm_wday]
+
+    def get_month_str(self) -> str:
+        return utils.month[self.rtc.datetime.tm_mon - 1]
+
+    def get_day_str(self) -> str:
         current = self.rtc.datetime
-        weekday = utils.weekday[current.tm_wday]
-        month = utils.month[current.tm_mon - 1]
         suffix = get_suffix(current.tm_mday)
-        date_str = "{}, {} {:d}{}, {:d}".format(
-            weekday, month, current.tm_mday, suffix, current.tm_year
-        )
-        return date_str
+        day_str = "{:d}{}".format(current.tm_mday, suffix)
+        return day_str
+
+    def get_year_str(self) -> str:
+        return "{:d}".format(self.rtc.datetime.tm_year)
 
     def get_time_str(self) -> str:
         current = self.rtc.datetime

@@ -36,21 +36,9 @@ class OS(FSM):
         self.seg_colon.on()
         self.seg_colon.set_brightness(0.5)
 
-        temp_str = self.sensor.get_temperature()
-        humidity_str = self.sensor.get_humidity()
-        date_str = self.clock.get_date_str()
-        alarm_str = self.clock.get_alarm_str()
-        self.inkdisp = InkDisp(
-            cs=board.GP21,
-            dc=board.GP22,
-            reset=board.GP17,
-            date_init=date_str,
-            alarm_init=alarm_str,
-            temp_init=temp_str,
-            humidity_init=humidity_str,
-            batt_init=self.battery.get_batt_frac(),
-            usb_init=self.battery.usb_power.value,
-        )
+        self.inkdisp = InkDisp(cs=board.GP21, dc=board.GP22, reset=board.GP17)
+        self.inkdisp.apply_info(self.get_disp_info())
+        self.inkdisp.update()
         self.clock.set_refresh()
 
         self.dt = 0.1
@@ -70,14 +58,12 @@ class OS(FSM):
             # buttons physical order
             # 3, 4, 5, 6, 2, 1, 0
             buttons = self.as1115.scan_keys()
-            # rf_input = self.rf.update()
             self.b_enter = self.enc_button.update(buttons[7])
             self.b_back = buttons[3]
             self.b_set_date = buttons[4]
             self.b_set_time = buttons[5]
             self.b_set_alarm = buttons[6]
             self.b_set_brightness = buttons[2]
-            # clock.get_alarm_status(rf_input)
 
             self.execute()
 
@@ -97,7 +83,10 @@ class OS(FSM):
 
     def get_disp_info(self):
         disp_info = {
-            "date": self.clock.get_date_str(),
+            "weekday": self.clock.get_weekday_str(),
+            "month": self.clock.get_month_str(),
+            "day": self.clock.get_day_str(),
+            "year": self.clock.get_year_str(),
             "alarm": self.clock.get_alarm_str(),
             "temp": self.sensor.get_temperature(),
             "humidity": self.sensor.get_humidity(),

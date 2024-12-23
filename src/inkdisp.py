@@ -20,18 +20,7 @@ displayio.release_displays()
 
 
 class InkDisp:
-    def __init__(
-        self,
-        cs,
-        dc,
-        reset,
-        date_init: str,
-        alarm_init: str,
-        temp_init: str,
-        humidity_init: str,
-        batt_init: str,
-        usb_init: str,
-    ):
+    def __init__(self, cs, dc, reset):
         spi = busio.SPI(clock=board.GP18, MOSI=board.GP19, MISO=None)
         # epd_busy = board.GP16
         display_bus = displayio.FourWire(
@@ -67,18 +56,6 @@ class InkDisp:
 
         self.color_list = color_list
 
-        # initialization routine
-        self.draw_bg(color="white")
-        self.apply_info(
-            date=date_init,
-            alarm=alarm_init,
-            temp=temp_init,
-            humidity=humidity_init,
-            batt=batt_init,
-            usb=usb_init,
-        )
-        self.update()
-
     def clear(self):
         # clear the group
         self.g = displayio.Group()
@@ -104,29 +81,37 @@ class InkDisp:
         self.g.append(lbl)
         return None
 
-    def apply_info(
-        self, date: str, alarm: str, temp: str, humidity: str, batt: float, usb: float
-    ):
+    def apply_info(self, info: dict):
         display = self.display
+        self.draw_bg(color="white")
         x_center = display.width // 2
         y_center = display.height // 2
-        usb_msg = "USB In" if usb else "Unplugged"
+        self.draw_text(text=info["weekday"], x=x_center - 30, y=y_center - 30, scale=3)
+        self.draw_text(
+            text=info["month"] + " " + info["day"],
+            x=x_center - 30,
+            y=y_center,
+            scale=2,
+        )
+
+        self.draw_text(text="Alarm: " + info["alarm"], x=x_center - 30, y=y_center + 30)
+
+        usb_msg = "USB In" if info["usb"] else "Unplugged"
         self.draw_text(
             text=usb_msg,
-            x=x_center,
+            x=x_center + 30,
+            y=y_center - 45,
+        )
+        self.draw_text(
+            text="Batt: " + str(info["batt"] * 100) + "%",
+            x=x_center + 30,
             y=y_center - 30,
         )
+
         self.draw_text(
-            text="Batt: " + str(batt * 100) + "%",
+            text=info["temp"] + " C, " + info["humidity"] + " % Humid",
             x=x_center,
-            y=y_center - 15,
-        )
-        self.draw_text(text="Alarm: " + alarm, x=x_center, y=y_center)
-        self.draw_text(text=date, x=x_center, y=y_center + 30, scale=2)
-        self.draw_text(
-            text=temp + " C, " + humidity + " % Humid",
-            x=x_center,
-            y=y_center + 60,
+            y=y_center + 45,
         )
         return None
 
