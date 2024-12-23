@@ -1,6 +1,13 @@
+import utils
+
+
 class State:
-    def __init__(self, fsm):
-        self.FSM = fsm
+    def __init__(self, fsm, name):
+        self.f = fsm
+        self.name = name
+
+    def punch_in(self):
+        print("enter ", self.name)
 
     def enter(self):
         pass
@@ -11,166 +18,251 @@ class State:
     def exit(self):
         pass
 
+    def punch_out(self):
+        print("exit ", self.name)
+
     def execute_default(self):
-        if self.FSM.alarm_status is True:
-            self.FSM.to_transition("toAlarming")
+        rf_input = self.f.rf.update()
+        if self.f.clock.get_alarm_status(rf_input) is True:
+            self.f.to_transition("toAlarming")
 
 
 class Alarming(State):
-    def __init__(self, fsm):
-        super().__init__(fsm)
+    def __init__(self, fsm, name):
+        super().__init__(fsm, name)
 
     def execute(self):
-        if self.FSM.alarm_status == False:
-            self.FSM.to_transition("toDefault")
-            return str("end_alarming")
-        return str("alarming")
+        rf_input = self.f.rf.update()
+        self.f.as1115.display_hourmin(self.f.clock.get_hour(), self.f.clock.get_min())
+        alarm_delta = self.f.clock.get_alarm_delta()
+        magnitude = utils.clip(
+            abs(alarm_delta / self.f.clock.alarm_delta_max), 0.1, 1.0
+        )
+        tone = 200  # utils.translate(utils.clip(magnitude, 0.1, 1.), 262, 464)
+        self.f.buzzer.play(tone=tone, amp=magnitude, on=self.f.heartbeat)
+
+        if self.f.clock.get_alarm_status(rf_input) == False:
+            self.f.to_transition("toDefault")
+
+    def exit(self):
+        self.f.clock.reset_alarm()
+        self.f.buzzer.shutoff()
 
 
 class Default(State):
-    def __init__(self, fsm):
-        super().__init__(fsm)
+    def __init__(self, fsm, name):
+        super().__init__(fsm, name)
 
     def execute(self):
         self.execute_default()
-        if self.FSM.set_date == True:
-            self.FSM.to_transition("toSetYear")
-            return str("start_set_year")
-        elif self.FSM.set_time == True:
-            self.FSM.to_transition("toSetHour")
-            return str("start_set_hour")
-        elif self.FSM.set_alarm == True:
-            self.FSM.to_transition("toSetAlarmHour")
-            return str("start_set_alarm")
-        elif self.FSM.set_brightness == True:
-            self.FSM.to_transition("toSetBrightness")
-            return str("start_set_brightness")
+        self.f.seg_colon.on()
+        self.f.as1115.display_hourmin(self.f.clock.get_hour(), self.f.clock.get_min())
+
+        if self.f.b_set_date == True:
+            self.f.to_transition("toSetYear")
+        elif self.f.b_set_time == True:
+            self.f.to_transition("toSetHour")
+        elif self.f.b_set_alarm == True:
+            self.f.to_transition("toSetAlarmHour")
+        elif self.f.b_set_brightness == True:
+            self.f.to_transition("toSetBrightness")
         else:
             pass
-        return str("default")
 
 
 class SetYear(State):
-    def __init__(self, fsm):
-        super().__init__(fsm)
+    def __init__(self, fsm, name):
+        super().__init__(fsm, name)
+
+    def enter(self):
+        self.f.seg_colon.off()
+        self.f.year = self.f.clock.get_year()
+        self.f.month = self.f.clock.get_month()
+        self.f.day = self.f.clock.get_day()
+        self.f.encoder.rezero()
 
     def execute(self):
         self.execute_default()
-        if self.FSM.enter == True:
-            self.FSM.to_transition("toSetMonth")
-            return str("start_set_month")
-        elif self.FSM.back == True:
-            self.FSM.to_transition("toDefault")
+        self.f.year_new = utils.wrap_to_range(
+            self.f.year + self.f.encoder.get_encoder_pos(), a=1970, b=2037
+        )
+        self.f.as1115.display_int(self.f.year_new)
+        self.f.as1115.wink_left(self.f.heartbeat)
+        self.f.as1115.wink_right(self.f.heartbeat)
+
+        if self.f.b_enter == True:
+            self.f.to_transition("toSetMonth")
+        elif self.f.b_back == True:
+            self.f.to_transition("toDefault")
         else:
             pass
-        return str("set_year")
 
 
 class SetMonth(State):
-    def __init__(self, fsm):
-        super().__init__(fsm)
+    def __init__(self, fsm, name):
+        super().__init__(fsm, name)
+
+    def enter(self):
+        self.f.encoder.rezero()
 
     def execute(self):
         self.execute_default()
-        if self.FSM.enter == True:
-            self.FSM.to_transition("toSetDay")
-            return str("start_set_day")
-        elif self.FSM.back == True:
-            self.FSM.to_transition("toDefault")
+        self.f.month_new = utils.wrap_to_range(
+            self.f.month + self.f.encoder.get_encoder_pos(), a=1, b=12
+        )
+        self.f.as1115.display_hourmin(self.f.month_new, self.f.day)
+        self.f.as1115.wink_left(self.f.heartbeat)
+
+        if self.f.b_enter == True:
+            self.f.to_transition("toSetDay")
+        elif self.f.b_back == True:
+            self.f.to_transition("toDefault")
         else:
             pass
-        return str("set_month")
 
 
 class SetDay(State):
-    def __init__(self, fsm):
-        super().__init__(fsm)
+    def __init__(self, fsm, name):
+        super().__init__(fsm, name)
+
+    def enter(self):
+        self.f.encoder.rezero()
 
     def execute(self):
         self.execute_default()
-        if self.FSM.enter == True:
-            self.FSM.to_transition("toDefault")
-            return str("end_set_day")
-        elif self.FSM.back == True:
-            self.FSM.to_transition("toDefault")
+        day_max = utils.get_max_day(year=self.f.year_new, month=self.f.month_new)
+        self.f.day_new = utils.wrap_to_range(
+            self.f.day + self.f.encoder.get_encoder_pos(), a=1, b=day_max
+        )
+        self.f.as1115.display_hourmin(self.f.month_new, self.f.day_new)
+        self.f.as1115.wink_right(self.f.heartbeat)
+
+        if self.f.b_enter == True:
+            self.f.to_transition("toDefault")
+        elif self.f.b_back == True:
+            self.f.to_transition("toDefault")
         else:
             pass
-        return str("set_day")
+
+    def exit(self):
+        self.f.clock.set_date(
+            year=self.f.year_new, month=self.f.month_new, day=self.f.day_new
+        )
+        self.f.as1115.unwink()
 
 
 class SetHour(State):
-    def __init__(self, fsm):
-        super().__init__(fsm)
+    def __init__(self, fsm, name):
+        super().__init__(fsm, name)
+
+    def enter(self):
+        self.f.hour = self.f.clock.get_hour()
+        self.f.minute = self.f.clock.get_min()
+        self.f.encoder.rezero()
 
     def execute(self):
         self.execute_default()
-        if self.FSM.enter == True:
-            self.FSM.to_transition("toSetMin")
-            return str("start_set_min")
-        elif self.FSM.back == True:
-            self.FSM.to_transition("toDefault")
+        self.f.hour_new = (self.f.hour + self.f.encoder.get_encoder_pos()) % 24
+        self.f.as1115.display_hourmin(self.f.hour_new, self.f.minute)
+        self.f.as1115.wink_left(self.f.heartbeat)
+
+        if self.f.b_enter == True:
+            self.f.to_transition("toSetMin")
+        elif self.f.b_back == True:
+            self.f.to_transition("toDefault")
         else:
             pass
-        return str("set_hour")
 
 
 class SetMin(State):
-    def __init__(self, fsm):
-        super().__init__(fsm)
+    def __init__(self, fsm, name):
+        super().__init__(fsm, name)
+
+    def enter(self):
+        self.f.encoder.rezero()
 
     def execute(self):
         self.execute_default()
-        if self.FSM.enter == True or self.FSM.back == True:
-            self.FSM.to_transition("toDefault")
-            return str("end_set_min")
+        self.f.min_new = (self.f.minute + self.f.encoder.get_encoder_pos()) % 60
+        self.f.as1115.display_hourmin(self.f.hour_new, self.f.min_new)
+        self.f.as1115.wink_right(self.f.heartbeat)
+
+        if self.f.b_enter == True:
+            self.f.clock.set_time(hour=self.f.hour_new, min=self.f.min_new)
+            self.f.as1115.unwink()
+            self.f.to_transition("toDefault")
+        elif self.f.b_back == True:
+            self.f.to_transition("toDefault")
         else:
             pass
-        return str("set_min")
 
 
 class SetAlarmHour(State):
-    def __init__(self, fsm):
-        super().__init__(fsm)
+    def __init__(self, fsm, name):
+        super().__init__(fsm, name)
+
+    def enter(self):
+        self.f.hour = self.f.clock.get_alarm_hour()
+        self.f.minute = self.f.clock.get_alarm_min()
+        self.f.encoder.rezero()
 
     def execute(self):
         self.execute_default()
-        if self.FSM.enter == True:
-            self.FSM.to_transition("toSetAlarmMin")
-            return str("start_set_alarm_min")
-        elif self.FSM.back == True:
-            self.FSM.to_transition("toDefault")
-            return str("set_no_alarm")
-        return str("set_alarm_hour")
+        self.f.hour_new = (self.f.hour + self.f.encoder.get_encoder_pos()) % 24
+        self.f.as1115.display_hourmin(self.f.hour_new, self.f.minute)
+        self.f.as1115.wink_left(self.f.heartbeat)
+
+        if self.f.b_enter == True:
+            self.f.to_transition("toSetAlarmMin")
+        elif self.f.b_back == True:
+            self.f.clock.disable_alarm()
+            self.f.to_transition("toDefault")
 
 
 class SetAlarmMin(State):
-    def __init__(self, fsm):
-        super().__init__(fsm)
+    def __init__(self, fsm, name):
+        super().__init__(fsm, name)
+
+    def enter(self):
+        self.f.encoder.rezero()
 
     def execute(self):
         self.execute_default()
-        if self.FSM.enter == True:
-            self.FSM.to_transition("toDefault")
-            return str("end_set_alarm_min")
-        elif self.FSM.back == True:
-            self.FSM.to_transition("toDefault")
-            return str("set_no_alarm")
-        return str("set_alarm_min")
+        self.f.min_new = (self.f.minute + self.f.encoder.get_encoder_pos()) % 60
+        self.f.as1115.display_hourmin(self.f.hour_new, self.f.min_new)
+        self.f.as1115.wink_right(self.f.heartbeat)
+
+        if self.f.b_enter == True:
+            self.f.clock.set_alarm(hour=self.f.hour_new, min=self.f.min_new)
+            self.f.as1115.unwink()
+            self.f.to_transition("toDefault")
+        elif self.f.b_back == True:
+            self.f.clock.disable_alarm()
+            self.f.to_transition("toDefault")
 
 
 class SetBrightness(State):
-    def __init__(self, fsm):
-        super().__init__(fsm)
+    def __init__(self, fsm, name):
+        super().__init__(fsm, name)
+
+    def enter(self):
+        self.f.seg_colon.off()
+        self.f.encoder.rezero()
+        self.f.brightness_new = self.f.as1115.brightness
 
     def execute(self):
         self.execute_default()
-        if self.FSM.enter == True:
-            self.FSM.to_transition("toDefault")
-            return str("end_set_brightness")
-        elif self.FSM.back == True:
-            self.FSM.to_transition("toDefault")
-            return str("set_no_brightness")
-        return str("set_brightness")
+        self.f.as1115.brightness = (
+            self.f.brightness_new + self.f.encoder.get_encoder_pos()
+        ) % 8
+        self.f.as1115.display_int(self.f.as1115.brightness)
+        self.f.seg_colon.set_brightness(self.f.as1115.brightness / 15)
+        self.f.seg_apost.set_brightness(self.f.as1115.brightness / 15)
+
+        if self.f.b_enter == True:
+            self.f.to_transition("toDefault")
+        elif self.f.b_back == True:
+            self.f.to_transition("toDefault")
 
 
 class Transition:
@@ -183,32 +275,25 @@ class Transition:
 
 
 class FSM:
-    def __init__(self):
+    def __init__(self, verbose: bool = False):
+        self.verbose = verbose
+
         self.states = {}
         self.transitions = {}
         self.curState = None
         self.prevState = None
         self.trans = None
 
-        self.enter = False
-        self.back = False
-        self.set_date = False
-        self.set_time = False
-        self.set_alarm = False
-        self.set_brightness = False
-
-        self.alarm_status = False
-
-        self.add_state("default", Default(self))
-        self.add_state("alarming", Alarming(self))
-        self.add_state("set_year", SetYear(self))
-        self.add_state("set_month", SetMonth(self))
-        self.add_state("set_day", SetDay(self))
-        self.add_state("set_hour", SetHour(self))
-        self.add_state("set_min", SetMin(self))
-        self.add_state("set_alarm_hour", SetAlarmHour(self))
-        self.add_state("set_alarm_min", SetAlarmMin(self))
-        self.add_state("set_brightness", SetBrightness(self))
+        self.add_state("default", Default)
+        self.add_state("alarming", Alarming)
+        self.add_state("set_year", SetYear)
+        self.add_state("set_month", SetMonth)
+        self.add_state("set_day", SetDay)
+        self.add_state("set_hour", SetHour)
+        self.add_state("set_min", SetMin)
+        self.add_state("set_alarm_hour", SetAlarmHour)
+        self.add_state("set_alarm_min", SetAlarmMin)
+        self.add_state("set_brightness", SetBrightness)
 
         self.add_transition("toAlarming", Transition("alarming"))
         self.add_transition("toSetYear", Transition("set_year"))
@@ -227,7 +312,7 @@ class FSM:
         self.transitions[transname] = transition
 
     def add_state(self, statename, state):
-        self.states[statename] = state
+        self.states[statename] = state(self, statename)
 
     def setstate(self, statename):
         # look for whatever state we passed in within the states dict
@@ -238,24 +323,16 @@ class FSM:
         # set the transition state
         self.trans = self.transitions[to_trans]
 
-    def execute(
-        self, enter, back, set_date, set_time, set_alarm, set_brightness, alarm_status
-    ):
-        self.enter = enter
-        self.back = back
-        self.set_date = set_date
-        self.set_time = set_time
-        self.set_alarm = set_alarm
-        self.set_brightness = set_brightness
-        self.alarm_status = alarm_status
-
+    def execute(self):
         if self.trans:
             self.curState.exit()
+            if self.verbose is True:
+                self.curState.punch_out()
             self.trans.execute()
             self.setstate(self.trans.toState)
+            if self.verbose is True:
+                self.curState.punch_in()
             self.curState.enter()
             self.trans = None
 
-        output = self.curState.execute()
-
-        return output
+        self.curState.execute()
