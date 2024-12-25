@@ -19,8 +19,8 @@ class Clock:
     def __init__(self, i2c: I2C):
         self.rtc = adafruit_ds3231.DS3231(i2c)
         self.alarm_enable = False
-        self.alarm_delta_max = 10 * 60  # max alarm ring time, seconds
-        self.datetime_refresh = self.get_datetime_now()
+        self.alarm_minutes = 10  # max alarm ring time
+        self.alarm_delta_max = self.alarm_minutes * 60  # max alarm ring time, seconds
 
     def set_date(self, year: int, month: int, day: int):
         year = utils.clip(year, 1970, 2037)  # duct-tape Y2038 problem
@@ -38,8 +38,6 @@ class Clock:
                 -1,
             )
         )
-        # prevents premature refresh due to time confusion
-        self.datetime_refresh = self.get_datetime_now()
 
     def set_time(self, hour: int, min: int):
         self.rtc.datetime = time.struct_time(
@@ -55,7 +53,6 @@ class Clock:
                 -1,
             )
         )
-        self.datetime_refresh = self.get_datetime_now()
 
     def get_weekday_str(self) -> str:
         return utils.weekday[self.rtc.datetime.tm_wday]
@@ -150,9 +147,20 @@ class Clock:
     def get_datetime_alarm(self) -> adafruit_datetime.datetime:
         # get time of next alarm
         t = self.get_datetime_now()
-        return t.replace(
-            hour=self.get_alarm_hour(), minute=self.get_alarm_min(), second=0
-        )
+        hour = self.get_alarm_hour()
+        minute = self.get_alarm_min()
+
+        # this prevents, say, the alarm ringing for only one minute if it's set to 23:59
+        # assumes alarm ring time is an hour or less
+        if hour == 23 and minute > (60 - self.alarm_minutes):
+            return t.replace(
+                day=self.get_day() - 1,
+                hour=hour,
+                minute=minute,
+                second=0,
+            )
+        else:
+            return t.replace(hour=hour, minute=minute, second=0)
 
     def get_datetime_now(self) -> adafruit_datetime.datetime:
         return adafruit_datetime.datetime.fromtimestamp(time.mktime(self.rtc.datetime))
@@ -168,10 +176,3 @@ class Clock:
     def get_alarm_delta(self) -> float:
         # get time until next alarm
         return self.get_delta(self.get_datetime_alarm())
-
-    def get_refresh_delta(self) -> float:
-        # get time since last refresh
-        return self.get_delta(self.datetime_refresh)
-
-    def set_refresh(self):
-        self.datetime_refresh = self.get_datetime_now()

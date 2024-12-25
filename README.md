@@ -3,7 +3,9 @@
 # TODO
 
 ## Mechanical
-- Top Cover
+- Top Cover Labels
+- Encoder knob
+- Lean angle
 
 ## Electrical
 ### Testing
@@ -25,17 +27,11 @@
 - Rear usb conn?
 
 ## Software
-- Add functionality to figure out day of week...?
-- Make e-ink update for any of the displayed info changing
 - Figure out why variable_frequency is invalid
-- Integrate FSM better
-- Piezo music
-- Gradual vs immediate alarm setting?
-- The midnight-crossing problem
-- Lowest brightness setting won't have visible winking
-- Tie colon brightness to as1115
-- Figure out SHT40 heating
 - Fix batt message
+- Additional Buttons
+    - Second Alarm, Weekend vs Weekday
+    - Gradual vs immediate alarm setting?
 
 ## Available Pins
 board.A0 board.GP26 board.GP26_A0 (GPIO26)

@@ -38,7 +38,7 @@ class Alarming(State):
         magnitude = utils.clip(
             abs(alarm_delta / self.f.clock.alarm_delta_max), 0.1, 1.0
         )
-        tone = 200  # utils.translate(utils.clip(magnitude, 0.1, 1.), 262, 464)
+        tone = utils.translate(utils.clip(magnitude, 0.1, 1.0), 200, 400)
         self.f.buzzer.play(tone=tone, amp=magnitude, on=self.f.heartbeat)
 
         if self.f.clock.get_alarm_status(rf_input) == False:
@@ -254,7 +254,7 @@ class SetBrightness(State):
         self.execute_default()
         self.f.as1115.brightness = (
             self.f.brightness_new + self.f.encoder.get_encoder_pos()
-        ) % 8
+        ) % 15 + 1  # minimum of 1 to prevent blinking from doing nothing
         self.f.as1115.display_int(self.f.as1115.brightness)
         self.f.seg_colon.set_brightness(self.f.as1115.brightness / 15)
         self.f.seg_apost.set_brightness(self.f.as1115.brightness / 15)

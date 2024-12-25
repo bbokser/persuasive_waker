@@ -22,8 +22,9 @@ class OS(FSM):
     def __init__(self, verbose):
         super().__init__(verbose=verbose)
         # initialize class objects
+        brightness_init = 2
         i2c = busio.I2C(scl=board.GP5, sda=board.GP4)
-        self.as1115 = AS1115(i2c)
+        self.as1115 = AS1115(i2c, brightness=brightness_init)
         self.clock = Clock(i2c)
         self.rf = PinButton(board.GP15)
         self.enc_button = ScanButton()
@@ -34,7 +35,7 @@ class OS(FSM):
         self.seg_colon = LED(board.GP13)  # segment display colon
         self.seg_apost = LED(board.GP12)  # segment display apostrophe
         self.seg_colon.on()
-        self.seg_colon.set_brightness(0.5)
+        self.seg_colon.set_brightness(brightness_init / 15)
 
         self.inkdisp = InkDisp(cs=board.GP21, dc=board.GP22, reset=board.GP17)
         self.inkdisp.apply_info(self.get_disp_info())
@@ -48,6 +49,9 @@ class OS(FSM):
         k = 0
         self.heartbeat = True
         k_beat = int(self.beat_rate / self.dt)
+
+        j = 0
+        refresh_counter = int(180 / self.dt)
 
         disp_info = self.get_disp_info()
         while True:
@@ -68,17 +72,17 @@ class OS(FSM):
             self.execute()
 
             # refresh inkdisp, make sure at least 3 minutes have passed before you refresh again
-            if (
-                disp_info != self.get_disp_info()
-                and self.clock.get_refresh_delta() > 180
-            ):
-                disp_info = self.get_disp_info()
-                self.inkdisp.clear()
-                self.inkdisp.apply_info(disp_info)
-                self.inkdisp.update()
-                self.clock.set_refresh()
+            if j > refresh_counter:
+                j = 0
+                if disp_info != self.get_disp_info():
+                    disp_info = self.get_disp_info()
+                    self.inkdisp.clear()
+                    self.inkdisp.apply_info(disp_info)
+                    self.inkdisp.update()
+                    self.clock.set_refresh()
 
             k += 1
+            j += 1
             time.sleep(self.dt)
 
     def get_disp_info(self):
