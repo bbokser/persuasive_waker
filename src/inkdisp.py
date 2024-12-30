@@ -103,10 +103,12 @@ class InkDisp:
 
         if info["usb"]:
             usb_msg = "USB In"
+            msg_scale = 2
         else:
             usb_msg = "Batt:" + info["batt"] + "%"
+            msg_scale = 1
 
-        self.draw_text(text=usb_msg, x=col_2, y=row_2, scale=2)
+        self.draw_text(text=usb_msg, x=col_2, y=row_2, scale=msg_scale)
 
         self.draw_text(text=info["temp"] + " C", x=col_2, y=row_4, scale=2)
 
