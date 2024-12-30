@@ -252,9 +252,9 @@ class SetBrightness(State):
 
     def execute(self):
         self.execute_default()
-        self.f.as1115.brightness = (
-            self.f.brightness_new + self.f.encoder.get_encoder_pos()
-        ) % 15 + 1  # minimum of 1 to prevent blinking from doing nothing
+        self.f.as1115.brightness = utils.wrap_to_range(
+            self.f.brightness_new + self.f.encoder.get_encoder_pos(), 1, 15
+        )  # minimum of 1 to prevent blinking from doing nothing
         self.f.as1115.display_int(self.f.as1115.brightness)
         self.f.seg_colon.set_brightness(self.f.as1115.brightness / 15)
         self.f.seg_apost.set_brightness(self.f.as1115.brightness / 15)

@@ -96,39 +96,21 @@ class InkDisp:
 
         self.draw_text(text=info["weekday"], x=col_1, y=row_3, scale=5)
         self.draw_text(
-            text=info["month"] + " " + info["day"],
-            x=col_1,
-            y=row_4 + 10,
-            scale=3,
+            text=info["month"] + " " + info["day"], x=col_1, y=row_4 + 10, scale=3
         )
 
         self.draw_text(text="Alarm: " + info["alarm"], x=col_1, y=row_6, scale=2)
 
-        usb_msg = "USB In" if info["usb"] else "Unplugged"
-        self.draw_text(
-            text=usb_msg,
-            x=col_2,
-            y=row_1,
-        )
-        self.draw_text(
-            text="Batt:" + info["batt"] + "%",
-            x=col_2,
-            y=row_2,
-        )
+        if info["usb"]:
+            usb_msg = "USB In"
+        else:
+            usb_msg = "Batt:" + info["batt"] + "%"
 
-        self.draw_text(
-            text=info["temp"] + " C",
-            x=col_2,
-            y=row_4,
-            scale=2,
-        )
+        self.draw_text(text=usb_msg, x=col_2, y=row_2, scale=2)
 
-        self.draw_text(
-            text=info["humidity"] + " %",
-            x=col_2,
-            y=row_6,
-            scale=2,
-        )
+        self.draw_text(text=info["temp"] + " C", x=col_2, y=row_4, scale=2)
+
+        self.draw_text(text=info["humidity"] + " %", x=col_2, y=row_6, scale=2)
         return None
 
     def draw_polygon(self, points: list, color: str):
