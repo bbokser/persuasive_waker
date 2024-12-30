@@ -40,7 +40,6 @@ class OS(FSM):
         self.inkdisp = InkDisp(cs=board.GP21, dc=board.GP22, reset=board.GP17)
         self.inkdisp.apply_info(self.get_disp_info())
         self.inkdisp.update()
-        self.clock.set_refresh()
 
         self.dt = 0.1
         self.beat_rate = 0.3
@@ -79,7 +78,6 @@ class OS(FSM):
                     self.inkdisp.clear()
                     self.inkdisp.apply_info(disp_info)
                     self.inkdisp.update()
-                    self.clock.set_refresh()
 
             k += 1
             j += 1

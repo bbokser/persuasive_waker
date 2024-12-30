@@ -25,6 +25,7 @@
 ### Board Layout
 - Fix button spacing
 - Rear usb conn?
+- Add unplugged/low batt indicator LED
 
 ## Software
 - Figure out why variable_frequency is invalid

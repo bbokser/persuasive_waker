@@ -117,15 +117,17 @@ class InkDisp:
         )
 
         self.draw_text(
-            text="Temp:" + info["temp"] + " C",
+            text=info["temp"] + " C",
             x=col_2,
-            y=row_3,
+            y=row_4,
+            scale=2,
         )
 
         self.draw_text(
-            text="Humid:" + info["humidity"] + " %",
+            text=info["humidity"] + " %",
             x=col_2,
-            y=row_4,
+            y=row_6,
+            scale=2,
         )
         return None
 
