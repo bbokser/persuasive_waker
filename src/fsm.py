@@ -31,6 +31,9 @@ class Alarming(State):
     def __init__(self, fsm, name):
         super().__init__(fsm, name)
 
+    def enter(self):
+        self.f.clock.log_alarm_start()
+
     def execute(self):
         rf_input = self.f.rf.update()
         self.f.as1115.display_hourmin(self.f.clock.get_hour(), self.f.clock.get_min())

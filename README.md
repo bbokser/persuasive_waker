@@ -9,10 +9,7 @@
 
 ## Electrical
 ### Testing
-- Test the RF programmer button
-- Test reverse voltage
-- Test midnight-crossing
-- Test reset button for alarm
+- All done
 
 ### Schematic
 - Fix the R13 location mistake
@@ -20,7 +17,7 @@
 ### Footprints
 - Longer buttons?
 - Find a tall surface mount LED
-- Swich to shorter encoder
+- Switch to shorter encoder
 
 ### Board Layout
 - Fix button spacing
