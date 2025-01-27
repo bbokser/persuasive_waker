@@ -174,4 +174,16 @@ K
 F https://cdn.harwin.com/pdfs/M20-792R.pdf
 $ENDCMP
 #
+$CMP TS04-66-95-BK-100-SMT
+D 6 x 6 mm, 9.5 mm Actuator Height, 100 gf, Black, Surface Mount, SPST, Tactile Switch
+K
+F https://www.sameskydevices.com/product/resource/supplyframepdf/ts04.pdf
+$ENDCMP
+#
+$CMP TL3301BF260QJ
+D TACT, 50mA, 12VDC SPST-NO, Off-(On) Surface Mount
+K
+F https://componentsearchengine.com/Datasheets/1/TL3301BF260QJ.pdf
+$ENDCMP
+#
 #End Doc Library

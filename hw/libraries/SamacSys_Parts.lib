@@ -814,4 +814,48 @@ P 5 0 1 6 200 100 700 100 700 -600 200 -600 200 100 N
 ENDDRAW
 ENDDEF
 #
+#SamacSys ECAD Model TS04-66-95-BK-100-SMT
+#/15641804/907023/2.50/4/2/Switch
+DEF TS04-66-95-BK-100-SMT S 0 30 Y Y 1 F N
+F0 "S" 1050 300 50 H V L CNN
+F1 "TS04-66-95-BK-100-SMT" 1050 200 50 H V L CNN
+F2 "TS046695BK100SMT" 1050 100 50 H I L CNN
+F3 "https://www.sameskydevices.com/product/resource/supplyframepdf/ts04.pdf" 1050 0 50 H I L CNN
+F4 "6 x 6 mm, 9.5 mm Actuator Height, 100 gf, Black, Surface Mount, SPST, Tactile Switch" 1050 -100 50 H I L CNN "Description"
+F5 "9.7" 1050 -200 50 H I L CNN "Height"
+F6 "179-TS046695BK100SMT" 1050 -300 50 H I L CNN "Mouser Part Number"
+F7 "https://www.mouser.co.uk/ProductDetail/CUI-Devices/TS04-66-95-BK-100-SMT?qs=A6eO%252BMLsxmSSXP0nNpmfkg%3D%3D" 1050 -400 50 H I L CNN "Mouser Price/Stock"
+F8 "Same Sky" 1050 -500 50 H I L CNN "Manufacturer_Name"
+F9 "TS04-66-95-BK-100-SMT" 1050 -600 50 H I L CNN "Manufacturer_Part_Number"
+DRAW
+X NO_1 1 0 0 200 R 50 50 0 0 P
+X COM_1 2 0 -100 200 R 50 50 0 0 P
+X NO_2 3 1200 0 200 L 50 50 0 0 P
+X COM_2 4 1200 -100 200 L 50 50 0 0 P
+P 5 0 1 6 200 100 1000 100 1000 -200 200 -200 200 100 N
+ENDDRAW
+ENDDEF
+#
+#SamacSys ECAD Model TL3301BF260QJ
+#/1751325/907023/2.50/4/2/Switch
+DEF TL3301BF260QJ S 0 30 Y Y 1 F N
+F0 "S" 650 300 50 H V L CNN
+F1 "TL3301BF260QJ" 650 200 50 H V L CNN
+F2 "TL3301BF260QJ" 650 100 50 H I L CNN
+F3 "https://componentsearchengine.com/Datasheets/1/TL3301BF260QJ.pdf" 650 0 50 H I L CNN
+F4 "TACT, 50mA, 12VDC SPST-NO, Off-(On) Surface Mount" 650 -100 50 H I L CNN "Description"
+F5 "9.8" 650 -200 50 H I L CNN "Height"
+F6 "612-TL3301BF260QJ" 650 -300 50 H I L CNN "Mouser Part Number"
+F7 "https://www.mouser.com/Search/Refine.aspx?Keyword=612-TL3301BF260QJ" 650 -400 50 H I L CNN "Mouser Price/Stock"
+F8 "E-Switch" 650 -500 50 H I L CNN "Manufacturer_Name"
+F9 "TL3301BF260QJ" 650 -600 50 H I L CNN "Manufacturer_Part_Number"
+DRAW
+X 1 1 0 -100 200 R 50 50 0 0 P
+X 2 2 800 -100 200 L 50 50 0 0 P
+X 3 3 0 0 200 R 50 50 0 0 P
+X 4 4 800 0 200 L 50 50 0 0 P
+P 5 0 1 6 200 100 600 100 600 -200 200 -200 200 100 N
+ENDDRAW
+ENDDEF
+#
 #End Library
