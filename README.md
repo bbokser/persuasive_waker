@@ -12,21 +12,16 @@
 - All done
 
 ### Schematic
-- Fix the R13 location mistake
+- All done
 
 ### Footprints
-- Longer buttons?
 - Find a tall surface mount LED
-- Switch to shorter encoder
 
 ### Board Layout
-- Fix button spacing
-- Rear usb conn?
 - Add unplugged/low batt indicator LED
 
 ## Software
 - Figure out why variable_frequency is invalid
-- Fix batt message
 - Additional Buttons
     - Second Alarm, Weekend vs Weekday
     - Gradual vs immediate alarm setting?
