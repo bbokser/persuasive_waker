@@ -186,4 +186,10 @@ K
 F https://componentsearchengine.com/Datasheets/1/TL3301BF260QJ.pdf
 $ENDCMP
 #
+$CMP WP424IDT
+D Kingbright WP424IDT, WP424 Series Red LED, 617 nm, 3mm (T-1), Round Lens Through Hole Package
+K
+F http://www.kingbrightusa.com/images/catalog/SPEC/WP424IDT.pdf
+$ENDCMP
+#
 #End Doc Library
