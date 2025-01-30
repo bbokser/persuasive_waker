@@ -18,7 +18,7 @@ def get_suffix(n: int):
 class Clock:
     def __init__(self, i2c: I2C):
         self.rtc = adafruit_ds3231.DS3231(i2c)
-        self.log_alarm_start()
+        self.alarm_start_day = None
         self.alarm_enable = False
         self.alarm_minutes = 10  # max alarm ring time
         self.alarm_delta_max = self.alarm_minutes * 60  # max alarm ring time, seconds
@@ -131,6 +131,7 @@ class Clock:
 
     def reset_alarm(self) -> None:
         self.rtc.alarm1_status = False
+        self.alarm_start_day = None
 
     def disable_alarm(self) -> None:
         self.alarm_enable = False
@@ -154,8 +155,12 @@ class Clock:
         t = self.get_datetime_now()
         hour = self.get_alarm_hour()
         minute = self.get_alarm_min()
-
-        return t.replace(day=self.alarm_start_day, hour=hour, minute=minute, second=0)
+        if self.alarm_start_day is not None:
+            return t.replace(
+                day=self.alarm_start_day, hour=hour, minute=minute, second=0
+            )
+        else:
+            return t.replace(hour=hour, minute=minute, second=0)
 
     def get_datetime_now(self) -> adafruit_datetime.datetime:
         return adafruit_datetime.datetime.fromtimestamp(time.mktime(self.rtc.datetime))
