@@ -1560,7 +1560,7 @@
 				)
 			)
 		)
-		(property "Footprint" "TL3301BF260QJ"
+		(property "Footprint" "SamacSys_Parts:TL3301BF260QJ"
 			(at 0 0 -90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -4387,7 +4387,7 @@
 				)
 			)
 		)
-		(property "Footprint" "TL3301BF260QJ"
+		(property "Footprint" "SamacSys_Parts:TL3301BF260QJ"
 			(at 0 0 -90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -5510,7 +5510,7 @@
 				)
 			)
 		)
-		(property "Footprint" "WP424IDT"
+		(property "Footprint" "SamacSys_Parts:WP424IDT"
 			(at 0 0 -90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -6712,7 +6712,7 @@
 				)
 			)
 		)
-		(property "Footprint" "TL3301BF260QJ"
+		(property "Footprint" "SamacSys_Parts:TL3301BF260QJ"
 			(at 0 0 -90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -16793,7 +16793,7 @@
 		(descr "SOD-123")
 		(tags "SOD-123")
 		(property "Reference" "D4"
-			(at -1.5 -2 360)
+			(at -1.5 -2 0)
 			(layer "F.SilkS")
 			(uuid "568e7e81-4973-4df5-befe-83a663b22207")
 			(effects
@@ -16804,7 +16804,7 @@
 			)
 		)
 		(property "Value" "MBR0530"
-			(at 0 2.1 360)
+			(at 0 2.1 0)
 			(layer "F.Fab")
 			(uuid "9b80e4ef-9197-4508-8c23-b25d65d566e6")
 			(effects
@@ -17205,7 +17205,7 @@
 			(uuid "a1b8df82-f9d5-4b9c-80d3-88d423f66f19")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 -2 360)
+			(at 0 -2 0)
 			(layer "F.Fab")
 			(uuid "1b7956fe-22b5-422e-a041-381f2e5ebfe6")
 			(effects
@@ -19724,7 +19724,7 @@
 		(descr "Resistor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal with elongated pad for handsoldering. (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor handsolder")
 		(property "Reference" "R13"
-			(at 0 -1.43 360)
+			(at 0 -1.43 0)
 			(layer "F.SilkS")
 			(uuid "25968262-c04d-4e62-a531-698afa6cea0e")
 			(effects
@@ -19735,7 +19735,7 @@
 			)
 		)
 		(property "Value" "1kΩ"
-			(at 0 1.43 360)
+			(at 0 1.43 0)
 			(layer "F.Fab")
 			(uuid "cc3bdca5-70be-4858-ba0f-66c2645dab06")
 			(effects
@@ -20056,7 +20056,7 @@
 			(uuid "c214514f-e28a-4b30-9907-1664a4e1ba64")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 360)
+			(at 0 0 0)
 			(layer "F.Fab")
 			(uuid "c03960df-87a3-4aad-b3ed-74268fdf04e7")
 			(effects
@@ -21711,7 +21711,7 @@
 				)
 			)
 		)
-		(property "Footprint" "PEC11S929KS0015"
+		(property "Footprint" "SamacSys_Parts:PEC11S929KS0015"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -25150,7 +25150,7 @@
 				)
 			)
 		)
-		(property "Footprint" "TL3301BF260QJ"
+		(property "Footprint" "SamacSys_Parts:TL3301BF260QJ"
 			(at 0 0 -90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -25872,7 +25872,7 @@
 		(descr "Resistor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal with elongated pad for handsoldering. (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor handsolder")
 		(property "Reference" "R6"
-			(at -2.5 0.5 360)
+			(at -2.5 0.5 0)
 			(layer "F.SilkS")
 			(uuid "5ea61845-72c3-4158-b44b-a36aed59b40d")
 			(effects
@@ -25883,7 +25883,7 @@
 			)
 		)
 		(property "Value" "180Ω"
-			(at 0 1.43 360)
+			(at 0 1.43 0)
 			(layer "F.Fab")
 			(uuid "33791620-ff11-438a-9f09-070c69376a89")
 			(effects
@@ -26204,7 +26204,7 @@
 			(uuid "4a46a64c-295d-462a-a022-f3d72e04edab")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 360)
+			(at 0 0 0)
 			(layer "F.Fab")
 			(uuid "333f0764-3f9d-4186-82aa-e34a4dbf9752")
 			(effects
@@ -27627,7 +27627,7 @@
 				)
 			)
 		)
-		(property "Footprint" "TL3301BF260QJ"
+		(property "Footprint" "SamacSys_Parts:TL3301BF260QJ"
 			(at 0 0 -90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -27992,7 +27992,7 @@
 				)
 			)
 		)
-		(property "Footprint" "TL3301BF260QJ"
+		(property "Footprint" "SamacSys_Parts:TL3301BF260QJ"
 			(at 0 0 -90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -32524,8 +32524,8 @@
 		(layer "F.Fab")
 		(uuid "95318e96-2d3d-403f-9bdf-ee329a725a5d")
 	)
-	(gr_text "alarm v3\nBen Bokser"
-		(at 124.5 104 270)
+	(gr_text "persuasive_waker v3\nBen Bokser"
+		(at 124.5 98.5 270)
 		(layer "F.SilkS")
 		(uuid "8dec79a4-797b-4411-af7c-5d7cf8437df3")
 		(effects
