@@ -10,7 +10,7 @@ colors = {
     # 'orange': 0xFFA500
 }
 
-weekday = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+weekday = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 month = [
     "Jan",
     "Feb",
@@ -62,14 +62,18 @@ def leapyear(year: int) -> bool:
 
 def get_max_day(year: int, month: int) -> int:
     # return the number of days in the given month and for the given year
-    # https://stackoverflow.com/questions/28800127/universal-formula-to-calculate-the-number-of-days-in-a-month-taking-into-account
-    return (
-        28
-        + (month + (month / 8)) % 2
-        + 2 % month
-        + 2 * (1 / month)
-        + ((month == 2) * leapyear(year))
-    )
+    # https://stackoverflow.com/questions/15148534/calculating-number-of-days-in-a-month-based-on-leap-year
+    assert 1 <= month <= 12
+    if month in [1, 3, 5, 7, 8, 10, 12]:
+        return 31
+    elif month in [4, 6, 9, 11]:
+        return 30
+    else:
+        # month is February
+        if leapyear(year):
+            return 29
+        else:
+            return 28
 
 
 def wrap_to_range(x: int, a: int, b: int) -> int:
@@ -100,26 +104,3 @@ def percentize(value: float, min: float, max: float) -> float:
     # map range from from spec'd min and max to range from 0 to 1
     diff = max - min
     return (value - min) / diff
-
-
-def get_wday(year: int, month: int, day: int) -> int:
-    # https://cs.uwaterloo.ca/~alopez-o/math-faq/node73.html
-    # get weekday
-    if month <= 2:
-        year_shifted = year - 1
-    else:
-        year_shifted = year
-    month_shifted = wrap_to_range(month - 2, 1, 12)
-    c = int(str(year_shifted)[0:2])  # century
-    y = int(str(year_shifted)[2:4])  # year of century
-    return int(
-        (
-            day
-            + floor(2.6 * month_shifted - 0.2)
-            - 2 * c
-            + y
-            + floor(y / 4)
-            + floor(c / 4)
-        )
-        % 7
-    )

@@ -25,7 +25,7 @@ class Clock:
 
     def set_date(self, year: int, month: int, day: int):
         year = utils.clip(year, 1970, 2037)  # duct-tape Y2038 problem
-        wday = utils.get_wday(year, month, day)
+        wday = adafruit_datetime.date(year, month, day).weekday()
         self.rtc.datetime = time.struct_time(
             (
                 year,
