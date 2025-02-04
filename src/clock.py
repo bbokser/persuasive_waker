@@ -18,9 +18,10 @@ def get_suffix(n: int):
 class Clock:
     def __init__(self, i2c: I2C):
         self.rtc = adafruit_ds3231.DS3231(i2c)
+        self.alarm_start_day = None
         self.alarm_enable = False
-        self.alarm_delta_max = 10 * 60  # max alarm ring time, seconds
-        self.datetime_refresh = self.get_datetime_now()
+        self.alarm_minutes = 10  # max alarm ring time
+        self.alarm_delta_max = self.alarm_minutes * 60  # max alarm ring time, seconds
 
     def set_date(self, year: int, month: int, day: int):
         year = utils.clip(year, 1970, 2037)  # duct-tape Y2038 problem
@@ -38,8 +39,6 @@ class Clock:
                 -1,
             )
         )
-        # prevents premature refresh due to time confusion
-        self.datetime_refresh = self.get_datetime_now()
 
     def set_time(self, hour: int, min: int):
         self.rtc.datetime = time.struct_time(
@@ -55,17 +54,21 @@ class Clock:
                 -1,
             )
         )
-        self.datetime_refresh = self.get_datetime_now()
 
-    def get_date_str(self) -> str:
+    def get_weekday_str(self) -> str:
+        return utils.weekday[self.rtc.datetime.tm_wday]
+
+    def get_month_str(self) -> str:
+        return utils.month[self.rtc.datetime.tm_mon - 1]
+
+    def get_day_str(self) -> str:
         current = self.rtc.datetime
-        weekday = utils.weekday[current.tm_wday]
-        month = utils.month[current.tm_mon - 1]
         suffix = get_suffix(current.tm_mday)
-        date_str = "{}, {} {:d}{}, {:d}".format(
-            weekday, month, current.tm_mday, suffix, current.tm_year
-        )
-        return date_str
+        day_str = "{:d}{}".format(current.tm_mday, suffix)
+        return day_str
+
+    def get_year_str(self) -> str:
+        return "{:d}".format(self.rtc.datetime.tm_year)
 
     def get_time_str(self) -> str:
         current = self.rtc.datetime
@@ -122,8 +125,13 @@ class Clock:
             alarm_status = False
         return alarm_status
 
+    def log_alarm_start(self) -> None:
+        # remembering date prevents, say, the alarm ringing for only one minute if it's set to 23:59
+        self.alarm_start_day = self.rtc.datetime.tm_mday
+
     def reset_alarm(self) -> None:
         self.rtc.alarm1_status = False
+        self.alarm_start_day = None
 
     def disable_alarm(self) -> None:
         self.alarm_enable = False
@@ -145,9 +153,14 @@ class Clock:
     def get_datetime_alarm(self) -> adafruit_datetime.datetime:
         # get time of next alarm
         t = self.get_datetime_now()
-        return t.replace(
-            hour=self.get_alarm_hour(), minute=self.get_alarm_min(), second=0
-        )
+        hour = self.get_alarm_hour()
+        minute = self.get_alarm_min()
+        if self.alarm_start_day is not None:
+            return t.replace(
+                day=self.alarm_start_day, hour=hour, minute=minute, second=0
+            )
+        else:
+            return t.replace(hour=hour, minute=minute, second=0)
 
     def get_datetime_now(self) -> adafruit_datetime.datetime:
         return adafruit_datetime.datetime.fromtimestamp(time.mktime(self.rtc.datetime))
@@ -163,10 +176,3 @@ class Clock:
     def get_alarm_delta(self) -> float:
         # get time until next alarm
         return self.get_delta(self.get_datetime_alarm())
-
-    def get_refresh_delta(self) -> float:
-        # get time since last refresh
-        return self.get_delta(self.datetime_refresh)
-
-    def set_refresh(self):
-        self.datetime_refresh = self.get_datetime_now()

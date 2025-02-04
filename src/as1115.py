@@ -245,7 +245,7 @@ class AS1115:
     :param int|list|tuple address: The I2C addess(es).
     :param bool auto_write: True if the display should immediately change when
         set. If False, `show` must be called explicitly.
-    :param float brightness: 0.0 - 1.0 default brightness level.
+    :param int brightness: 0 - 15 default brightness level.
     """
 
     def __init__(

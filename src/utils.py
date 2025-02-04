@@ -1,3 +1,5 @@
+from math import floor
+
 colors = {
     "white": 0xFFFFFF,
     "black": 0x000000,
@@ -107,7 +109,17 @@ def get_wday(year: int, month: int, day: int) -> int:
         year_shifted = year - 1
     else:
         year_shifted = year
-    month_shifted = wrap_to_range(month - 3, 1, 12)
+    month_shifted = wrap_to_range(month - 2, 1, 12)
     c = int(str(year_shifted)[0:2])  # century
     y = int(str(year_shifted)[2:4])  # year of century
-    return (day + (2.6 * month_shifted - 0.2) - 2 * c + y + y / 4 + c / 4) % 7
+    return int(
+        (
+            day
+            + floor(2.6 * month_shifted - 0.2)
+            - 2 * c
+            + y
+            + floor(y / 4)
+            + floor(c / 4)
+        )
+        % 7
+    )
