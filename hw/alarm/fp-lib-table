@@ -1,8 +1,8 @@
 (fp_lib_table
   (version 7)
-  (lib (name "SamacSys_Parts")(type "KiCad")(uri "C:/Users/bboks/Documents/git_windows/source/rp2040-alarm-clock/hw/libraries/SamacSys_Parts.pretty")(options "")(descr ""))
-  (lib (name "Module_RaspberryPi_Pico")(type "KiCad")(uri "C:/Users/bboks/Documents/git_windows/source/rp2040-alarm-clock/hw/libraries/Module_RaspberryPi_Pico.pretty")(options "")(descr ""))
-  (lib (name "4328")(type "KiCad")(uri "C:/Users/bboks/Documents/git_windows/source/rp2040-alarm-clock/hw/libraries/4328")(options "")(descr ""))
-  (lib (name "footprints")(type "KiCad")(uri "C:/Users/bboks/Documents/git_windows/source/rp2040-alarm-clock/hw/libraries/TDCR1060M/footprints.pretty")(options "")(descr ""))
-  (lib (name "RX480E")(type "KiCad")(uri "C:/Users/bboks/Documents/git_windows/source/rp2040-alarm-clock/hw/libraries/RX480E/RX480E.pretty")(options "")(descr ""))
+  (lib (name "SamacSys_Parts")(type "KiCad")(uri "C:/Users/bboks/Documents/git_windows/source/persuasive_waker/hw/libraries/SamacSys_Parts.pretty")(options "")(descr ""))
+  (lib (name "Module_RaspberryPi_Pico")(type "KiCad")(uri "C:/Users/bboks/Documents/git_windows/source/persuasive_waker/hw/libraries/Module_RaspberryPi_Pico.pretty")(options "")(descr ""))
+  (lib (name "4328")(type "KiCad")(uri "C:/Users/bboks/Documents/git_windows/source/persuasive_waker/hw/libraries/4328")(options "")(descr ""))
+  (lib (name "footprints")(type "KiCad")(uri "C:/Users/bboks/Documents/git_windows/source/persuasive_waker/hw/libraries/TDCR1060M/footprints.pretty")(options "")(descr ""))
+  (lib (name "RX480E")(type "KiCad")(uri "C:/Users/bboks/Documents/git_windows/source/persuasive_waker/hw/libraries/RX480E/RX480E.pretty")(options "")(descr ""))
 )
