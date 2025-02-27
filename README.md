@@ -18,7 +18,7 @@ Pending mechanical CAD and additional build instructions.
     ```
 4. Delete `code.py` from the Pico's storage.
 
-5. Copy+paste everything in the `src` folder to the Pico's storage.
+5. Clone this repo onto your computer and copy+paste everything in the `src` folder to the Pico's storage.
 
 6. The alarm clock should be functioning now.
 
@@ -28,7 +28,7 @@ See [here](user_manual.md).
 # TODO
 
 ## Mechanical
-- All done
+- Order hex keys and usb cables and loctite
 
 ## Electrical
 ### Testing
@@ -45,11 +45,12 @@ See [here](user_manual.md).
 - Cover: Prevent order number from being marked
 
 ## Software
+- Second Alarm
+- Weekend vs Weekday Alarm
+- Warning light for when USB is unplugged
 - Option Button
-    - Gradual vs immediate alarm setting?
-- Way to set second Alarm, Weekend vs Weekday
-- Way to set F vs C
-- Way to set military vs 12 hour time
+    - Way to set F vs C
+    - Way to set military vs 12 hour time
     
 ## Documentation
 - Write user manual

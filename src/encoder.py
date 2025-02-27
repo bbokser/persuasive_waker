@@ -8,7 +8,7 @@ class Encoder:
 
     def __init__(self, pinA, pinB):
         # encoder
-        self.encoder = rotaryio.IncrementalEncoder(pinA, pinB)  # , divisor=2)
+        self.encoder = rotaryio.IncrementalEncoder(pinA, pinB, divisor=2)
         self.zero_pos = self.encoder.position
 
     def rezero(self):

@@ -106,7 +106,7 @@ class InkDisp:
             msg_scale = 2
         else:
             usb_msg = "Batt:" + info["batt"] + "%"
-            msg_scale = 1
+            msg_scale = 2
 
         self.draw_text(text=usb_msg, x=col_2, y=row_2, scale=msg_scale)
 
