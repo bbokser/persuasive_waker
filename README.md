@@ -28,8 +28,11 @@ See [here](user_manual.md).
 # TODO
 
 ## Mechanical
-- Order hex keys and usb cables and loctite
-- Make USB hole slightly larger
+- Order
+    - hex keys
+    - usb cables
+    - loctite
+    - PLA
 
 ## Electrical
 ### Testing

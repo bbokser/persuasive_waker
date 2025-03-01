@@ -88,8 +88,11 @@ class OS(FSM):
                 i = 0
                 self.sensor.set_mode_heat()
 
+            # warning light for being unplugged
             if self.battery.usb_power.value is False:
                 self.seg_apost.blink(self.heartbeat)
+            else:
+                self.seg_apost.off()
 
             k += 1
             j += 1
