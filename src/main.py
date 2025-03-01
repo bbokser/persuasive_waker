@@ -32,10 +32,11 @@ class OS(FSM):
         self.encoder = Encoder(pinA=board.GP1, pinB=board.GP0)
         self.buzzer = Piezo(board.GP2)
         self.sensor = HTSensor(i2c, address=0x45)
-        self.seg_colon = LED(board.GP13)  # segment display colon
-        self.seg_apost = LED(board.GP12)  # segment display apostrophe
+        # segment display colon
+        self.seg_colon = LED(board.GP13, brightness_init / 15)
         self.seg_colon.on()
-        self.seg_colon.set_brightness(brightness_init / 15)
+        # segment display apostrophe
+        self.seg_apost = LED(board.GP12, brightness_init / 15)
 
         self.inkdisp = InkDisp(cs=board.GP21, dc=board.GP22, reset=board.GP17)
         self.inkdisp.apply_info(self.get_disp_info())
@@ -86,6 +87,9 @@ class OS(FSM):
             if i > heater_counter:
                 i = 0
                 self.sensor.set_mode_heat()
+
+            if self.battery.usb_power.value is False:
+                self.seg_apost.blink(self.heartbeat)
 
             k += 1
             j += 1

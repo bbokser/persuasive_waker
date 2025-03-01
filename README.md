@@ -29,6 +29,7 @@ See [here](user_manual.md).
 
 ## Mechanical
 - Order hex keys and usb cables and loctite
+- Make USB hole slightly larger
 
 ## Electrical
 ### Testing
@@ -47,7 +48,6 @@ See [here](user_manual.md).
 ## Software
 - Second Alarm
 - Weekend vs Weekday Alarm
-- Warning light for when USB is unplugged
 - Option Button
     - Way to set F vs C
     - Way to set military vs 12 hour time

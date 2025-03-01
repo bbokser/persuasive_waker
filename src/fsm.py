@@ -37,11 +37,11 @@ class Alarming(State):
     def execute(self):
         rf_input = self.f.rf.update()
         self.f.as1115.display_hourmin(self.f.clock.get_hour(), self.f.clock.get_min())
-        alarm_delta = self.f.clock.get_alarm_delta()
-        magnitude = utils.clip(
-            abs(alarm_delta / self.f.clock.alarm_delta_max), 0.1, 1.0
-        )
-        tone = utils.translate(utils.clip(magnitude, 0.1, 1.0), 200, 400)
+        # alarm_delta = self.f.clock.get_alarm_delta()
+        # magnitude = utils.clip(abs(alarm_delta / self.f.clock.alarm_delta_max), 0.1, 1.0)
+        # tone = utils.translate(magnitude, 200, 400)
+        magnitude = 1
+        tone = 200  # 2730
         self.f.buzzer.play(tone=tone, amp=magnitude, on=self.f.heartbeat)
 
         if self.f.clock.get_alarm_status(rf_input) == False:
@@ -55,6 +55,10 @@ class Alarming(State):
 class Default(State):
     def __init__(self, fsm, name):
         super().__init__(fsm, name)
+
+    def enter(self):
+        # prevents seg disp from getting stuck in a wink/blink
+        self.f.as1115.unwink()
 
     def execute(self):
         self.execute_default()
@@ -151,7 +155,6 @@ class SetDay(State):
         self.f.clock.set_date(
             year=self.f.year_new, month=self.f.month_new, day=self.f.day_new
         )
-        self.f.as1115.unwink()
 
 
 class SetHour(State):
@@ -192,7 +195,6 @@ class SetMin(State):
 
         if self.f.b_enter == True:
             self.f.clock.set_time(hour=self.f.hour_new, min=self.f.min_new)
-            self.f.as1115.unwink()
             self.f.to_transition("toDefault")
         elif self.f.b_back == True:
             self.f.to_transition("toDefault")
@@ -237,7 +239,6 @@ class SetAlarmMin(State):
 
         if self.f.b_enter == True:
             self.f.clock.set_alarm(hour=self.f.hour_new, min=self.f.min_new)
-            self.f.as1115.unwink()
             self.f.to_transition("toDefault")
         elif self.f.b_back == True:
             self.f.clock.disable_alarm()
