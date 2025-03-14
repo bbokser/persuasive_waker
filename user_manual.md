@@ -10,6 +10,9 @@
 > [!WARNING]  
 > Do not rely on the batteries for power. They will run out fairly quickly. The batteries are for backup power--to prevent pulling the plug from stopping the alarm.
 
+> [!WARNING]  
+> Do not attempt to use non-alkaline batteries.
+
 ## A Note About the Screen
 The screen is E-paper. E-paper cannot refresh as quickly as most other display types. The display is set to refresh only once every three minutes. This means you will have to wait a few minutes for changes to the date and alarm to show up on the screen.
 

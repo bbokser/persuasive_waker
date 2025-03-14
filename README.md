@@ -28,11 +28,7 @@ See [here](user_manual.md).
 # TODO
 
 ## Mechanical
-- Order
-    - hex keys
-    - usb cables
-    - loctite
-    - PLA
+- All done
 
 ## Electrical
 ### Testing
@@ -54,6 +50,7 @@ See [here](user_manual.md).
 - Option Button
     - Way to set F vs C
     - Way to set military vs 12 hour time
+- Improve batt percentage
     
 ## Documentation
 - Write user manual
