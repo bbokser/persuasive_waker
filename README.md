@@ -11,10 +11,11 @@ Pending mechanical CAD and additional build instructions.
 
 2. Install [circup](https://learn.adafruit.com/keep-your-circuitpython-libraries-on-devices-up-to-date-with-circup/prepare) on your computer.
 
-3. Run the following command to install all necessary libraries.
+3. Run the following commands to install all necessary libraries.
 
     ```
-    circup install adafruit_sht4x adafruit_ssd1680 adafruit_display_text adafruit_ds3231 adafruit_datetime
+    circup bundle-add adafruit/circuitpython-fonts
+    circup install adafruit_sht4x adafruit_ssd1680 adafruit_display_text adafruit_ds3231 adafruit_datetime font_ostrich_sans_black_30 font_ostrich_sans_black_72
     ```
 4. Delete `code.py` from the Pico's storage.
 
@@ -28,29 +29,30 @@ See [here](user_manual.md).
 # TODO
 
 ## Mechanical
-- All done
+- 
 
 ## Electrical
 ### Testing
-- All done
+- 
 
 ### Schematic
-- All done
+- Use H-bridge to increase volume
 
 ### Footprints
-- All done
+- 
 
 ### Board Layout
 - Cover: Move icons down a little
 - Cover: Prevent order number from being marked
 
 ## Software
+- Setting to prevent changing alarm last-minute?
 - Second Alarm
-- Weekend vs Weekday Alarm
+    - Weekend vs Weekday Alarm
 - Option Button
+    - Way to set alarm pitch?
     - Way to set F vs C
     - Way to set military vs 12 hour time
-- Improve batt percentage
     
 ## Documentation
 - Write user manual

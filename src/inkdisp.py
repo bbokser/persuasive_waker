@@ -11,6 +11,8 @@ import busio
 import adafruit_ssd1680
 import supervisor
 from adafruit_display_text.bitmap_label import Label
+from font_ostrich_sans_black_30 import FONT as font_30
+from font_ostrich_sans_black_72 import FONT as font_72
 
 # print('free memory left after imports: ', gc.mem_free())
 
@@ -71,11 +73,16 @@ class InkDisp:
         """
         return self.color_names.index(color)
 
-    def draw_text(
-        self, text: str, x: int, y: int, color: str = "black", scale: int = 1
-    ):
+    def draw_text(self, text: str, x: int, y: int, color: str = "black", opt: int = 1):
         # display = self.display
-        lbl = Label(terminalio.FONT, text=text, color=utils.colors[color], scale=scale)
+        # lbl = Label(terminalio.FONT, text=text, color=utils.colors[color], scale=scale)
+        if opt == 1:
+            font = font_30
+        elif opt == 2:
+            font = font_72
+        else:
+            raise Exception("Invalid font")
+        lbl = Label(font, text=text, color=utils.colors[color], scale=1)
         lbl.anchor_point = (0.0, 1.0)
         lbl.anchored_position = (x, y)  # (display.width // 2, display.height // 2)
         self.g.append(lbl)
@@ -87,32 +94,26 @@ class InkDisp:
         x_center = display.width // 2
         col_1 = 5
         col_2 = x_center + 40
-        row_1 = 20
-        row_2 = row_1 + 20
-        row_3 = row_2 + 20
-        row_4 = row_3 + 20
-        row_5 = row_4 + 20
-        row_6 = row_5 + 20
+        row_1 = 24
+        row_2 = row_1 + 30
+        row_3 = row_2 + 30
+        row_4 = row_3 + 30
 
-        self.draw_text(text=info["weekday"], x=col_1, y=row_3, scale=5)
-        self.draw_text(
-            text=info["month"] + " " + info["day"], x=col_1, y=row_4 + 10, scale=3
-        )
+        self.draw_text(text=info["weekday"], x=col_1, y=50, opt=2)
+        self.draw_text(text=info["month"] + " " + info["day"], x=col_1, y=row_3)
 
-        self.draw_text(text="Alarm: " + info["alarm"], x=col_1, y=row_6, scale=2)
+        self.draw_text(text="Alarm: " + info["alarm"], x=col_1, y=row_4)
 
         if info["usb"]:
             usb_msg = "USB In"
-            msg_scale = 2
         else:
             usb_msg = "Batt:" + info["batt"] + "%"
-            msg_scale = 2
 
-        self.draw_text(text=usb_msg, x=col_2, y=row_2, scale=msg_scale)
+        self.draw_text(text=usb_msg, x=col_2, y=row_1)
 
-        self.draw_text(text=info["temp"] + " C", x=col_2, y=row_4, scale=2)
+        self.draw_text(text=info["temp"] + " C", x=col_2, y=row_2)
 
-        self.draw_text(text=info["humidity"] + " %", x=col_2, y=row_6, scale=2)
+        self.draw_text(text=info["humidity"] + " %", x=col_2, y=row_3)
         return None
 
     def draw_polygon(self, points: list, color: str):

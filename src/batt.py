@@ -12,6 +12,7 @@ class Batt:
         self.usb_power = digitalio.DigitalInOut(pin_usb)
 
     def get_batt_frac(self) -> float:
+        # https://forums.raspberrypi.com/viewtopic.php?t=301152
         volts = self._v_batt.value * 3.3 / 65535 * 3
         return percentize(volts, min=self._v_batt_min, max=self._v_batt_max)
 

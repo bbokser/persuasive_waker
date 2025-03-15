@@ -22,8 +22,7 @@ class State:
         print("exit ", self.name)
 
     def execute_default(self):
-        rf_input = self.f.rf.update()
-        if self.f.clock.get_alarm_status(rf_input) is True:
+        if self.f.clock.get_alarm_status(cancel=False) is True:
             self.f.to_transition("toAlarming")
 
 
