@@ -108,7 +108,7 @@ class OS(FSM):
             "alarm": self.clock.get_alarm_str(),
             "temp": self.sensor.get_temperature(),
             "humidity": self.sensor.get_humidity(),
-            "batt": self.battery.get_batt_str(),
+            "batt": self.battery.get_batt_frac(),
             "usb": self.battery.usb_power.value,
         }
         return disp_info
