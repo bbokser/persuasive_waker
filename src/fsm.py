@@ -22,7 +22,10 @@ class State:
         print("exit ", self.name)
 
     def execute_default(self):
-        if self.f.clock.get_alarm_status(cancel=False) is True:
+        if (
+            self.f.clock.alarm1.get_status(cancel=False) is True
+            or self.f.clock.alarm2.get_status(cancel=False) is True
+        ):
             self.f.to_transition("toAlarming")
 
 
@@ -31,23 +34,23 @@ class Alarming(State):
         super().__init__(fsm, name)
 
     def enter(self):
-        self.f.clock.log_alarm_start()
+        self.f.clock.alarm1.log_start()
+        self.f.clock.alarm2.log_start()
 
     def execute(self):
         rf_input = self.f.rf.update()
         self.f.as1115.display_hourmin(self.f.clock.get_hour(), self.f.clock.get_min())
-        # alarm_delta = self.f.clock.get_alarm_delta()
-        # magnitude = utils.clip(abs(alarm_delta / self.f.clock.alarm_delta_max), 0.1, 1.0)
-        # tone = utils.translate(magnitude, 200, 400)
-        magnitude = 1
-        tone = 200  # 2730
-        self.f.buzzer.play(tone=tone, amp=magnitude, on=self.f.heartbeat)
+        self.f.buzzer.play(tone=200, amp=1, on=self.f.heartbeat)
 
-        if self.f.clock.get_alarm_status(rf_input) == False:
+        if (
+            self.f.clock.alarm1.get_status(rf_input) == False
+            and self.f.clock.alarm2.get_status(rf_input) == False
+        ):
             self.f.to_transition("toDefault")
 
     def exit(self):
-        self.f.clock.reset_alarm()
+        self.f.clock.alarm1.reset()
+        self.f.clock.alarm2.reset()
         self.f.buzzer.shutoff()
 
 
@@ -69,7 +72,7 @@ class Default(State):
         elif self.f.b_set_time == True:
             self.f.to_transition("toSetHour")
         elif self.f.b_set_alarm == True:
-            self.f.to_transition("toSetAlarmHour")
+            self.f.to_transition("toSetAlarm1Hour")
         elif self.f.b_set_brightness == True:
             self.f.to_transition("toSetBrightness")
         else:
@@ -201,13 +204,13 @@ class SetMin(State):
             pass
 
 
-class SetAlarmHour(State):
+class SetAlarm1Hour(State):
     def __init__(self, fsm, name):
         super().__init__(fsm, name)
 
     def enter(self):
-        self.f.hour = self.f.clock.get_alarm_hour()
-        self.f.minute = self.f.clock.get_alarm_min()
+        self.f.hour = self.f.clock.alarm1.get_hour()
+        self.f.minute = self.f.clock.alarm1.get_min()
         self.f.encoder.rezero()
 
     def execute(self):
@@ -217,13 +220,15 @@ class SetAlarmHour(State):
         self.f.as1115.wink_left(self.f.heartbeat)
 
         if self.f.b_enter == True:
-            self.f.to_transition("toSetAlarmMin")
+            self.f.to_transition("toSetAlarm1Min")
         elif self.f.b_back == True:
-            self.f.clock.disable_alarm()
+            self.f.clock.alarm1.disable()
             self.f.to_transition("toDefault")
+        elif self.f.b_set_alarm == True:
+            self.f.to_transition("toSetAlarm2Hour")
 
 
-class SetAlarmMin(State):
+class SetAlarm1Min(State):
     def __init__(self, fsm, name):
         super().__init__(fsm, name)
 
@@ -237,10 +242,53 @@ class SetAlarmMin(State):
         self.f.as1115.wink_right(self.f.heartbeat)
 
         if self.f.b_enter == True:
-            self.f.clock.set_alarm(hour=self.f.hour_new, min=self.f.min_new)
+            self.f.clock.alarm1.set_alarm(hour=self.f.hour_new, min=self.f.min_new)
             self.f.to_transition("toDefault")
         elif self.f.b_back == True:
-            self.f.clock.disable_alarm()
+            self.f.clock.alarm1.disable()
+            self.f.to_transition("toDefault")
+
+
+class SetAlarm2Hour(State):
+    def __init__(self, fsm, name):
+        super().__init__(fsm, name)
+
+    def enter(self):
+        self.f.hour = self.f.clock.alarm2.get_hour()
+        self.f.minute = self.f.clock.alarm2.get_min()
+        self.f.encoder.rezero()
+
+    def execute(self):
+        self.execute_default()
+        self.f.hour_new = (self.f.hour + self.f.encoder.get_encoder_pos()) % 24
+        self.f.as1115.display_hourmin(self.f.hour_new, self.f.minute)
+        self.f.as1115.wink_left(self.f.heartbeat)
+
+        if self.f.b_enter == True:
+            self.f.to_transition("toSetAlarm2Min")
+        elif self.f.b_back == True:
+            self.f.clock.alarm2.disable()
+            self.f.to_transition("toDefault")
+
+
+class SetAlarm2Min(State):
+    def __init__(self, fsm, name):
+        super().__init__(fsm, name)
+
+    def enter(self):
+        self.f.encoder.rezero()
+
+    def execute(self):
+        self.execute_default()
+        self.f.min_new = (self.f.minute + self.f.encoder.get_encoder_pos()) % 60
+        self.f.as1115.display_hourmin(self.f.hour_new, self.f.min_new)
+        self.f.as1115.wink_right(self.f.heartbeat)
+
+        if self.f.b_enter == True:
+            self.f.clock.alarm2.set_alarm(hour=self.f.hour_new, min=self.f.min_new)
+            self.f.to_transition("toDefault")
+        elif self.f.b_back == True:
+            self.f.clock.alarm2.disable()
             self.f.to_transition("toDefault")
 
 
@@ -294,8 +342,10 @@ class FSM:
         self.add_state("set_day", SetDay)
         self.add_state("set_hour", SetHour)
         self.add_state("set_min", SetMin)
-        self.add_state("set_alarm_hour", SetAlarmHour)
-        self.add_state("set_alarm_min", SetAlarmMin)
+        self.add_state("set_alarm1_hour", SetAlarm1Hour)
+        self.add_state("set_alarm1_min", SetAlarm1Min)
+        self.add_state("set_alarm2_hour", SetAlarm2Hour)
+        self.add_state("set_alarm2_min", SetAlarm2Min)
         self.add_state("set_brightness", SetBrightness)
 
         self.add_transition("toAlarming", Transition("alarming"))
@@ -304,8 +354,10 @@ class FSM:
         self.add_transition("toSetDay", Transition("set_day"))
         self.add_transition("toSetHour", Transition("set_hour"))
         self.add_transition("toSetMin", Transition("set_min"))
-        self.add_transition("toSetAlarmHour", Transition("set_alarm_hour"))
-        self.add_transition("toSetAlarmMin", Transition("set_alarm_min"))
+        self.add_transition("toSetAlarm1Hour", Transition("set_alarm1_hour"))
+        self.add_transition("toSetAlarm1Min", Transition("set_alarm1_min"))
+        self.add_transition("toSetAlarm2Hour", Transition("set_alarm2_hour"))
+        self.add_transition("toSetAlarm2Min", Transition("set_alarm2_min"))
         self.add_transition("toSetBrightness", Transition("set_brightness"))
         self.add_transition("toDefault", Transition("default"))
 

@@ -47,12 +47,12 @@ See [here](user_manual.md).
 
 ## Software
 - Setting to prevent changing alarm last-minute?
-- Second Alarm
-    - Weekend vs Weekday Alarm
+- Weekend vs Weekday Alarm
 - Option Button
-    - Way to set alarm pitch?
-    - Way to set F vs C
-    - Way to set military vs 12 hour time
+    - Alarm pitch setting
+    - Alarm ring time setting
+    - Set F vs C
+    - Set military vs 12 hour time
     
 ## Documentation
 - Write user manual

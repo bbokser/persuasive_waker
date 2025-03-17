@@ -99,28 +99,33 @@ class InkDisp:
         self.draw_bg(color="white")
         x_center = display.width // 2
         col_1 = 5
-        col_2 = x_center + 20
+        col_2 = x_center
         row_1 = 24
         row_2 = row_1 + 30
         row_3 = row_2 + 30
         row_4 = row_3 + 30
+        offset_icon = 18
+        offset_txt = 24
 
         self.draw_text(text=info["weekday"], x=col_1, y=50, opt=2)
         self.draw_text(text=info["month"] + " " + info["day"], x=col_1, y=row_3)
-        self.draw_bmp("/bmps/alarm.bmp", x=col_1, y=row_4 - 18)
-        self.draw_text(text=info["alarm"], x=col_1 + 24, y=row_4)
+        self.draw_bmp("/bmps/alarm1.bmp", x=col_1, y=row_4 - offset_icon)
+        self.draw_text(text=info["alarm1"], x=col_1 + offset_txt, y=row_4)
 
-        self.draw_bmp("/bmps/elec.bmp", x=col_2, y=row_1 - 18)
+        self.draw_bmp("/bmps/elec.bmp", x=col_2, y=row_1 - offset_icon)
         if info["usb"]:
-            self.draw_text(text="USB", x=col_2 + 24, y=row_1)
+            self.draw_text(text="USB", x=col_2 + offset_txt, y=row_1)
         else:
-            self.draw_battery(frac=info["batt"], x=col_2 + 24, y=5)
+            self.draw_battery(frac=info["batt"], x=col_2 + offset_txt, y=5)
 
-        self.draw_bmp("/bmps/temp.bmp", x=col_2, y=row_2 - 18)
-        self.draw_text(text=info["temp"] + " C", x=col_2 + 24, y=row_2)
+        self.draw_bmp("/bmps/temp.bmp", x=col_2, y=row_2 - offset_icon)
+        self.draw_text(text=info["temp"] + " C", x=col_2 + offset_txt, y=row_2)
 
-        self.draw_bmp("/bmps/humidity.bmp", x=col_2, y=row_3 - 18)
-        self.draw_text(text=info["humidity"] + " %", x=col_2 + 24, y=row_3)
+        self.draw_bmp("/bmps/humidity.bmp", x=col_2, y=row_3 - offset_icon)
+        self.draw_text(text=info["humidity"] + " %", x=col_2 + offset_txt, y=row_3)
+
+        self.draw_bmp("/bmps/alarm2.bmp", x=col_2, y=row_4 - offset_icon)
+        self.draw_text(text=info["alarm2"], x=col_2 + offset_txt, y=row_4)
         return None
 
     def draw_battery(self, frac, x, y):

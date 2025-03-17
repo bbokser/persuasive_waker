@@ -28,6 +28,7 @@ class OS(FSM):
         self.clock = Clock(i2c)
         self.rf = PinButton(board.GP15)
         self.enc_button = ScanButton()
+        self.alarm_button = ScanButton()
         self.battery = Batt(pin_vbatt=board.VOLTAGE_MONITOR, pin_usb=board.VBUS_SENSE)
         self.encoder = Encoder(pinA=board.GP1, pinB=board.GP0)
         self.buzzer = Piezo(board.GP2)
@@ -70,7 +71,7 @@ class OS(FSM):
             self.b_set_brightness = buttons[2]
             self.b_set_time = buttons[4]
             self.b_set_date = buttons[5]
-            self.b_set_alarm = buttons[6]
+            self.b_set_alarm = self.alarm_button.update(buttons[6])
             self.b_enter = self.enc_button.update(buttons[7])
 
             self.execute()
@@ -105,7 +106,8 @@ class OS(FSM):
             "month": self.clock.get_month_str(),
             "day": self.clock.get_day_str(),
             "year": self.clock.get_year_str(),
-            "alarm": self.clock.get_alarm_str(),
+            "alarm1": self.clock.alarm1.get_str(),
+            "alarm2": self.clock.alarm2.get_str(),
             "temp": self.sensor.get_temperature(),
             "humidity": self.sensor.get_humidity(),
             "batt": self.battery.get_batt_frac(),
