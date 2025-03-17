@@ -45,36 +45,6 @@ AS1115_DISPLAY_TEST_MODE = {
     "RSET_SHORT": 6,  #  Checks if external resistor Rset is shorted.
 }
 
-# AS1115_DOT = 0x80
-# LETTERS = {
-#     'A': 0x77,
-#     'B': 0x1F,
-#     'C': 0x4E,
-#     'D': 0x3D,
-#     'E': 0x4F,
-#     'F': 0x47,
-#     'G': 0x5E,
-#     'H': 0x37,
-#     'I': 0x30,
-#     'J': 0x3C,
-#     'K': 0x2F,
-#     'L': 0x0E,
-#     'M': 0x54,
-#     'N': 0x15,
-#     'O': 0x1D,
-#     'P': 0x67,
-#     'Q': 0x73,
-#     'R': 0x05,
-#     'S': 0x5B,
-#     'T': 0x0F,
-#     'U': 0x3E,
-#     'V': 0x1C,
-#     'W': 0x2A,
-#     'X': 0x49,
-#     'Y': 0x3B,
-#     'Z': 0x25,
-# }
-
 AS1115_DIGIT_REGISTER = [0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08]
 AS1115_LED_DIAG_REG = [0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1A, 0x1B]
 NUMBERS = [
@@ -266,14 +236,21 @@ class AS1115:
         self._brightness = None
         self.keyscan = [None] * 8
 
-        self.device.decode_mode = 0xF  # this enables decoding on D0, D1, D2, D3
-        self.device.feature_decode_sel = 0
+        self.enable_decode()
+        self.device.feature_decode_sel = 0  # set to code-B
         self.device.scan_limit = 6
         self.device.shutdown_mode_unchanged = 0
         self.device.shutdown_mode_normal = 1
 
         self.blink_rate = 0
         self.brightness = brightness
+
+    def enable_decode(self):
+        # this enables decoding on D0, D1, D2, D3
+        self.device.decode_mode = 0xF
+
+    def disable_decode(self):
+        self.device.decode_mode = 0x0
 
     def scan_keys(self) -> list:
         for i in range(8):
@@ -309,6 +286,33 @@ class AS1115:
         self.display_idx(1, nth(hour, 0))
         self.display_idx(2, nth(minute, 1))
         self.display_idx(3, nth(minute, 0))
+
+    def display_fullweek(self) -> None:
+        # show 7 bars representing 7 days
+        self.disable_decode()
+        # 4 decimal = 100 binary -> seg C
+        # 16 decimal = 10000 binary -> seg E
+        self.device.set_digit(0, 16)
+        self.device.set_digit(1, 4 | 16)
+        self.device.set_digit(2, 4 | 16)
+        self.device.set_digit(3, 4 | 16)
+
+    def display_weekend(self) -> None:
+        # show 2 bars representing sat-sun
+        self.disable_decode()
+        self.device.set_digit(0, 16)
+        self.clear_idx(1)
+        self.clear_idx(2)
+        self.device.set_digit(3, 16)
+
+    def display_workdays(self) -> None:
+        # show 5 bars representing mon-fri
+        self.disable_decode()
+        self.clear_idx(0)
+        self.device.set_digit(1, 4 | 16)
+        self.device.set_digit(2, 4 | 16)
+        self.device.set_digit(3, 4)
+        self.clear_idx(2)
 
     def visualTest(self) -> None:
         self.device.disp_test_visual = 1

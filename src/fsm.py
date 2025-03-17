@@ -23,8 +23,8 @@ class State:
 
     def execute_default(self):
         if (
-            self.f.clock.alarm1.get_status(cancel=False) is True
-            or self.f.clock.alarm2.get_status(cancel=False) is True
+            self.f.clock.alarm1.get_status_init() is True
+            or self.f.clock.alarm2.get_status_init() is True
         ):
             self.f.to_transition("toAlarming")
 
@@ -61,6 +61,8 @@ class Default(State):
     def enter(self):
         # prevents seg disp from getting stuck in a wink/blink
         self.f.as1115.unwink()
+        # prevent from getting stuck in no-decode mode
+        self.f.as1115.enable_decode()
 
     def execute(self):
         self.execute_default()
@@ -211,6 +213,7 @@ class SetAlarm1Hour(State):
     def enter(self):
         self.f.hour = self.f.clock.alarm1.get_hour()
         self.f.minute = self.f.clock.alarm1.get_min()
+        self.f.wdays = 0
         self.f.encoder.rezero()
 
     def execute(self):
@@ -247,6 +250,38 @@ class SetAlarm1Min(State):
         elif self.f.b_back == True:
             self.f.clock.alarm1.disable()
             self.f.to_transition("toDefault")
+        elif self.f.b_options == True:
+            self.f.to_transition("toSetAlarm1Wdays")
+
+
+class SetAlarm1Wdays(State):
+    def __init__(self, fsm, name):
+        super().__init__(fsm, name)
+
+    def enter(self):
+        self.f.encoder.rezero()
+
+    def execute(self):
+        self.execute_default()
+        self.f.wdays_new = (self.f.wdays + self.f.encoder.get_encoder_pos()) % 3
+        if self.f.wdays_new == 0:
+            self.f.as1115.display_fullweek()
+        elif self.f.wdays_new == 1:
+            self.f.as1115.display_workdays()
+        elif self.f.wdays_new == 2:
+            self.f.as1115.display_weekend()
+
+        self.f.as1115.wink_left(self.f.heartbeat)
+        self.f.as1115.wink_right(self.f.heartbeat)
+
+        if self.f.b_enter == True:
+            self.f.clock.alarm1.set_alarm(
+                hour=self.f.hour_new, min=self.f.min_new, wday_set=self.f.wdays_new
+            )
+            self.f.to_transition("toDefault")
+        elif self.f.b_back == True:
+            self.f.clock.alarm1.disable()
+            self.f.to_transition("toDefault")
 
 
 class SetAlarm2Hour(State):
@@ -256,6 +291,7 @@ class SetAlarm2Hour(State):
     def enter(self):
         self.f.hour = self.f.clock.alarm2.get_hour()
         self.f.minute = self.f.clock.alarm2.get_min()
+        self.f.wdays = 0
         self.f.encoder.rezero()
 
     def execute(self):
@@ -286,6 +322,38 @@ class SetAlarm2Min(State):
 
         if self.f.b_enter == True:
             self.f.clock.alarm2.set_alarm(hour=self.f.hour_new, min=self.f.min_new)
+            self.f.to_transition("toDefault")
+        elif self.f.b_back == True:
+            self.f.clock.alarm2.disable()
+            self.f.to_transition("toDefault")
+        elif self.f.b_options == True:
+            self.f.to_transition("toSetAlarm2Wdays")
+
+
+class SetAlarm2Wdays(State):
+    def __init__(self, fsm, name):
+        super().__init__(fsm, name)
+
+    def enter(self):
+        self.f.encoder.rezero()
+
+    def execute(self):
+        self.execute_default()
+        self.f.wdays_new = (self.f.wdays + self.f.encoder.get_encoder_pos()) % 3
+        if self.f.wdays_new == 0:
+            self.f.as1115.display_fullweek()
+        elif self.f.wdays_new == 1:
+            self.f.as1115.display_workdays()
+        elif self.f.wdays_new == 2:
+            self.f.as1115.display_weekend()
+
+        self.f.as1115.wink_left(self.f.heartbeat)
+        self.f.as1115.wink_right(self.f.heartbeat)
+
+        if self.f.b_enter == True:
+            self.f.clock.alarm2.set_alarm(
+                hour=self.f.hour_new, min=self.f.min_new, wday_set=self.f.wdays_new
+            )
             self.f.to_transition("toDefault")
         elif self.f.b_back == True:
             self.f.clock.alarm2.disable()
@@ -344,8 +412,10 @@ class FSM:
         self.add_state("set_min", SetMin)
         self.add_state("set_alarm1_hour", SetAlarm1Hour)
         self.add_state("set_alarm1_min", SetAlarm1Min)
+        self.add_state("set_alarm1_wdays", SetAlarm1Wdays)
         self.add_state("set_alarm2_hour", SetAlarm2Hour)
         self.add_state("set_alarm2_min", SetAlarm2Min)
+        self.add_state("set_alarm2_wdays", SetAlarm2Wdays)
         self.add_state("set_brightness", SetBrightness)
 
         self.add_transition("toAlarming", Transition("alarming"))
@@ -356,8 +426,10 @@ class FSM:
         self.add_transition("toSetMin", Transition("set_min"))
         self.add_transition("toSetAlarm1Hour", Transition("set_alarm1_hour"))
         self.add_transition("toSetAlarm1Min", Transition("set_alarm1_min"))
+        self.add_transition("toSetAlarm1Wdays", Transition("set_alarm1_wdays"))
         self.add_transition("toSetAlarm2Hour", Transition("set_alarm2_hour"))
         self.add_transition("toSetAlarm2Min", Transition("set_alarm2_min"))
+        self.add_transition("toSetAlarm2Wdays", Transition("set_alarm2_wdays"))
         self.add_transition("toSetBrightness", Transition("set_brightness"))
         self.add_transition("toDefault", Transition("default"))
 

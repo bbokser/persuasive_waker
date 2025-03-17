@@ -29,6 +29,7 @@ class OS(FSM):
         self.rf = PinButton(board.GP15)
         self.enc_button = ScanButton()
         self.alarm_button = ScanButton()
+        self.opt_button = ScanButton()
         self.battery = Batt(pin_vbatt=board.VOLTAGE_MONITOR, pin_usb=board.VBUS_SENSE)
         self.encoder = Encoder(pinA=board.GP1, pinB=board.GP0)
         self.buzzer = Piezo(board.GP2)
@@ -67,7 +68,7 @@ class OS(FSM):
             # 5-S4-date, 4-S5-time, 6-S3-alarm, 3-S6-light, 1-S7-gear, 0-S8-back, 7-Enc-Enter
             buttons = self.as1115.scan_keys()
             self.b_back = buttons[0]
-            self.b_options = buttons[1]
+            self.b_options = self.opt_button.update(buttons[1])
             self.b_set_brightness = buttons[2]
             self.b_set_time = buttons[4]
             self.b_set_date = buttons[5]

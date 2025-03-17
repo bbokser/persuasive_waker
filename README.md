@@ -33,7 +33,8 @@ See [here](user_manual.md).
 
 ## Electrical
 ### Testing
-- 
+- Test qwiic conn
+- Test pinout
 
 ### Schematic
 - Use H-bridge to increase volume
@@ -46,6 +47,9 @@ See [here](user_manual.md).
 - Cover: Prevent order number from being marked
 
 ## Software
+- Fix week set graphical bug
+- Fix day of week not being respected
+- "None S&S"
 - Setting to prevent changing alarm last-minute?
 - Weekend vs Weekday Alarm
 - Option Button

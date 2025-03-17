@@ -1,12 +1,25 @@
 import adafruit_datetime
 import time
 
+wday_sets = [
+    set((0, 1, 2, 3, 4, 5, 6)),  # full week
+    set((1, 2, 3, 4, 5)),  # mon-fri
+    set((0, 6)),  # sat & sun
+]
+
+wday_set_lbls = [
+    "",
+    " M-F",
+    " S&S",
+]
+
 
 class Alarm:
     def __init__(self, rtc, idx):
         self.rtc = rtc
         self.idx = idx
 
+        self.wday_set = 0  # corresponds to full week
         self.start_day = None
         self.enable = False
         self.delta_max = 10 * 60  # max alarm ring time, seconds
@@ -41,12 +54,38 @@ class Alarm:
 
     def get_str(self) -> str:
         if self.enable is True:
-            return "{:d}:{:02d}".format(self.get_hour(), self.get_min())
+            return (
+                "{:d}:{:02d}".format(self.get_hour(), self.get_min())
+                + wday_set_lbls[self.wday_set]
+            )
         else:
             return "None"
 
+    def get_status_init(self) -> bool:
+        """
+        Get permission to enter the alarming state.
+        Only check wday on entering in case alarm starts at 23:59 or some shit
+        """
+        if self.idx == 0:
+            chip_status = self.rtc.alarm1_status
+        else:
+            chip_status = self.rtc.alarm2_status
+
+        wday = self.rtc.datetime.tm_wday
+        if self.enable and chip_status and (wday in wday_sets[self.wday_set]):
+            delta = self.get_alarm_delta()
+            if 0 <= delta <= self.delta_max:
+                final_status = True
+            else:
+                self.reset()
+                final_status = False
+        else:
+            final_status = False
+        return final_status
+
     def get_status(self, cancel: bool) -> bool:
         """
+        Get permission to continue alarming
         A large number of criteria must be reached for the alarm to
         really, truly be allowed to sound
         """
@@ -54,6 +93,7 @@ class Alarm:
             chip_status = self.rtc.alarm1_status
         else:
             chip_status = self.rtc.alarm2_status
+
         if self.enable and chip_status and not cancel:
             delta = self.get_alarm_delta()
             if 0 <= delta <= self.delta_max:
@@ -65,7 +105,7 @@ class Alarm:
             final_status = False
         return final_status
 
-    def set_alarm(self, hour: int, min: int, enable=True):
+    def set_alarm(self, hour: int, min: int, wday_set: int = 0, enable: bool = True):
         time_struct = (
             time.struct_time(
                 (
@@ -86,6 +126,7 @@ class Alarm:
             self.rtc.alarm1 = time_struct
         else:
             self.rtc.alarm2 = time_struct
+        self.wday_set = wday_set
         self.enable = enable
 
     def get_datetime_now(self) -> adafruit_datetime.datetime:
