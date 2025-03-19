@@ -119,7 +119,7 @@ class InkDisp:
             self.draw_battery(frac=info["batt"], x=col_2 + offset_txt, y=5)
 
         self.draw_bmp("/bmps/temp.bmp", x=col_2, y=row_2 - offset_icon)
-        self.draw_text(text=info["temp"] + " C", x=col_2 + offset_txt, y=row_2)
+        self.draw_text(text=info["temp"], x=col_2 + offset_txt, y=row_2)
 
         self.draw_bmp("/bmps/humidity.bmp", x=col_2, y=row_3 - offset_icon)
         self.draw_text(text=info["humidity"] + " %", x=col_2 + offset_txt, y=row_3)

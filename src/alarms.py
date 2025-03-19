@@ -55,7 +55,7 @@ class Alarm:
     def get_str(self) -> str:
         if self.enable is True:
             return (
-                "{:d}:{:02d}".format(self.get_hour(), self.get_min())
+                "{:02d}:{:02d}".format(self.get_hour(), self.get_min())
                 + wday_set_lbls[self.wday_set]
             )
         else:

@@ -33,7 +33,7 @@ class OS(FSM):
         self.battery = Batt(pin_vbatt=board.VOLTAGE_MONITOR, pin_usb=board.VBUS_SENSE)
         self.encoder = Encoder(pinA=board.GP1, pinB=board.GP0)
         self.buzzer = Piezo(board.GP2)
-        self.sensor = HTSensor(i2c, address=0x45)
+        self.sensor = HTSensor(i2c, address=0x45, units=0)
         # segment display colon
         self.seg_colon = LED(board.GP13, brightness_init / 15)
         self.seg_colon.on()

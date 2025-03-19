@@ -7,16 +7,21 @@ class Piezo:
         # self.buzzer = pwmio.PWMOut(pin, variable_frequency=False)
         self.buzzer = pwmio.PWMOut(pin, variable_frequency=True)
         # self.duty_max = 2**16 - 1 # max duty cycle = 65535 Hz
+        self.pitch = 200  # default pitch
         self.duty_min = 100
-        self.duty_max = 4000
+        self.duty_max = 2730
 
-    def play(self, tone: int, amp: float, on: bool):
+    def play(self, amp: float, pitch: int = None, on: bool = True):
         """
-        note = note in tone dict, string
+        pitch = frequency
         amp = amplitude, between 0 and 1
+        on = way to turn on/off
         """
+        if pitch is None:
+            pitch = self.pitch
+
         if on:
-            self.buzzer.frequency = int(tone)
+            self.buzzer.frequency = int(pitch)
             self.buzzer.duty_cycle = int(
                 utils.translate(amp, min=self.duty_min, max=self.duty_max)
             )

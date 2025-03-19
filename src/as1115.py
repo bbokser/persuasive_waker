@@ -65,6 +65,15 @@ NUMBERS = [
     0x4F,
     0x47,
 ]
+LETTERS = {
+    "A": 2 | 4 | 64 | 32 | 16,
+    "b": 2 | 4 | 8 | 16 | 1,
+    "C": 2 | 4 | 64 | 8,
+    "d": 4 | 8 | 16 | 32 | 1,
+    "E": 2 | 4 | 8 | 64 | 1,
+    "F": 2 | 4 | 64 | 1,
+    "h": 2 | 4 | 1 | 16,
+}
 
 
 def nth(value: int, idx: int):
@@ -287,6 +296,14 @@ class AS1115:
         self.display_idx(2, nth(minute, 1))
         self.display_idx(3, nth(minute, 0))
 
+    def display_letter(self, letter: str) -> None:
+        # show single letter
+        self.disable_decode()
+        self.device.set_digit(0, 0)
+        self.device.set_digit(1, 0)
+        self.device.set_digit(2, 0)
+        self.device.set_digit(3, LETTERS[letter])
+
     def display_fullweek(self) -> None:
         # show 7 bars representing 7 days
         self.disable_decode()
@@ -301,18 +318,17 @@ class AS1115:
         # show 2 bars representing sat-sun
         self.disable_decode()
         self.device.set_digit(0, 16)
-        self.clear_idx(1)
-        self.clear_idx(2)
+        self.device.set_digit(1, 0)
+        self.device.set_digit(2, 0)
         self.device.set_digit(3, 16)
 
     def display_workdays(self) -> None:
         # show 5 bars representing mon-fri
         self.disable_decode()
-        self.clear_idx(0)
+        self.device.set_digit(0, 0)
         self.device.set_digit(1, 4 | 16)
         self.device.set_digit(2, 4 | 16)
         self.device.set_digit(3, 4)
-        self.clear_idx(2)
 
     def visualTest(self) -> None:
         self.device.disp_test_visual = 1

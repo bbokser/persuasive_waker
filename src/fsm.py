@@ -40,7 +40,7 @@ class Alarming(State):
     def execute(self):
         rf_input = self.f.rf.update()
         self.f.as1115.display_hourmin(self.f.clock.get_hour(), self.f.clock.get_min())
-        self.f.buzzer.play(tone=200, amp=1, on=self.f.heartbeat)
+        self.f.buzzer.play(amp=1, on=self.f.heartbeat)
 
         if (
             self.f.clock.alarm1.get_status(rf_input) == False
@@ -77,6 +77,8 @@ class Default(State):
             self.f.to_transition("toSetAlarm1Hour")
         elif self.f.b_set_brightness == True:
             self.f.to_transition("toSetBrightness")
+        elif self.f.b_options == True:
+            self.f.to_transition("toSetUnits")
         else:
             pass
 
@@ -213,7 +215,7 @@ class SetAlarm1Hour(State):
     def enter(self):
         self.f.hour = self.f.clock.alarm1.get_hour()
         self.f.minute = self.f.clock.alarm1.get_min()
-        self.f.wdays = 0
+        self.f.wdays = self.f.clock.alarm1.wday_set
         self.f.encoder.rezero()
 
     def execute(self):
@@ -245,13 +247,12 @@ class SetAlarm1Min(State):
         self.f.as1115.wink_right(self.f.heartbeat)
 
         if self.f.b_enter == True:
-            self.f.clock.alarm1.set_alarm(hour=self.f.hour_new, min=self.f.min_new)
-            self.f.to_transition("toDefault")
+            self.f.to_transition("toSetAlarm1Wdays")
+            # self.f.clock.alarm1.set_alarm(hour=self.f.hour_new, min=self.f.min_new)
+            # self.f.to_transition("toDefault")
         elif self.f.b_back == True:
             self.f.clock.alarm1.disable()
             self.f.to_transition("toDefault")
-        elif self.f.b_options == True:
-            self.f.to_transition("toSetAlarm1Wdays")
 
 
 class SetAlarm1Wdays(State):
@@ -259,6 +260,7 @@ class SetAlarm1Wdays(State):
         super().__init__(fsm, name)
 
     def enter(self):
+        self.f.seg_colon.off()
         self.f.encoder.rezero()
 
     def execute(self):
@@ -291,7 +293,7 @@ class SetAlarm2Hour(State):
     def enter(self):
         self.f.hour = self.f.clock.alarm2.get_hour()
         self.f.minute = self.f.clock.alarm2.get_min()
-        self.f.wdays = 0
+        self.f.wdays = self.f.clock.alarm2.wday_set
         self.f.encoder.rezero()
 
     def execute(self):
@@ -321,13 +323,12 @@ class SetAlarm2Min(State):
         self.f.as1115.wink_right(self.f.heartbeat)
 
         if self.f.b_enter == True:
-            self.f.clock.alarm2.set_alarm(hour=self.f.hour_new, min=self.f.min_new)
-            self.f.to_transition("toDefault")
+            self.f.to_transition("toSetAlarm2Wdays")
+            # self.f.clock.alarm2.set_alarm(hour=self.f.hour_new, min=self.f.min_new)
+            # self.f.to_transition("toDefault")
         elif self.f.b_back == True:
             self.f.clock.alarm2.disable()
             self.f.to_transition("toDefault")
-        elif self.f.b_options == True:
-            self.f.to_transition("toSetAlarm2Wdays")
 
 
 class SetAlarm2Wdays(State):
@@ -335,6 +336,7 @@ class SetAlarm2Wdays(State):
         super().__init__(fsm, name)
 
     def enter(self):
+        self.f.seg_colon.off()
         self.f.encoder.rezero()
 
     def execute(self):
@@ -367,6 +369,7 @@ class SetBrightness(State):
     def enter(self):
         self.f.seg_colon.off()
         self.f.encoder.rezero()
+        self.f.brightness_original = self.f.as1115.brightness
         self.f.brightness_new = self.f.as1115.brightness
 
     def execute(self):
@@ -381,7 +384,66 @@ class SetBrightness(State):
         if self.f.b_enter == True:
             self.f.to_transition("toDefault")
         elif self.f.b_back == True:
+            self.f.as1115.brightness = self.f.brightness_original
             self.f.to_transition("toDefault")
+
+
+class SetUnits(State):
+    def __init__(self, fsm, name):
+        super().__init__(fsm, name)
+
+    def enter(self):
+        self.f.seg_colon.off()
+        self.f.encoder.rezero()
+        self.f.units_new = self.f.sensor.units
+
+    def execute(self):
+        self.execute_default()
+        self.f.units_new = (self.f.sensor.units + self.f.encoder.get_encoder_pos()) % 2
+        if self.f.units_new == 0:
+            self.f.as1115.display_letter("C")
+        else:
+            self.f.as1115.display_letter("F")
+        self.f.as1115.wink_right(self.f.heartbeat)
+        if self.f.b_enter == True:
+            self.f.sensor.change_units(self.f.units_new)
+            self.f.to_transition("toDefault")
+        elif self.f.b_back == True:
+            self.f.to_transition("toDefault")
+        elif self.f.b_options == True:
+            self.f.to_transition("toSetPitch")
+
+
+class SetPitch(State):
+    def __init__(self, fsm, name):
+        super().__init__(fsm, name)
+
+    def enter(self):
+        self.f.as1115.enable_decode()
+        self.f.seg_colon.off()
+        self.f.encoder.rezero()
+        self.f.pitch_new = self.f.buzzer.pitch
+
+    def execute(self):
+        self.execute_default()
+        # https://www.mouser.com/datasheet/2/1628/css_i4b20_smt_tr-3509940.pdf
+        self.f.pitch_new = int(
+            utils.wrap_to_range(
+                int(self.f.buzzer.pitch / 50) + self.f.encoder.get_encoder_pos(), 1, 14
+            )
+            * 50
+        )
+        self.f.as1115.display_int(self.f.pitch_new)
+        self.f.buzzer.play(amp=0.25, pitch=self.f.pitch_new)
+
+        if self.f.b_enter == True:
+            self.f.buzzer.pitch = self.f.pitch_new
+            self.f.to_transition("toDefault")
+        elif self.f.b_back == True:
+            self.f.to_transition("toDefault")
+
+    def exit(self):
+        self.f.buzzer.shutoff()
 
 
 class Transition:
@@ -417,6 +479,8 @@ class FSM:
         self.add_state("set_alarm2_min", SetAlarm2Min)
         self.add_state("set_alarm2_wdays", SetAlarm2Wdays)
         self.add_state("set_brightness", SetBrightness)
+        self.add_state("set_units", SetUnits)
+        self.add_state("set_pitch", SetPitch)
 
         self.add_transition("toAlarming", Transition("alarming"))
         self.add_transition("toSetYear", Transition("set_year"))
@@ -431,6 +495,8 @@ class FSM:
         self.add_transition("toSetAlarm2Min", Transition("set_alarm2_min"))
         self.add_transition("toSetAlarm2Wdays", Transition("set_alarm2_wdays"))
         self.add_transition("toSetBrightness", Transition("set_brightness"))
+        self.add_transition("toSetUnits", Transition("set_units"))
+        self.add_transition("toSetPitch", Transition("set_pitch"))
         self.add_transition("toDefault", Transition("default"))
 
         self.setstate("default")
