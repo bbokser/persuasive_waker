@@ -1,5 +1,6 @@
 import pwmio
 import utils
+import time
 
 
 class Piezo:
@@ -29,4 +30,18 @@ class Piezo:
             self.buzzer.duty_cycle = 0
 
     def shutoff(self):
+        self.buzzer.duty_cycle = 0
+
+    def play_error_tone(self):
+        self.buzzer.frequency = 100
+        self.buzzer.duty_cycle = 1000
+        time.sleep(0.1)
+
+        self.buzzer.duty_cycle = 0
+        time.sleep(0.1)
+
+        self.buzzer.frequency = 100
+        self.buzzer.duty_cycle = 1000
+        time.sleep(0.1)
+
         self.buzzer.duty_cycle = 0

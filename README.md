@@ -48,6 +48,7 @@ See [here](user_manual.md).
 
 ## Software
 - Setting to prevent changing alarm last-minute?
+    - Can only set while holding down key fob button
 - Option Button
     - Alarm ring time setting
     - Buzzer music

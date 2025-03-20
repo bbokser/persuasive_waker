@@ -74,7 +74,10 @@ class Default(State):
         elif self.f.b_set_time == True:
             self.f.to_transition("toSetHour")
         elif self.f.b_set_alarm == True:
-            self.f.to_transition("toSetAlarm1Hour")
+            if not self.f.rf._get_button():
+                self.f.to_transition("toSetAlarm1Hour")
+            else:
+                self.f.buzzer.play_error_tone()
         elif self.f.b_set_brightness == True:
             self.f.to_transition("toSetBrightness")
         elif self.f.b_options == True:
