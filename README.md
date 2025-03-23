@@ -47,8 +47,6 @@ See [here](user_manual.md).
 - Cover: Prevent order number from being marked
 
 ## Software
-- Setting to prevent changing alarm last-minute?
-    - Can only set while holding down key fob button
 - Option Button
     - Alarm ring time setting
     - Buzzer music

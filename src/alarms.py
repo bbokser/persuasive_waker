@@ -3,8 +3,8 @@ import time
 
 wday_sets = [
     set((0, 1, 2, 3, 4, 5, 6)),  # full week
-    set((1, 2, 3, 4, 5)),  # mon-fri
-    set((0, 6)),  # sat & sun
+    set((0, 1, 2, 3, 4)),  # mon-fri
+    set((5, 6)),  # sat & sun
 ]
 
 wday_set_lbls = [

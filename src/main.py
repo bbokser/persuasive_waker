@@ -10,7 +10,7 @@ from inkdisp import InkDisp
 from clock import Clock
 from as1115 import AS1115
 from encoder import Encoder
-from piezo import Piezo
+from buzzer import Buzzer
 from button import PinButton, ScanButton
 from sense_ht import HTSensor
 from led import LED
@@ -32,7 +32,7 @@ class OS(FSM):
         self.opt_button = ScanButton()
         self.battery = Batt(pin_vbatt=board.VOLTAGE_MONITOR, pin_usb=board.VBUS_SENSE)
         self.encoder = Encoder(pinA=board.GP1, pinB=board.GP0)
-        self.buzzer = Piezo(board.GP2)
+        self.buzzer = Buzzer(board.GP2)
         self.sensor = HTSensor(i2c, address=0x45, units=0)
         # segment display colon
         self.seg_colon = LED(board.GP13, brightness_init / 15)

@@ -3,7 +3,7 @@ import utils
 import time
 
 
-class Piezo:
+class Buzzer:
     def __init__(self, pin):
         # self.buzzer = pwmio.PWMOut(pin, variable_frequency=False)
         self.buzzer = pwmio.PWMOut(pin, variable_frequency=True)
