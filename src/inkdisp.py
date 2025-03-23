@@ -10,7 +10,10 @@ import vectorio
 import busio
 import adafruit_ssd1680
 import supervisor
+from adafruit_display_shapes.rect import Rect
 from adafruit_display_text.bitmap_label import Label
+from font_ostrich_sans_black_30 import FONT as font_30
+from font_ostrich_sans_black_72 import FONT as font_72
 
 # print('free memory left after imports: ', gc.mem_free())
 
@@ -71,11 +74,21 @@ class InkDisp:
         """
         return self.color_names.index(color)
 
-    def draw_text(
-        self, text: str, x: int, y: int, color: str = "black", scale: int = 1
-    ):
+    def draw_bmp(self, path: str, x: int, y: int):
+        odb = displayio.OnDiskBitmap(path)
+        image = displayio.TileGrid(odb, pixel_shader=odb.pixel_shader, x=x, y=y)
+        self.g.append(image)
+
+    def draw_text(self, text: str, x: int, y: int, color: str = "black", opt: int = 1):
         # display = self.display
-        lbl = Label(terminalio.FONT, text=text, color=utils.colors[color], scale=scale)
+        # lbl = Label(terminalio.FONT, text=text, color=utils.colors[color], scale=scale)
+        if opt == 1:
+            font = font_30
+        elif opt == 2:
+            font = font_72
+        else:
+            raise Exception("Invalid font")
+        lbl = Label(font, text=text, color=utils.colors[color], scale=1)
         lbl.anchor_point = (0.0, 1.0)
         lbl.anchored_position = (x, y)  # (display.width // 2, display.height // 2)
         self.g.append(lbl)
@@ -86,38 +99,61 @@ class InkDisp:
         self.draw_bg(color="white")
         x_center = display.width // 2
         col_1 = 5
-        col_2 = x_center + 40
-        row_1 = 20
-        row_2 = row_1 + 20
-        row_3 = row_2 + 20
-        row_4 = row_3 + 20
-        row_5 = row_4 + 20
-        row_6 = row_5 + 20
+        col_2 = x_center
+        row_1 = 24
+        row_2 = row_1 + 30
+        row_3 = row_2 + 30
+        row_4 = row_3 + 30
+        offset_icon = 18
+        offset_txt = 24
 
-        self.draw_text(text=info["weekday"], x=col_1, y=row_3, scale=5)
-        self.draw_text(
-            text=info["month"] + " " + info["day"], x=col_1, y=row_4 + 10, scale=3
-        )
+        self.draw_text(text=info["weekday"], x=col_1, y=50, opt=2)
+        self.draw_text(text=info["month"] + " " + info["day"], x=col_1, y=row_3)
+        self.draw_bmp("/bmps/alarm1.bmp", x=col_1, y=row_4 - offset_icon)
+        self.draw_text(text=info["alarm1"], x=col_1 + offset_txt, y=row_4)
 
-        self.draw_text(text="Alarm: " + info["alarm"], x=col_1, y=row_6, scale=2)
-
+        self.draw_bmp("/bmps/elec.bmp", x=col_2, y=row_1 - offset_icon)
         if info["usb"]:
-            usb_msg = "USB In"
-            msg_scale = 2
+            self.draw_text(text="USB", x=col_2 + offset_txt, y=row_1)
         else:
-            usb_msg = "Batt:" + info["batt"] + "%"
-            msg_scale = 1
+            self.draw_battery(frac=info["batt"], x=col_2 + offset_txt, y=5)
 
-        self.draw_text(text=usb_msg, x=col_2, y=row_2, scale=msg_scale)
+        self.draw_bmp("/bmps/temp.bmp", x=col_2, y=row_2 - offset_icon)
+        self.draw_text(text=info["temp"], x=col_2 + offset_txt, y=row_2)
 
-        self.draw_text(text=info["temp"] + " C", x=col_2, y=row_4, scale=2)
+        self.draw_bmp("/bmps/humidity.bmp", x=col_2, y=row_3 - offset_icon)
+        self.draw_text(text=info["humidity"] + " %", x=col_2 + offset_txt, y=row_3)
 
-        self.draw_text(text=info["humidity"] + " %", x=col_2, y=row_6, scale=2)
+        self.draw_bmp("/bmps/alarm2.bmp", x=col_2, y=row_4 - offset_icon)
+        self.draw_text(text=info["alarm2"], x=col_2 + offset_txt, y=row_4)
         return None
+
+    def draw_battery(self, frac, x, y):
+        frac = utils.clip(frac, 0, 1)
+        clearance = 2
+        height = 20
+        width_max = 40
+        case = Rect(x, y, width_max, height, fill=None, outline=utils.colors["black"])
+        fill = Rect(
+            x + clearance,
+            y + clearance,
+            int(frac * width_max) - clearance * 2,
+            height - clearance * 2,
+            fill=utils.colors["black"],
+        )
+        nub = Rect(
+            x + width_max,
+            y + int(height / 4),
+            5,
+            int(height / 2),
+            fill=utils.colors["black"],
+        )
+        self.g.append(case)
+        self.g.append(fill)
+        self.g.append(nub)
 
     def draw_polygon(self, points: list, color: str):
         """
-        origin = the user's location as a tuple, e.g. (lat, long)
         p = palette
         points = list of tuples e.g. [(1, 2), (2, 2), (3, 4), (5, 6)]
         """

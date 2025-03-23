@@ -10,7 +10,7 @@ from inkdisp import InkDisp
 from clock import Clock
 from as1115 import AS1115
 from encoder import Encoder
-from piezo import Piezo
+from buzzer import Buzzer
 from button import PinButton, ScanButton
 from sense_ht import HTSensor
 from led import LED
@@ -28,14 +28,17 @@ class OS(FSM):
         self.clock = Clock(i2c)
         self.rf = PinButton(board.GP15)
         self.enc_button = ScanButton()
+        self.alarm_button = ScanButton()
+        self.opt_button = ScanButton()
         self.battery = Batt(pin_vbatt=board.VOLTAGE_MONITOR, pin_usb=board.VBUS_SENSE)
         self.encoder = Encoder(pinA=board.GP1, pinB=board.GP0)
-        self.buzzer = Piezo(board.GP2)
-        self.sensor = HTSensor(i2c, address=0x45)
-        self.seg_colon = LED(board.GP13)  # segment display colon
-        self.seg_apost = LED(board.GP12)  # segment display apostrophe
+        self.buzzer = Buzzer(board.GP2)
+        self.sensor = HTSensor(i2c, address=0x45, units=0)
+        # segment display colon
+        self.seg_colon = LED(board.GP13, brightness_init / 15)
         self.seg_colon.on()
-        self.seg_colon.set_brightness(brightness_init / 15)
+        # segment display apostrophe
+        self.seg_apost = LED(board.GP12, brightness_init / 15)
 
         self.inkdisp = InkDisp(cs=board.GP21, dc=board.GP22, reset=board.GP17)
         self.inkdisp.apply_info(self.get_disp_info())
@@ -61,15 +64,16 @@ class OS(FSM):
                 k = 0
                 self.heartbeat = not self.heartbeat
 
-            # buttons physical order
-            # 3, 4, 5, 6, 2, 1, 0
+            # buttons register-physical-symbol order
+            # 5-S4-date, 4-S5-time, 6-S3-alarm, 3-S6-light, 1-S7-gear, 0-S8-back, 7-Enc-Enter
             buttons = self.as1115.scan_keys()
-            self.b_enter = self.enc_button.update(buttons[7])
-            self.b_back = buttons[3]
-            self.b_set_date = buttons[4]
-            self.b_set_time = buttons[5]
-            self.b_set_alarm = buttons[6]
+            self.b_back = buttons[0]
+            self.b_options = self.opt_button.update(buttons[1])
             self.b_set_brightness = buttons[2]
+            self.b_set_time = buttons[4]
+            self.b_set_date = buttons[5]
+            self.b_set_alarm = self.alarm_button.update(buttons[6])
+            self.b_enter = self.enc_button.update(buttons[7])
 
             self.execute()
 
@@ -86,6 +90,12 @@ class OS(FSM):
                 i = 0
                 self.sensor.set_mode_heat()
 
+            # warning light for being unplugged
+            if self.battery.usb_power.value is False:
+                self.seg_apost.blink(self.heartbeat)
+            else:
+                self.seg_apost.off()
+
             k += 1
             j += 1
             i += 1
@@ -97,10 +107,11 @@ class OS(FSM):
             "month": self.clock.get_month_str(),
             "day": self.clock.get_day_str(),
             "year": self.clock.get_year_str(),
-            "alarm": self.clock.get_alarm_str(),
+            "alarm1": self.clock.alarm1.get_str(),
+            "alarm2": self.clock.alarm2.get_str(),
             "temp": self.sensor.get_temperature(),
             "humidity": self.sensor.get_humidity(),
-            "batt": self.battery.get_batt_str(),
+            "batt": self.battery.get_batt_frac(),
             "usb": self.battery.usb_power.value,
         }
         return disp_info
