@@ -70,9 +70,15 @@ class Default(State):
         self.f.as1115.display_hourmin(self.f.clock.get_hour(), self.f.clock.get_min())
 
         if self.f.b_set_date == True:
-            self.f.to_transition("toSetYear")
+            if not self.f.rf._get_button():
+                self.f.to_transition("toSetYear")
+            else:
+                self.f.buzzer.play_error_tone()
         elif self.f.b_set_time == True:
-            self.f.to_transition("toSetHour")
+            if not self.f.rf._get_button():
+                self.f.to_transition("toSetHour")
+            else:
+                self.f.buzzer.play_error_tone()
         elif self.f.b_set_alarm == True:
             if not self.f.rf._get_button():
                 self.f.to_transition("toSetAlarm1Hour")
@@ -432,7 +438,7 @@ class SetPitch(State):
         # https://www.mouser.com/datasheet/2/1628/css_i4b20_smt_tr-3509940.pdf
         self.f.pitch_new = int(
             utils.wrap_to_range(
-                int(self.f.buzzer.pitch / 50) + self.f.encoder.get_encoder_pos(), 1, 14
+                int(self.f.buzzer.pitch / 50) + self.f.encoder.get_encoder_pos(), 1, 10
             )
             * 50
         )
