@@ -59,8 +59,6 @@ class Default(State):
         super().__init__(fsm, name)
 
     def enter(self):
-        # prevents seg disp from getting stuck in a wink/blink
-        self.f.as1115.unwink()
         # prevent from getting stuck in no-decode mode
         self.f.as1115.enable_decode()
 
@@ -435,8 +433,6 @@ class SetPitch(State):
 
     def execute(self):
         self.execute_default()
-        # not sure why this is necessary but otherwise weird thing happens specifically on brightness=10
-        self.f.as1115.unwink()
         # https://www.mouser.com/datasheet/2/1628/css_i4b20_smt_tr-3509940.pdf
         self.f.pitch_new = int(
             utils.wrap_to_range(
@@ -529,6 +525,9 @@ class FSM:
 
     def execute(self):
         if self.trans:
+            # prevents seg disp from getting stuck in a wink/blink
+            self.as1115.unwink()
+
             self.curState.exit()
             if self.verbose is True:
                 self.curState.punch_out()
