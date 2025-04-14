@@ -379,13 +379,13 @@ class SetBrightness(State):
         self.f.seg_colon.off()
         self.f.encoder.rezero()
         self.f.brightness_original = self.f.as1115.brightness
-        self.f.brightness_new = self.f.as1115.brightness
 
     def execute(self):
         self.execute_default()
+        # minimum of 1 to prevent blinking from doing nothing
         self.f.as1115.brightness = utils.wrap_to_range(
-            self.f.brightness_new + self.f.encoder.get_encoder_pos(), 1, 15
-        )  # minimum of 1 to prevent blinking from doing nothing
+            self.f.brightness_original + self.f.encoder.get_encoder_pos(), 1, 15
+        )
         self.f.as1115.display_int(self.f.as1115.brightness)
         self.f.seg_colon.set_brightness(self.f.as1115.brightness / 15)
         self.f.seg_apost.set_brightness(self.f.as1115.brightness / 15)
@@ -435,6 +435,8 @@ class SetPitch(State):
 
     def execute(self):
         self.execute_default()
+        # not sure why this is necessary but otherwise weird thing happens specifically on brightness=10
+        self.f.as1115.unwink()
         # https://www.mouser.com/datasheet/2/1628/css_i4b20_smt_tr-3509940.pdf
         self.f.pitch_new = int(
             utils.wrap_to_range(
