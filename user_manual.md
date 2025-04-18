@@ -1,4 +1,7 @@
 # persuasive_waker: User Manual
+
+![alt text](diagram.png)
+
 ## Getting Started
 1. Install two AA batteries in the battery compartment.
 2. Using the provided screws, screw the back plate onto the case with the batteries on the inner side.

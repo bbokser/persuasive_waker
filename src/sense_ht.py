@@ -5,6 +5,7 @@ from busio import I2C
 class HTSensor:
     def __init__(self, i2c: I2C, address: int, units: int):
         self.sht = adafruit_sht4x.SHT4x(i2c, address=address)
+        self.set_mode_read()
         self.change_units(units)
 
     def change_units(self, units: int):
