@@ -24,7 +24,9 @@ If you just want STLs for printing, they're [here](hw/stl).
 | THRIN-M2.5X0.45-HS-PL-4L3.5D-BR | 8 | [Amazon](https://www.amazon.com/dp/B0DGPL6RWT)|
 | E-Paper Display | 1 | [AliExpress](https://www.aliexpress.us/item/2251832627460771.html)|
 | Key Fob | 1 | [AliExpress](https://www.aliexpress.us/item/2251832657961546.html) |
-| PCB | 1 | Custom Order |
+| Alarm PCB | 1 | Custom PCBA Order |
+| Front Plate | 1 | Custom PCB Order  |
+| Rear Plate | 1 | Custom PCB Order  |
 
 
 ## Mechanical Build
