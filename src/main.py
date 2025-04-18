@@ -55,9 +55,6 @@ class OS(FSM):
         j = 0
         refresh_counter = int(180 / self.dt)
 
-        i = 0
-        heater_counter = int(3600 / self.dt)
-
         disp_info = self.get_disp_info()
         while True:
             if k >= k_beat:
@@ -86,10 +83,6 @@ class OS(FSM):
                     self.inkdisp.apply_info(disp_info)
                     self.inkdisp.update()
 
-            if i > heater_counter:
-                i = 0
-                self.sensor.set_mode_heat()
-
             # warning light for being unplugged
             if self.battery.usb_power.value is False:
                 self.seg_apost.blink(self.heartbeat)
@@ -98,7 +91,6 @@ class OS(FSM):
 
             k += 1
             j += 1
-            i += 1
             time.sleep(self.dt)
 
     def get_disp_info(self):

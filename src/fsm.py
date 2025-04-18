@@ -59,8 +59,6 @@ class Default(State):
         super().__init__(fsm, name)
 
     def enter(self):
-        # prevents seg disp from getting stuck in a wink/blink
-        self.f.as1115.unwink()
         # prevent from getting stuck in no-decode mode
         self.f.as1115.enable_decode()
 
@@ -379,13 +377,13 @@ class SetBrightness(State):
         self.f.seg_colon.off()
         self.f.encoder.rezero()
         self.f.brightness_original = self.f.as1115.brightness
-        self.f.brightness_new = self.f.as1115.brightness
 
     def execute(self):
         self.execute_default()
+        # minimum of 1 to prevent blinking from doing nothing
         self.f.as1115.brightness = utils.wrap_to_range(
-            self.f.brightness_new + self.f.encoder.get_encoder_pos(), 1, 15
-        )  # minimum of 1 to prevent blinking from doing nothing
+            self.f.brightness_original + self.f.encoder.get_encoder_pos(), 1, 15
+        )
         self.f.as1115.display_int(self.f.as1115.brightness)
         self.f.seg_colon.set_brightness(self.f.as1115.brightness / 15)
         self.f.seg_apost.set_brightness(self.f.as1115.brightness / 15)
@@ -527,6 +525,9 @@ class FSM:
 
     def execute(self):
         if self.trans:
+            # prevents seg disp from getting stuck in a wink/blink
+            self.as1115.unwink()
+
             self.curState.exit()
             if self.verbose is True:
                 self.curState.punch_out()

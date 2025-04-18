@@ -1,4 +1,7 @@
 # persuasive_waker
+
+![alt text](diagram.png)
+
 Persuasive Waker is an open source hardware alarm clock that can't be snoozed or turned off. The alarm is deactivated via a remote key fob, which should be placed as far from the user's bed as possible. E.g. in the bathroom.
 
 The KiCad design files are located in the [`hw`](hw) folder.
@@ -21,7 +24,6 @@ If you just want STLs for printing, they're [here](hw/stl).
 | THRIN-M2.5X0.45-HS-PL-4L3.5D-BR | 8 | [Amazon](https://www.amazon.com/dp/B0DGPL6RWT)|
 | E-Paper Display | 1 | [AliExpress](https://www.aliexpress.us/item/2251832627460771.html)|
 | Key Fob | 1 | [AliExpress](https://www.aliexpress.us/item/2251832657961546.html) |
-| 433 Mhz RF Receiver | 1 | [AliExpress](https://www.aliexpress.us/item/3256807414421234.html) |
 | PCB | 1 | Custom Order |
 
 
