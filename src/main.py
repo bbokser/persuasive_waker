@@ -41,8 +41,7 @@ class OS(FSM):
         self.seg_apost = LED(board.GP12, brightness_init / 15)
 
         self.inkdisp = InkDisp(cs=board.GP21, dc=board.GP22, reset=board.GP17)
-        self.inkdisp.apply_info(self.get_disp_info())
-        self.inkdisp.update()
+        self.update_disp()
 
         self.dt = 0.1
         self.beat_rate = 0.3
@@ -53,9 +52,8 @@ class OS(FSM):
         k_beat = int(self.beat_rate / self.dt)
 
         j = 0
-        refresh_counter = int(180 / self.dt)
+        refresh_counter = int(10 * 60 / self.dt)
 
-        disp_info = self.get_disp_info()
         while True:
             if k >= k_beat:
                 k = 0
@@ -77,11 +75,7 @@ class OS(FSM):
             # refresh inkdisp, make sure at least 3 minutes have passed before you refresh again
             if j > refresh_counter:
                 j = 0
-                if disp_info != self.get_disp_info():
-                    disp_info = self.get_disp_info()
-                    self.inkdisp.clear()
-                    self.inkdisp.apply_info(disp_info)
-                    self.inkdisp.update()
+                self.update_disp()
 
             # warning light for being unplugged
             if self.battery.usb_power.value is False:
@@ -93,7 +87,7 @@ class OS(FSM):
             j += 1
             time.sleep(self.dt)
 
-    def get_disp_info(self):
+    def update_disp(self):
         disp_info = {
             "weekday": self.clock.get_weekday_str(),
             "month": self.clock.get_month_str(),
@@ -106,7 +100,9 @@ class OS(FSM):
             "batt": self.battery.get_batt_frac(),
             "usb": self.battery.usb_power.value,
         }
-        return disp_info
+        self.inkdisp.clear()
+        self.inkdisp.apply_info(disp_info)
+        self.inkdisp.update()
 
 
 if __name__ == "__main__":
