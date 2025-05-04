@@ -234,6 +234,7 @@ class SetAlarm1Hour(State):
             self.f.to_transition("toSetAlarm1Min")
         elif self.f.b_back == True:
             self.f.clock.alarm1.disable()
+            self.f.update_disp()
             self.f.to_transition("toDefault")
         elif self.f.b_set_alarm == True:
             self.f.to_transition("toSetAlarm2Hour")
@@ -258,6 +259,7 @@ class SetAlarm1Min(State):
             # self.f.to_transition("toDefault")
         elif self.f.b_back == True:
             self.f.clock.alarm1.disable()
+            self.f.update_disp()
             self.f.to_transition("toDefault")
 
 
@@ -315,6 +317,7 @@ class SetAlarm2Hour(State):
             self.f.to_transition("toSetAlarm2Min")
         elif self.f.b_back == True:
             self.f.clock.alarm2.disable()
+            self.f.update_disp()
             self.f.to_transition("toDefault")
 
 
@@ -337,6 +340,7 @@ class SetAlarm2Min(State):
             # self.f.to_transition("toDefault")
         elif self.f.b_back == True:
             self.f.clock.alarm2.disable()
+            self.f.update_disp()
             self.f.to_transition("toDefault")
 
 
