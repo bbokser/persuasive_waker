@@ -39,6 +39,7 @@ class InkDisp:
             height=122,
             highlight_color=0xFF0000,
             rotation=270,
+            seconds_per_frame=0.25,
         )
         # create displayio group
         g = displayio.Group()

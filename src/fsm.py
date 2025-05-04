@@ -158,16 +158,15 @@ class SetDay(State):
         self.f.as1115.wink_right(self.f.heartbeat)
 
         if self.f.b_enter == True:
+            self.f.clock.set_date(
+                year=self.f.year_new, month=self.f.month_new, day=self.f.day_new
+            )
+            self.f.update_disp()
             self.f.to_transition("toDefault")
         elif self.f.b_back == True:
             self.f.to_transition("toDefault")
         else:
             pass
-
-    def exit(self):
-        self.f.clock.set_date(
-            year=self.f.year_new, month=self.f.month_new, day=self.f.day_new
-        )
 
 
 class SetHour(State):
@@ -292,6 +291,9 @@ class SetAlarm1Wdays(State):
             self.f.clock.alarm1.disable()
             self.f.to_transition("toDefault")
 
+    def exit(self):
+        self.f.update_disp()
+
 
 class SetAlarm2Hour(State):
     def __init__(self, fsm, name):
@@ -368,6 +370,9 @@ class SetAlarm2Wdays(State):
             self.f.clock.alarm2.disable()
             self.f.to_transition("toDefault")
 
+    def exit(self):
+        self.f.update_disp()
+
 
 class SetBrightness(State):
     def __init__(self, fsm, name):
@@ -414,6 +419,7 @@ class SetUnits(State):
         self.f.as1115.wink_right(self.f.heartbeat)
         if self.f.b_enter == True:
             self.f.sensor.change_units(self.f.units_new)
+            self.f.update_disp()
             self.f.to_transition("toDefault")
         elif self.f.b_back == True:
             self.f.to_transition("toDefault")

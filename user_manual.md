@@ -18,9 +18,6 @@ You can only enter the date, time, and alarm setting mode while simultaneously h
 > [!WARNING]  
 > Do not attempt to use non-alkaline batteries.
 
-## A Note About the Screen
-The screen is E-paper. E-paper cannot refresh as quickly as most other display types. The display is set to refresh only once every three minutes. This means you will have to wait a few minutes for changes to the date and alarm to show up on the screen.
-
 ## Using the Alarm
 - After setting the alarm hour and time, the display will switch to showing seven lines, which represent the days of the week. You can choose between setting the alarm for all seven days, just workdays, or just weekends.
 - If you wish to cancel your alarm, press the alarm button and then press the "back" button.
