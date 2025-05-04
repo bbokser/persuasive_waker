@@ -54,6 +54,8 @@ class OS(FSM):
         j = 0
         refresh_counter = int(10 * 60 / self.dt)
 
+        self.power_value_prev = self.battery.usb_power.value
+
         while True:
             if k >= k_beat:
                 k = 0
@@ -77,11 +79,17 @@ class OS(FSM):
                 j = 0
                 self.update_disp()
 
+            power_value = self.battery.usb_power.value
             # warning light for being unplugged
-            if self.battery.usb_power.value is False:
+            if power_value is False:
                 self.seg_apost.blink(self.heartbeat)
-            else:
-                self.seg_apost.off()
+
+            if self.power_value_prev != power_value:
+                self.update_disp()
+                if power_value is True:
+                    self.seg_apost.off()
+
+            self.power_value_prev = power_value
 
             k += 1
             j += 1
