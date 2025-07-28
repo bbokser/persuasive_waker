@@ -14,6 +14,9 @@ from buzzer import Buzzer
 from button import PinButton, ScanButton
 from sense_ht import HTSensor
 from led import LED
+from dac import DAC
+
+import utils
 
 # time.sleep(5)  # to ensure serial connection does not fail
 
@@ -34,6 +37,7 @@ class OS(FSM):
         self.encoder = Encoder(pinA=board.GP1, pinB=board.GP0)
         self.buzzer = Buzzer(board.GP2)
         self.sensor = HTSensor(i2c, address=0x45, units=0)
+        self.dac = DAC(i2c)
         # segment display colon
         self.seg_colon = LED(board.GP13, brightness_init / 15)
         self.seg_colon.on()
@@ -73,6 +77,9 @@ class OS(FSM):
             self.b_enter = self.enc_button.update(buttons[7])
 
             self.execute()
+
+            # test
+            self.dac.set_value(utils.percentize(j, 0, refresh_counter))
 
             # refresh inkdisp, make sure at least 3 minutes have passed before you refresh again
             if j > refresh_counter:
