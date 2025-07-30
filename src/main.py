@@ -125,9 +125,10 @@ class OS(FSM):
         Should start at 6am, peak for an hour at noon, and end at 6pm
         with a siesta at 4pm
         """
-        delta_hours = abs(self.clock.get_delta_hours(12.0))
-        light_fn = utils.percentize(6.0 - delta_hours, 0.0, 6.0)
-        if int(self.clock.get_hour()) == 4:
+        midday = 13.0
+        delta_hours = abs(self.clock.get_delta_hours(midday))
+        light_fn = utils.percentize(midday / 2 - delta_hours, 0.0, midday / 2)
+        if int(self.clock.get_hour()) == 16:
             # 4 o'clock siesta
             return 0
         else:
