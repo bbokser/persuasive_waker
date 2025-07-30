@@ -86,3 +86,13 @@ class Clock:
 
     def get_min(self) -> int:
         return self.rtc.datetime.tm_min
+
+    def get_delta_hours(self, t_then: float) -> float:
+        """
+        get difference between now and a specified time of day in units of hours
+        - if then is in the future, result is negative
+        - if then is in the past, result is positive
+        - does not cross midnight
+        """
+        t_now = self.get_hour() + self.get_min() / 60
+        return t_now - t_then

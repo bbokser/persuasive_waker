@@ -50,6 +50,8 @@ class OS(FSM):
         self.dt = 0.1
         self.beat_rate = 0.3
 
+        self.dac.set_value(self.light_fn())
+
     def run(self):
         k = 0
         self.heartbeat = True
@@ -78,13 +80,11 @@ class OS(FSM):
 
             self.execute()
 
-            # test
-            self.dac.set_value(utils.percentize(j, 0, refresh_counter))
-
             # refresh inkdisp, make sure at least 3 minutes have passed before you refresh again
             if j > refresh_counter:
                 j = 0
                 self.update_disp()
+                self.dac.set_value(self.light_fn())
 
             power_value = self.battery.usb_power.value
             # warning light for being unplugged
@@ -118,6 +118,20 @@ class OS(FSM):
         self.inkdisp.clear()
         self.inkdisp.apply_info(disp_info)
         self.inkdisp.update()
+
+    def light_fn(self):
+        """
+        function for light level
+        Should start at 6am, peak for an hour at noon, and end at 6pm
+        with a siesta at 4pm
+        """
+        delta_hours = abs(self.clock.get_delta_hours(12.0))
+        light_fn = utils.percentize(6.0 - delta_hours, 0.0, 6.0)
+        if int(self.clock.get_hour()) == 4:
+            # 4 o'clock siesta
+            return 0
+        else:
+            return light_fn
 
 
 if __name__ == "__main__":
