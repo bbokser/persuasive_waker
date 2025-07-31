@@ -26,6 +26,9 @@ class OS(FSM):
         i2c = busio.I2C(scl=board.GP5, sda=board.GP4)
         self.as1115 = AS1115(i2c, brightness=brightness_init)
         self.clock = Clock(i2c)
+        # disable the alarms on reset because I haven't figured out how to retrieve the saved info from the rtc
+        self.clock.alarm1.disable()
+        self.clock.alarm2.disable()
         self.rf = PinButton(board.GP15)
         self.enc_button = ScanButton()
         self.alarm_button = ScanButton()
@@ -42,6 +45,10 @@ class OS(FSM):
 
         self.inkdisp = InkDisp(cs=board.GP21, dc=board.GP22, reset=board.GP17)
         self.update_disp()
+
+        # 24 vs 12 hour format
+        self.format = 0
+        self.format_new = 0
 
         self.dt = 0.1
         self.beat_rate = 0.3

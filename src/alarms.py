@@ -23,6 +23,7 @@ class Alarm:
         self.start_day = None
         self.enable = False
         self.delta_max = 10 * 60  # max alarm ring time, seconds
+        self.change_format(0)
 
     def log_start(self) -> None:
         # remembering date prevents, say, the alarm ringing for only one minute if it's set to 23:59
@@ -38,6 +39,12 @@ class Alarm:
     def disable(self) -> None:
         self.enable = False
 
+    def change_format(self, format: int) -> None:
+        if format == 0:
+            self.get_str = self.get_str_24hr
+        else:
+            self.get_str = self.get_str_12hr
+
     def get_hour(self) -> int:
         if self.idx == 0:
             time, _ = self.rtc.alarm1
@@ -52,11 +59,27 @@ class Alarm:
             time, _ = self.rtc.alarm2
         return time.tm_min
 
-    def get_str(self) -> str:
+    def get_str_24hr(self) -> str:
         if self.enable is True:
             return (
                 "{:02d}:{:02d}".format(self.get_hour(), self.get_min())
                 + wday_set_lbls[self.wday_set]
+            )
+        else:
+            return "None"
+
+    def get_str_12hr(self) -> str:
+        hour = self.get_hour()
+        if hour > 12:
+            meridiem = "PM"
+        else:
+            meridiem = "AM"
+
+        if self.enable is True:
+            return (
+                "{:02d}:{:02d}".format(hour % 12, self.get_min())
+                + meridiem
+                + +wday_set_lbls[self.wday_set]
             )
         else:
             return "None"
