@@ -57,6 +57,7 @@ class Alarming(State):
 class Default(State):
     def __init__(self, fsm, name):
         super().__init__(fsm, name)
+        self.display_hourmin = self.display_hourmin_24hr
 
     def enter(self):
         # prevent from getting stuck in no-decode mode
@@ -233,7 +234,6 @@ class SetAlarm1Hour(State):
     def enter(self):
         self.f.hour = self.f.clock.alarm1.get_hour()
         self.f.minute = self.f.clock.alarm1.get_min()
-        self.f.wdays = self.f.clock.alarm1.wday_set
         self.f.encoder.rezero()
 
     def execute(self):
@@ -282,25 +282,29 @@ class SetAlarm1Wdays(State):
     def enter(self):
         self.f.seg_colon.off()
         self.f.encoder.rezero()
+        self.f.wday_idx = 0
+        self.f.wday_set_new = self.f.clock.alarm1.wday_set
 
     def execute(self):
         self.execute_default()
-        self.f.wdays_new = (self.f.wdays + self.f.encoder.get_encoder_pos()) % 3
-        if self.f.wdays_new == 0:
-            self.f.as1115.display_fullweek()
-        elif self.f.wdays_new == 1:
-            self.f.as1115.display_workdays()
-        elif self.f.wdays_new == 2:
-            self.f.as1115.display_weekend()
+        self.f.wday_set_new[self.f.wday_idx] = (
+            self.f.clock.alarm1.wday_set[self.f.wday_idx]
+            + self.f.encoder.get_encoder_pos()
+        ) % 2
+        self.f.as1115.wink_wday(
+            wday_set=self.f.wday_set_new,
+            wday_idx=self.f.wday_idx,
+            bool=self.f.heartbeat,
+        )
 
-        self.f.as1115.wink_left(self.f.heartbeat)
-        self.f.as1115.wink_right(self.f.heartbeat)
-
-        if self.f.b_enter == True:
+        if self.f.b_enter == True and self.f.wday_idx > 6:
             self.f.clock.alarm1.set_alarm(
-                hour=self.f.hour_new, min=self.f.min_new, wday_set=self.f.wdays_new
+                hour=self.f.hour_new, min=self.f.min_new, wday_set=self.f.wday_set_new
             )
+            self.f.wday_idx = 0
             self.f.to_transition("toDefault")
+        elif self.f.b_enter == True and self.f.wday_idx < 6:
+            self.f.wday_idx += 1
         elif self.f.b_back == True:
             self.f.clock.alarm1.disable()
             self.f.to_transition("toDefault")
@@ -316,7 +320,6 @@ class SetAlarm2Hour(State):
     def enter(self):
         self.f.hour = self.f.clock.alarm2.get_hour()
         self.f.minute = self.f.clock.alarm2.get_min()
-        self.f.wdays = self.f.clock.alarm2.wday_set
         self.f.encoder.rezero()
 
     def execute(self):
@@ -363,25 +366,29 @@ class SetAlarm2Wdays(State):
     def enter(self):
         self.f.seg_colon.off()
         self.f.encoder.rezero()
+        self.f.wday_idx = 0
+        self.f.wday_set_new = self.f.clock.alarm2.wday_set
 
     def execute(self):
         self.execute_default()
-        self.f.wdays_new = (self.f.wdays + self.f.encoder.get_encoder_pos()) % 3
-        if self.f.wdays_new == 0:
-            self.f.as1115.display_fullweek()
-        elif self.f.wdays_new == 1:
-            self.f.as1115.display_workdays()
-        elif self.f.wdays_new == 2:
-            self.f.as1115.display_weekend()
+        self.f.wday_set_new[self.f.wday_idx] = (
+            self.f.clock.alarm2.wday_set[self.f.wday_idx]
+            + self.f.encoder.get_encoder_pos()
+        ) % 2
+        self.f.as1115.wink_wday(
+            wday_set=self.f.wday_set_new,
+            wday_idx=self.f.wday_idx,
+            bool=self.f.heartbeat,
+        )
 
-        self.f.as1115.wink_left(self.f.heartbeat)
-        self.f.as1115.wink_right(self.f.heartbeat)
-
-        if self.f.b_enter == True:
+        if self.f.b_enter == True and self.f.wday_idx > 6:
             self.f.clock.alarm2.set_alarm(
-                hour=self.f.hour_new, min=self.f.min_new, wday_set=self.f.wdays_new
+                hour=self.f.hour_new, min=self.f.min_new, wday_set=self.f.wday_set_new
             )
+            self.f.wday_idx = 0
             self.f.to_transition("toDefault")
+        elif self.f.b_enter == True and self.f.wday_idx < 6:
+            self.f.wday_idx += 1
         elif self.f.b_back == True:
             self.f.clock.alarm2.disable()
             self.f.to_transition("toDefault")
@@ -470,6 +477,8 @@ class SetPitch(State):
             self.f.to_transition("toDefault")
         elif self.f.b_back == True:
             self.f.to_transition("toDefault")
+        elif self.f.b_options == True:
+            self.f.to_transition("toSetTimeFormat")
 
     def exit(self):
         self.f.buzzer.shutoff()

@@ -1,17 +1,6 @@
 import adafruit_datetime
 import time
-
-wday_sets = [
-    set((0, 1, 2, 3, 4, 5, 6)),  # full week
-    set((0, 1, 2, 3, 4)),  # mon-fri
-    set((5, 6)),  # sat & sun
-]
-
-wday_set_lbls = [
-    "",
-    " M-F",
-    " S&S",
-]
+import utils
 
 
 class Alarm:
@@ -19,7 +8,7 @@ class Alarm:
         self.rtc = rtc
         self.idx = idx
 
-        self.wday_set = 0  # corresponds to full week
+        self.wday_set = [0] * 7  # corresponds to full week
         self.start_day = None
         self.enable = False
         self.delta_max = 10 * 60  # max alarm ring time, seconds
@@ -59,11 +48,21 @@ class Alarm:
             time, _ = self.rtc.alarm2
         return time.tm_min
 
+    def get_wday_set_str(self) -> str:
+        string = ""
+        for i in range(6):
+            if self.wday_set[i] is True:
+                string += utils.weekday[i][:1]
+            else:
+                string += " "
+        return string
+
     def get_str_24hr(self) -> str:
         if self.enable is True:
             return (
                 "{:02d}:{:02d}".format(self.get_hour(), self.get_min())
-                + wday_set_lbls[self.wday_set]
+                + " "
+                + self.get_wday_set_str()
             )
         else:
             return "None"
@@ -79,7 +78,8 @@ class Alarm:
             return (
                 "{:02d}:{:02d}".format(hour % 12, self.get_min())
                 + meridiem
-                + +wday_set_lbls[self.wday_set]
+                + " "
+                + self.get_wday_set_str()
             )
         else:
             return "None"
@@ -95,7 +95,7 @@ class Alarm:
             chip_status = self.rtc.alarm2_status
 
         wday = self.rtc.datetime.tm_wday
-        if self.enable and chip_status and (wday in wday_sets[self.wday_set]):
+        if self.enable and chip_status and self.wday_set[wday] is True:
             delta = self.get_alarm_delta()
             if 0 <= delta <= self.delta_max:
                 final_status = True

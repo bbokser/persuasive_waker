@@ -51,7 +51,7 @@ If you just want STLs for printing, they're [here](hw/stl).
 
     ```
     circup bundle-add adafruit/circuitpython-fonts
-    circup install adafruit_sht4x adafruit_ssd1680 adafruit_display_text adafruit_ds3231 adafruit_datetime adafruit_display_shapes font_ostrich_sans_black_30 font_ostrich_sans_black_72
+    circup install adafruit_sht4x adafruit_ssd1680 adafruit_display_text adafruit_ds3231 adafruit_datetime adafruit_display_shapes font_ostrich_sans_black_24 font_ostrich_sans_black_60
     ```
 4. Delete `code.py` from the Pico's storage.
 

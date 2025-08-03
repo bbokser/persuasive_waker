@@ -318,6 +318,27 @@ class AS1115:
         self.device.set_digit(2, LETTERS["H"])
         self.device.set_digit(3, LETTERS["r"])
 
+    def display_wday_set(self, wday_set: list) -> None:
+        """
+        display weekday set
+        """
+        self.disable_decode()
+
+        idx_set = [0] * 4
+
+        # compress weekday values (size 7) to digit values (size 4)
+        for pos in range(7):
+            idx = int(pos / 2)
+            which = pos // 2
+            # bitwise OR the value
+            idx_set[idx] = idx_set[idx] | wday_set[pos] * int(4 + which * 12)
+
+        # now you can set digits
+        for i in range(3):
+            self.device.set_digit(i, 4 | 16 | idx_set[i])
+        # last digit is unique because only one bar is used
+        self.device.set_digit(3, 4 | idx_set[i])
+
     def display_fullweek(self) -> None:
         # show 7 bars representing 7 days
         self.disable_decode()
@@ -380,6 +401,15 @@ class AS1115:
     def wink_right(self, bool: bool) -> None:
         value = bool * self.brightness
         self.device.intensity_23 = value | (value << 4)
+
+    def wink_wday(self, wday_set: list, wday_idx: int, bool: bool) -> None:
+        """
+        wday_set: list of true or false corresponding to weekday
+        wday_idx: wday index
+        bool: True or False for wink
+        """
+        wday_set[wday_idx] = bool * wday_set[wday_idx]
+        self.display_wday_set(wday_set)
 
     def unwink(self) -> None:
         # reset winkness
