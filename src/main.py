@@ -128,6 +128,7 @@ class OS(FSM):
             "humidity": self.sensor.get_humidity(),
             "batt": self.battery.get_batt_frac(),
             "usb": self.battery.usb_power.value,
+            "meridiem": self.clock.get_meridiem_str(),
         }
         self.inkdisp.clear()
         self.inkdisp.apply_info(disp_info)

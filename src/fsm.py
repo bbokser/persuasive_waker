@@ -220,6 +220,7 @@ class SetMin(State):
 
         if self.f.b_enter == True:
             self.f.clock.set_time(hour=self.f.hour_new, min=self.f.min_new)
+            self.f.update_disp()
             self.f.to_transition("toDefault")
         elif self.f.b_back == True:
             self.f.to_transition("toDefault")
@@ -435,6 +436,7 @@ class SetTimeFormat(State):
             self.f.format = self.f.format_new
             self.f.clock.alarm1.change_format(self.f.format)
             self.f.clock.alarm2.change_format(self.f.format)
+            self.f.clock.change_format(self.f.format)
             self.f.update_disp()
             self.f.to_transition("toDefault")
         elif self.f.b_back == True:
