@@ -227,13 +227,23 @@ class SetMin(State):
             pass
 
 
-class SetAlarm1Hour(State):
-    def __init__(self, fsm, name):
+class SetAlarmHour(State):
+    def __init__(
+        self,
+        fsm,
+        name,
+        alarm,
+        transition: str = "toSetAlarm1Min",
+        transition_alt: str | None = "toSetAlarm2Hour",
+    ):
         super().__init__(fsm, name)
+        self.alarm = alarm
+        self.transition = transition
+        self.transition_alt = transition_alt
 
     def enter(self):
-        self.f.hour = self.f.clock.alarm1.get_hour()
-        self.f.minute = self.f.clock.alarm1.get_min()
+        self.f.hour = self.alarm.get_hour()
+        self.f.minute = self.alarm.get_min()
         self.f.encoder.rezero()
 
     def execute(self):
@@ -243,18 +253,26 @@ class SetAlarm1Hour(State):
         self.f.as1115.wink_left(self.f.heartbeat)
 
         if self.f.b_enter == True:
-            self.f.to_transition("toSetAlarm1Min")
+            self.f.to_transition(self.transition)
         elif self.f.b_back == True:
-            self.f.clock.alarm1.disable()
+            self.alarm.disable()
             self.f.update_disp()
             self.f.to_transition("toDefault")
-        elif self.f.b_set_alarm == True:
-            self.f.to_transition("toSetAlarm2Hour")
+        elif self.f.b_set_alarm == True and self.transition_alt is not None:
+            self.f.to_transition(self.transition_alt)
 
 
-class SetAlarm1Min(State):
-    def __init__(self, fsm, name):
+class SetAlarmMin(State):
+    def __init__(
+        self,
+        fsm,
+        name,
+        alarm,
+        transition: str = "toSetAlarm1Wdays",
+    ):
         super().__init__(fsm, name)
+        self.alarm = alarm
+        self.transition = transition
 
     def enter(self):
         self.f.encoder.rezero()
@@ -266,135 +284,47 @@ class SetAlarm1Min(State):
         self.f.as1115.wink_right(self.f.heartbeat)
 
         if self.f.b_enter == True:
-            self.f.to_transition("toSetAlarm1Wdays")
-            # self.f.clock.alarm1.set_alarm(hour=self.f.hour_new, min=self.f.min_new)
-            # self.f.to_transition("toDefault")
+            self.f.to_transition(self.transition)
         elif self.f.b_back == True:
-            self.f.clock.alarm1.disable()
+            self.alarm.disable()
             self.f.update_disp()
             self.f.to_transition("toDefault")
 
 
-class SetAlarm1Wdays(State):
-    def __init__(self, fsm, name):
+class SetAlarmWdays(State):
+    def __init__(self, fsm, name, alarm, wday_idx: int, transition: str):
         super().__init__(fsm, name)
+        self.alarm = alarm
+        self.wday_idx = wday_idx
+        self.transition = transition
 
     def enter(self):
         self.f.seg_colon.off()
         self.f.encoder.rezero()
-        self.f.wday_idx = 0
-        self.f.wday_set_new = self.f.clock.alarm1.wday_set
+        if self.wday_idx == 0:
+            self.f.wday_set_new = list(self.alarm.wday_set)
 
     def execute(self):
         self.execute_default()
-        self.f.wday_set_new[self.f.wday_idx] = (
-            self.f.clock.alarm1.wday_set[self.f.wday_idx]
-            + self.f.encoder.get_encoder_pos()
+        self.f.wday_set_new[self.wday_idx] = (
+            self.alarm.wday_set[self.wday_idx] + self.f.encoder.get_encoder_pos()
         ) % 2
-        self.f.as1115.wink_wday(
+        self.f.as1115.display_wday_set(
             wday_set=self.f.wday_set_new,
-            wday_idx=self.f.wday_idx,
-            bool=self.f.heartbeat,
+            blink_pos=self.wday_idx,
+            blink_bool=self.f.heartbeat,
         )
-
-        if self.f.b_enter == True and self.f.wday_idx > 6:
-            self.f.clock.alarm1.set_alarm(
+        if self.f.b_enter == True and self.wday_idx >= 6:
+            self.alarm.set_alarm(
                 hour=self.f.hour_new, min=self.f.min_new, wday_set=self.f.wday_set_new
             )
-            self.f.wday_idx = 0
+            self.f.update_disp()
             self.f.to_transition("toDefault")
-        elif self.f.b_enter == True and self.f.wday_idx < 6:
-            self.f.wday_idx += 1
+        elif self.f.b_enter == True and self.wday_idx < 6:
+            self.f.to_transition(self.transition)
         elif self.f.b_back == True:
             self.f.clock.alarm1.disable()
             self.f.to_transition("toDefault")
-
-    def exit(self):
-        self.f.update_disp()
-
-
-class SetAlarm2Hour(State):
-    def __init__(self, fsm, name):
-        super().__init__(fsm, name)
-
-    def enter(self):
-        self.f.hour = self.f.clock.alarm2.get_hour()
-        self.f.minute = self.f.clock.alarm2.get_min()
-        self.f.encoder.rezero()
-
-    def execute(self):
-        self.execute_default()
-        self.f.hour_new = (self.f.hour + self.f.encoder.get_encoder_pos()) % 24
-        self.f.as1115.display_hourmin(self.f.hour_new, self.f.minute)
-        self.f.as1115.wink_left(self.f.heartbeat)
-
-        if self.f.b_enter == True:
-            self.f.to_transition("toSetAlarm2Min")
-        elif self.f.b_back == True:
-            self.f.clock.alarm2.disable()
-            self.f.update_disp()
-            self.f.to_transition("toDefault")
-
-
-class SetAlarm2Min(State):
-    def __init__(self, fsm, name):
-        super().__init__(fsm, name)
-
-    def enter(self):
-        self.f.encoder.rezero()
-
-    def execute(self):
-        self.execute_default()
-        self.f.min_new = (self.f.minute + self.f.encoder.get_encoder_pos()) % 60
-        self.f.as1115.display_hourmin(self.f.hour_new, self.f.min_new)
-        self.f.as1115.wink_right(self.f.heartbeat)
-
-        if self.f.b_enter == True:
-            self.f.to_transition("toSetAlarm2Wdays")
-            # self.f.clock.alarm2.set_alarm(hour=self.f.hour_new, min=self.f.min_new)
-            # self.f.to_transition("toDefault")
-        elif self.f.b_back == True:
-            self.f.clock.alarm2.disable()
-            self.f.update_disp()
-            self.f.to_transition("toDefault")
-
-
-class SetAlarm2Wdays(State):
-    def __init__(self, fsm, name):
-        super().__init__(fsm, name)
-
-    def enter(self):
-        self.f.seg_colon.off()
-        self.f.encoder.rezero()
-        self.f.wday_idx = 0
-        self.f.wday_set_new = self.f.clock.alarm2.wday_set
-
-    def execute(self):
-        self.execute_default()
-        self.f.wday_set_new[self.f.wday_idx] = (
-            self.f.clock.alarm2.wday_set[self.f.wday_idx]
-            + self.f.encoder.get_encoder_pos()
-        ) % 2
-        self.f.as1115.wink_wday(
-            wday_set=self.f.wday_set_new,
-            wday_idx=self.f.wday_idx,
-            bool=self.f.heartbeat,
-        )
-
-        if self.f.b_enter == True and self.f.wday_idx > 6:
-            self.f.clock.alarm2.set_alarm(
-                hour=self.f.hour_new, min=self.f.min_new, wday_set=self.f.wday_set_new
-            )
-            self.f.wday_idx = 0
-            self.f.to_transition("toDefault")
-        elif self.f.b_enter == True and self.f.wday_idx < 6:
-            self.f.wday_idx += 1
-        elif self.f.b_back == True:
-            self.f.clock.alarm2.disable()
-            self.f.to_transition("toDefault")
-
-    def exit(self):
-        self.f.update_disp()
 
 
 class SetBrightness(State):
@@ -537,12 +467,48 @@ class FSM:
         self.add_state("set_day", SetDay)
         self.add_state("set_hour", SetHour)
         self.add_state("set_min", SetMin)
-        self.add_state("set_alarm1_hour", SetAlarm1Hour)
-        self.add_state("set_alarm1_min", SetAlarm1Min)
-        self.add_state("set_alarm1_wdays", SetAlarm1Wdays)
-        self.add_state("set_alarm2_hour", SetAlarm2Hour)
-        self.add_state("set_alarm2_min", SetAlarm2Min)
-        self.add_state("set_alarm2_wdays", SetAlarm2Wdays)
+        self.add_state(
+            "set_alarm1_hour",
+            SetAlarmHour,
+            alarm=self.clock.alarm1,
+            transition="toSetAlarm1Min",
+            transition_alt="toSetAlarm2Hour",
+        )
+        self.add_state(
+            "set_alarm1_min",
+            SetAlarmMin,
+            alarm=self.clock.alarm1,
+            transition="toSetAlarm1Wday0",
+        )
+        self.add_state(
+            "set_alarm2_hour",
+            SetAlarmHour,
+            alarm=self.clock.alarm2,
+            transition="toSetAlarm2Min",
+            transition_alt=None,
+        )
+        self.add_state(
+            "set_alarm2_min",
+            SetAlarmMin,
+            alarm=self.clock.alarm2,
+            transition="toSetAlarm2Wday0",
+        )
+        for i in range(7):
+            self.add_state(
+                "set_alarm1_wday" + str(i),
+                SetAlarmWdays,
+                alarm=self.clock.alarm1,
+                wday_idx=i,
+                transition="toSetAlarm1Wday" + str(i + 1),
+            )
+            self.add_state(
+                "set_alarm2_wday" + str(i),
+                SetAlarmWdays,
+                alarm=self.clock.alarm2,
+                wday_idx=i,
+                transition="toSetAlarm2Wday" + str(i + 1),
+            )
+
         self.add_state("set_brightness", SetBrightness)
         self.add_state("set_units", SetUnits)
         self.add_state("set_pitch", SetPitch)
@@ -556,23 +522,30 @@ class FSM:
         self.add_transition("toSetMin", Transition("set_min"))
         self.add_transition("toSetAlarm1Hour", Transition("set_alarm1_hour"))
         self.add_transition("toSetAlarm1Min", Transition("set_alarm1_min"))
-        self.add_transition("toSetAlarm1Wdays", Transition("set_alarm1_wdays"))
         self.add_transition("toSetAlarm2Hour", Transition("set_alarm2_hour"))
         self.add_transition("toSetAlarm2Min", Transition("set_alarm2_min"))
-        self.add_transition("toSetAlarm2Wdays", Transition("set_alarm2_wdays"))
         self.add_transition("toSetBrightness", Transition("set_brightness"))
         self.add_transition("toSetUnits", Transition("set_units"))
         self.add_transition("toSetPitch", Transition("set_pitch"))
         self.add_transition("toSetTimeFormat", Transition("set_time_format"))
         self.add_transition("toDefault", Transition("default"))
+        for i in range(7):
+            self.add_transition(
+                "toSetAlarm1Wday" + str(i),
+                Transition("set_alarm1_wday" + str(i)),
+            )
+            self.add_transition(
+                "toSetAlarm2Wday" + str(i),
+                Transition("set_alarm2_wday" + str(i)),
+            )
 
         self.setstate("default")
 
     def add_transition(self, transname, transition):
         self.transitions[transname] = transition
 
-    def add_state(self, statename, state):
-        self.states[statename] = state(self, statename)
+    def add_state(self, statename, state, **kwargs):
+        self.states[statename] = state(self, statename, **kwargs)
 
     def setstate(self, statename):
         # look for whatever state we passed in within the states dict

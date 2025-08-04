@@ -20,12 +20,13 @@ from led import LED
 
 class OS(FSM):
     def __init__(self, verbose):
-        super().__init__(verbose=verbose)
         # initialize class objects
         brightness_init = 2
         i2c = busio.I2C(scl=board.GP5, sda=board.GP4)
         self.as1115 = AS1115(i2c, brightness=brightness_init)
         self.clock = Clock(i2c)
+        # this has to run after clock is created
+        super().__init__(verbose=verbose)
         # disable the alarms on reset because I haven't figured out how to retrieve the saved info from the rtc
         self.clock.alarm1.disable()
         self.clock.alarm2.disable()
@@ -120,7 +121,9 @@ class OS(FSM):
             "day": self.clock.get_day_str(),
             "year": self.clock.get_year_str(),
             "alarm1": self.clock.alarm1.get_str(),
+            "alarm1wdays": self.clock.alarm1.get_wday_set_str(),
             "alarm2": self.clock.alarm2.get_str(),
+            "alarm2wdays": self.clock.alarm2.get_wday_set_str(),
             "temp": self.sensor.get_temperature(),
             "humidity": self.sensor.get_humidity(),
             "batt": self.battery.get_batt_frac(),

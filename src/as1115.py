@@ -6,6 +6,7 @@ from adafruit_register import i2c_bits
 from busio import I2C
 import time
 
+
 AS1115_CLEAR = 15  # BCD
 AS1115_REGISTER = {
     "DECODE_MODE": 0x09,  # Enables decoding on selected digits
@@ -318,26 +319,36 @@ class AS1115:
         self.device.set_digit(2, LETTERS["H"])
         self.device.set_digit(3, LETTERS["r"])
 
-    def display_wday_set(self, wday_set: list) -> None:
+    def display_wday_set(
+        self, wday_set: list, blink_pos: int, blink_bool: bool
+    ) -> None:
         """
-        display weekday set
+        wday_set: list of true or false corresponding to weekday
+        blink_pos: pos (out of 7 days) to blink
+        bool: True or False for blink
         """
         self.disable_decode()
-
-        idx_set = [0] * 4
-
+        idx_set_upper = [0] * 4
+        idx_set_lower = [4 | 16, 4 | 16, 4 | 16, 4]
         # compress weekday values (size 7) to digit values (size 4)
         for pos in range(7):
-            idx = int(pos / 2)
-            which = pos // 2
+            # digit
+            idx = pos // 2
+            # lefthand or righthand segment of digit
+            which = pos % 2
             # bitwise OR the value
-            idx_set[idx] = idx_set[idx] | wday_set[pos] * int(4 + which * 12)
-
+            idx_set_upper[idx] = idx_set_upper[idx] | (
+                wday_set[pos] * int(2 + which * 30)
+            )
+            if pos == blink_pos and pos != 6:
+                idx_set_lower[idx] = (blink_bool * int(4 + which * 12)) | int(
+                    4 + (not which) * 12
+                )
+            elif pos == blink_pos and pos == 6:
+                idx_set_lower[idx] = blink_bool * int(4 + which * 12)
         # now you can set digits
-        for i in range(3):
-            self.device.set_digit(i, 4 | 16 | idx_set[i])
-        # last digit is unique because only one bar is used
-        self.device.set_digit(3, 4 | idx_set[i])
+        for i in range(4):
+            self.device.set_digit(i, idx_set_lower[i] | idx_set_upper[i])
 
     def display_fullweek(self) -> None:
         # show 7 bars representing 7 days
@@ -401,15 +412,6 @@ class AS1115:
     def wink_right(self, bool: bool) -> None:
         value = bool * self.brightness
         self.device.intensity_23 = value | (value << 4)
-
-    def wink_wday(self, wday_set: list, wday_idx: int, bool: bool) -> None:
-        """
-        wday_set: list of true or false corresponding to weekday
-        wday_idx: wday index
-        bool: True or False for wink
-        """
-        wday_set[wday_idx] = bool * wday_set[wday_idx]
-        self.display_wday_set(wday_set)
 
     def unwink(self) -> None:
         # reset winkness

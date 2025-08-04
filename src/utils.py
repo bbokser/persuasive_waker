@@ -104,3 +104,11 @@ def percentize(value: float, min: float, max: float) -> float:
     # map range from from spec'd min and max to range from 0 to 1
     diff = max - min
     return (clip(value, min, max) - min) / diff
+
+
+def last_to_first(input: list) -> list:
+    # move last item in list to front
+    output = list(input)
+    last_element = output.pop()
+    output.insert(0, last_element)
+    return output

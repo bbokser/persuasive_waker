@@ -103,7 +103,7 @@ class InkDisp:
         x_center = display.width // 2
 
         col_1 = 5
-        col_2 = x_center + x_center // 4
+        col_2 = x_center  # + int(x_center / 6)
         row_1 = self.size_font_small - 6
         row_step_size = self.size_font_small
         row_2 = row_1 + row_step_size
@@ -123,6 +123,7 @@ class InkDisp:
         )
         self.draw_bmp("/bmps/alarm1.bmp", x=col_1, y=row_4 - offset_icon)
         self.draw_text(text=info["alarm1"], x=col_1 + offset_txt, y=row_4)
+        self.draw_text(text=info["alarm1wdays"], x=col_2, y=row_4)
 
         self.draw_bmp("/bmps/elec.bmp", x=col_2, y=row_1 - offset_icon)
         if info["usb"]:
@@ -138,6 +139,7 @@ class InkDisp:
 
         self.draw_bmp("/bmps/alarm2.bmp", x=col_1, y=row_5 - offset_icon)
         self.draw_text(text=info["alarm2"], x=col_1 + offset_txt, y=row_5)
+        self.draw_text(text=info["alarm2wdays"], x=col_2, y=row_5)
         return None
 
     def draw_battery(self, frac, x, y):
