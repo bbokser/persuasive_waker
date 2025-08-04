@@ -48,29 +48,31 @@ AS1115_DISPLAY_TEST_MODE = {
 AS1115_DIGIT_REGISTER = [0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08]
 AS1115_LED_DIAG_REG = [0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x1A, 0x1B]
 NUMBERS = [
-    64 | 32 | 16 | 8 | 4 | 2,  # 0
-    32 | 16,  # 1
-    64 | 32 | 1 | 4 | 8,  # 2
-    64 | 32 | 1 | 16 | 8 | 4,
-    2 | 1 | 32 | 16,
-    64 | 2 | 1 | 16 | 8,
-    64 | 2 | 1 | 16 | 8 | 4,
-    64 | 32 | 16,
-    1 | 2 | 4 | 8 | 16 | 32 | 64,
-    64 | 32 | 16 | 1 | 2,
+    0x7E,
+    0x30,
+    0x6D,
+    0x79,
+    0x33,
+    0x5B,
+    0x5F,
+    0x70,
+    0x7F,
+    0x7B,
+    0x77,
+    0x1F,
+    0x4E,
+    0x3D,
+    0x4F,
+    0x47,
 ]
-
-# See Table 11.
 LETTERS = {
-    "A": 2 | 4 | 64 | 32 | 16 | 1,
+    "A": 2 | 4 | 64 | 32 | 16,
     "b": 2 | 4 | 8 | 16 | 1,
     "C": 2 | 4 | 64 | 8,
     "d": 4 | 8 | 16 | 32 | 1,
     "E": 2 | 4 | 8 | 64 | 1,
     "F": 2 | 4 | 64 | 1,
-    "H": 2 | 4 | 1 | 16 | 32,
     "h": 2 | 4 | 1 | 16,
-    "r": 4 | 1,
 }
 
 
@@ -301,22 +303,6 @@ class AS1115:
         self.device.set_digit(1, 0)
         self.device.set_digit(2, 0)
         self.device.set_digit(3, LETTERS[letter])
-
-    def display_12hr(self) -> None:
-        # show single letter
-        self.disable_decode()
-        self.device.set_digit(0, NUMBERS[1])
-        self.device.set_digit(1, NUMBERS[2])
-        self.device.set_digit(2, LETTERS["H"])
-        self.device.set_digit(3, LETTERS["r"])
-
-    def display_24hr(self) -> None:
-        # show single letter
-        self.disable_decode()
-        self.device.set_digit(0, NUMBERS[2])
-        self.device.set_digit(1, NUMBERS[4])
-        self.device.set_digit(2, LETTERS["H"])
-        self.device.set_digit(3, LETTERS["r"])
 
     def display_fullweek(self) -> None:
         # show 7 bars representing 7 days

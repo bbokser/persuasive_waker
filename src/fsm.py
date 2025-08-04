@@ -61,23 +61,11 @@ class Default(State):
     def enter(self):
         # prevent from getting stuck in no-decode mode
         self.f.as1115.enable_decode()
-        self.f.seg_colon.on()
-        if self.f.format == 0:
-            self.display_hourmin = self.display_hourmin_24hr
-        else:
-            self.display_hourmin = self.display_hourmin_12hr
-
-    def display_hourmin_24hr(self):
-        self.f.as1115.display_hourmin(self.f.clock.get_hour(), self.f.clock.get_min())
-
-    def display_hourmin_12hr(self):
-        self.f.as1115.display_hourmin(
-            self.f.clock.get_hour() % 12, self.f.clock.get_min()
-        )
 
     def execute(self):
         self.execute_default()
-        self.display_hourmin()
+        self.f.seg_colon.on()
+        self.f.as1115.display_hourmin(self.f.clock.get_hour(), self.f.clock.get_min())
 
         if self.f.b_set_date == True:
             if not self.f.rf._get_button():
@@ -475,33 +463,6 @@ class SetPitch(State):
         self.f.buzzer.shutoff()
 
 
-class SetTimeFormat(State):
-    def __init__(self, fsm, name):
-        super().__init__(fsm, name)
-
-    def enter(self):
-        self.f.seg_colon.off()
-        self.f.encoder.rezero()
-        self.f.format_new = self.f.format
-
-    def execute(self):
-        self.execute_default()
-        self.f.format_new = (self.f.format + self.f.encoder.get_encoder_pos()) % 2
-        if self.f.format_new == 0:
-            self.f.as1115.display_24hr()
-        else:
-            self.f.as1115.display_12hr()
-
-        if self.f.b_enter == True:
-            self.f.format = self.f.format_new
-            self.f.clock.alarm1.change_format(self.f.format)
-            self.f.clock.alarm2.change_format(self.f.format)
-            self.f.update_disp()
-            self.f.to_transition("toDefault")
-        elif self.f.b_back == True:
-            self.f.to_transition("toDefault")
-
-
 class Transition:
     def __init__(self, tostate):
         self.toState = tostate
@@ -537,7 +498,6 @@ class FSM:
         self.add_state("set_brightness", SetBrightness)
         self.add_state("set_units", SetUnits)
         self.add_state("set_pitch", SetPitch)
-        self.add_state("set_time_format", SetTimeFormat)
 
         self.add_transition("toAlarming", Transition("alarming"))
         self.add_transition("toSetYear", Transition("set_year"))
@@ -554,7 +514,6 @@ class FSM:
         self.add_transition("toSetBrightness", Transition("set_brightness"))
         self.add_transition("toSetUnits", Transition("set_units"))
         self.add_transition("toSetPitch", Transition("set_pitch"))
-        self.add_transition("toSetTimeFormat", Transition("set_time_format"))
         self.add_transition("toDefault", Transition("default"))
 
         self.setstate("default")
