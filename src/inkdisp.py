@@ -133,7 +133,7 @@ class InkDisp:
         if info["usb"]:
             self.draw_text(text="USB", x=col_2 + offset_txt, y=row_1)
         else:
-            self.draw_battery(frac=info["batt"], x=col_2 + offset_txt, y=5)
+            self.draw_battery(frac=info["batt"], x=col_2 + offset_txt, y=0)
 
         self.draw_bmp("/bmps/temp.bmp", x=col_2, y=row_2 - offset_icon)
         self.draw_text(text=info["temp"], x=col_2 + offset_txt, y=row_2)
