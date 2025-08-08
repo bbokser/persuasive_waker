@@ -44,4 +44,11 @@ The remote switch receiver is an [RX480E](https://qiachip.com/products/2x-learni
 4. You should see the LED flash 3 times. From now on the LED should light up whenever you hit the remote button.
 
 ## Updating or Modifying the Software
-To update your software (if there are updates), you should follow the instructions in the README.
+Modification is as simple as connecting the device to your computer via USB and modifying the .py files.
+
+You can learn more about working with RasPi Pico with CircuitPython [here](https://learn.adafruit.com/getting-started-with-raspberry-pi-pico-circuitpython/circuitpython).
+
+You may encounter a "read-only" error while attempting to save changes. In my experience, this can be fixed by resetting the device.
+
+To update to the latest version, you should follow the firmware setup instructions in the README.
+
