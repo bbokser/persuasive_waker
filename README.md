@@ -44,6 +44,7 @@ If you just want STLs for printing, they're [here](hw/stl).
 
 ## Firmware Setup
 1. Install CircuitPython on your Pico by following [this](https://learn.adafruit.com/getting-started-with-raspberry-pi-pico-circuitpython/circuitpython) guide.
+The last version tested with this device is [9.2.6.](https://adafruit-circuit-python.s3.amazonaws.com/bin/raspberry_pi_pico/en_US/adafruit-circuitpython-raspberry_pi_pico-en_US-9.2.6.uf2)
 
 2. Install [circup](https://learn.adafruit.com/keep-your-circuitpython-libraries-on-devices-up-to-date-with-circup/prepare) on your computer.
 
@@ -51,7 +52,7 @@ If you just want STLs for printing, they're [here](hw/stl).
 
     ```
     circup bundle-add adafruit/circuitpython-fonts
-    circup install adafruit_sht4x adafruit_ssd1680 adafruit_display_text adafruit_ds3231 adafruit_datetime adafruit_display_shapes font_ostrich_sans_black_30 font_ostrich_sans_black_72
+    circup install adafruit_sht4x adafruit_ssd1680 adafruit_display_text adafruit_ds3231 adafruit_datetime adafruit_display_shapes font_ostrich_sans_black_24 font_ostrich_sans_black_60
     ```
 4. Delete `code.py` from the Pico's storage.
 
@@ -61,3 +62,13 @@ If you just want STLs for printing, they're [here](hw/stl).
 
 ## User Manual
 See [here](user_manual.md).
+
+### Upgrading from v3.0 to v3.1
+1. Replace the old `src` files with the new ones on the `v3.1` branch.
+2. Install [circup](https://learn.adafruit.com/keep-your-circuitpython-libraries-on-devices-up-to-date-with-circup/prepare) and run the following.
+    ```
+    circup bundle-add adafruit/circuitpython-fonts
+    circup uninstall font_ostrich_sans_black_30 font_ostrich_sans_black_72
+    circup install font_ostrich_sans_black_24 font_ostrich_sans_black_60
+    circup update
+    ```

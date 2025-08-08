@@ -20,12 +20,16 @@ from led import LED
 
 class OS(FSM):
     def __init__(self, verbose):
-        super().__init__(verbose=verbose)
         # initialize class objects
         brightness_init = 2
         i2c = busio.I2C(scl=board.GP5, sda=board.GP4)
         self.as1115 = AS1115(i2c, brightness=brightness_init)
         self.clock = Clock(i2c)
+        # this has to run after clock is created
+        super().__init__(verbose=verbose)
+        # disable the alarms on reset because I haven't figured out how to retrieve the saved info from the rtc
+        self.clock.alarm1.disable()
+        self.clock.alarm2.disable()
         self.rf = PinButton(board.GP15)
         self.enc_button = ScanButton()
         self.alarm_button = ScanButton()
@@ -43,8 +47,14 @@ class OS(FSM):
         self.inkdisp = InkDisp(cs=board.GP21, dc=board.GP22, reset=board.GP17)
         self.update_disp()
 
+        # 24 vs 12 hour format
+        self.format = 0
+        self.format_new = 0
+
+        self.wday_idx = 0
+        self.wday_set_new = [0] * 7
         self.dt = 0.1
-        self.beat_rate = 0.3
+        self.beat_rate = 0.3  # should be a multiple of dt
 
     def run(self):
         k = 0
@@ -52,8 +62,11 @@ class OS(FSM):
         k_beat = int(self.beat_rate / self.dt)
 
         j = 0
-        refresh_counter = int(10 * 60 / self.dt)
-
+        # how many seconds before refresh
+        refresh_time = 10 * 60
+        refresh_counter = int(refresh_time / self.dt)
+        # reheat the sensor chip once per day
+        reheat_counter = int(24 * 60 * 60 / refresh_time)
         self.power_value_prev = self.battery.usb_power.value
 
         while True:
@@ -76,8 +89,14 @@ class OS(FSM):
 
             # refresh inkdisp, make sure at least 3 minutes have passed before you refresh again
             if j > refresh_counter:
+                if z == 0:
+                    self.sensor.set_mode_read()
                 j = 0
                 self.update_disp()
+                z += 1
+                if z > reheat_counter:
+                    self.sensor.set_mode_heat()
+                    z = 0
 
             power_value = self.battery.usb_power.value
             # warning light for being unplugged
@@ -102,11 +121,14 @@ class OS(FSM):
             "day": self.clock.get_day_str(),
             "year": self.clock.get_year_str(),
             "alarm1": self.clock.alarm1.get_str(),
+            "alarm1wdays": self.clock.alarm1.get_wday_set_str(),
             "alarm2": self.clock.alarm2.get_str(),
+            "alarm2wdays": self.clock.alarm2.get_wday_set_str(),
             "temp": self.sensor.get_temperature(),
             "humidity": self.sensor.get_humidity(),
             "batt": self.battery.get_batt_frac(),
             "usb": self.battery.usb_power.value,
+            "meridiem": self.clock.get_meridiem_str(),
         }
         self.inkdisp.clear()
         self.inkdisp.apply_info(disp_info)
