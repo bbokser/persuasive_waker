@@ -57,6 +57,7 @@ class OS(FSM):
         self.beat_rate = 0.3  # should be a multiple of dt
 
     def run(self):
+        z = 0
         k = 0
         self.heartbeat = True
         k_beat = int(self.beat_rate / self.dt)
