@@ -89,7 +89,7 @@ class Alarm:
             chip_status = self.rtc.alarm2_status
 
         wday = self.rtc.datetime.tm_wday
-        if self.enable and chip_status and self.wday_set[wday] is True:
+        if self.enable and chip_status and self.wday_set[wday] == True:
             delta = self.get_alarm_delta()
             if 0 <= delta <= self.delta_max:
                 final_status = True
