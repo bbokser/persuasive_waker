@@ -52,6 +52,8 @@ class Alarm:
         string = ""
         if not any(self.wday_set):
             pass
+        elif self.enable == False:
+            pass
         else:
             for i in range(7):
                 if self.wday_set[i] == True:
