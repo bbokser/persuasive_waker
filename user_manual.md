@@ -19,7 +19,7 @@ You can only enter the date, time, and alarm setting mode while simultaneously h
 > Do not attempt to use non-alkaline batteries.
 
 ## Using the Alarm
-- After setting the alarm hour and time, the display will switch to showing seven lines, which represent the days of the week. You can choose between setting the alarm for all seven days, just workdays, or just weekends.
+- After setting the alarm hour and time, the display will switch to showing seven flashing lines, which represent the days of the week. You can then choose which days the alarm is set for. The order starts with Monday and ends with Sunday.
 - If you wish to cancel your alarm, press the alarm button and then press the "back" button.
 - You can enter the second alarm setting mode by pressing the alarm button twice in a row.
 - Press the button on the key fob to deactivate the alarm when it sounds. 

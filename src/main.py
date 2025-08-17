@@ -28,8 +28,8 @@ class OS(FSM):
         # this has to run after clock is created
         super().__init__(verbose=verbose)
         # disable the alarms on reset because I haven't figured out how to retrieve the saved info from the rtc
-        self.clock.alarm1.disable()
-        self.clock.alarm2.disable()
+        # self.clock.alarm1.disable()
+        # self.clock.alarm2.disable()
         self.rf = PinButton(board.GP15)
         self.enc_button = ScanButton()
         self.alarm_button = ScanButton()
