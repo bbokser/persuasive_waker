@@ -72,3 +72,9 @@ See [here](user_manual.md).
     circup install font_ostrich_sans_black_24 font_ostrich_sans_black_60
     circup update
     ```
+    
+    Alternatively, you can download the [requirements.txt](requirements.txt) and run the following:
+    
+    ```
+    circup install -r /path/to/requirements.txt
+    ```

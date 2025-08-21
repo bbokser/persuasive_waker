@@ -28,8 +28,8 @@ class OS(FSM):
         # this has to run after clock is created
         super().__init__(verbose=verbose)
         # disable the alarms on reset because I haven't figured out how to retrieve the saved info from the rtc
-        self.clock.alarm1.disable()
-        self.clock.alarm2.disable()
+        # self.clock.alarm1.disable()
+        # self.clock.alarm2.disable()
         self.rf = PinButton(board.GP15)
         self.enc_button = ScanButton()
         self.alarm_button = ScanButton()
@@ -57,6 +57,7 @@ class OS(FSM):
         self.beat_rate = 0.3  # should be a multiple of dt
 
     def run(self):
+        z = 0
         k = 0
         self.heartbeat = True
         k_beat = int(self.beat_rate / self.dt)
