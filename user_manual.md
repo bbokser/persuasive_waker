@@ -26,11 +26,18 @@ You can only enter the date, time, and alarm setting mode while simultaneously h
 
 I recommend keeping the key fob far away from your bed, probably in the bathroom. But not so far that it's out of range. You should test it before you put it to use--the range will vary depending on your walls.
 
-## Additional Functionality
+## Additional Functionalities
+### Brightness
 - The brightness button will allow you to set the screen brightness.
+### Temperature Units
 - Hit the option button once to choose your preferred units for temperature.
-- Hit the option button twice to set the alarm's pitch. 
-- Try the RESET button if the device seems to be stuck in a bad state. But please notify me if this happens. Or create an [issue](https://github.com/bbokser/persuasive_waker/issues).
+### Alarm Pitch
+- Hit the option button twice to go into the menu for setting the alarm's pitch.
+### 24-Hour vs 12-Hour Option
+- Hit the option button thrice to go into the menu for selecting between 12-hour mode and 24-hour mode.
+
+## The RESET Button
+Try the RESET button if the device seems to be stuck in a bad state. But please notify me if this happens. Or create an [issue](https://github.com/bbokser/persuasive_waker/issues).
 
 > [!NOTE]  
 > If you press the RESET button, the E-paper screen will temporarily stop showing the alarm time even though the alarm is still enabled. This is a known issue due to the alarm time being stored in the RTC (clock) chip, not the microprocessor. Transfering this data from the RTC to the microprocessor may require modifications to the [`adafruit_ds3231`](https://docs.circuitpython.org/projects/ds3231/en/latest/api.html#adafruit_ds3231.DS3231.alarm1) library, which I haven't gotten around to. You will have to set the alarm again to make it show.
