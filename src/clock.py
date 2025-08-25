@@ -20,6 +20,7 @@ class Clock:
         self.rtc = adafruit_ds3231.DS3231(i2c)
         self.alarm1 = Alarm(rtc=self.rtc, idx=0)
         self.alarm2 = Alarm(rtc=self.rtc, idx=1)
+        self.get_meridiem_str = self.get_meridiem_str_24hr
 
     def set_date(self, year: int, month: int, day: int):
         year = utils.clip(year, 1970, 2037)  # duct-tape Y2038 problem
@@ -96,3 +97,19 @@ class Clock:
         """
         t_now = self.get_hour() + self.get_min() / 60
         return t_now - t_then
+
+    def get_meridiem_str_24hr(self) -> str:
+        return ""
+
+    def get_meridiem_str_12hr(self) -> str:
+        hour = self.get_hour()
+        if hour > 12:
+            return "PM"
+        else:
+            return "AM"
+
+    def change_format(self, format) -> None:
+        if format == 0:
+            self.get_meridiem_str = self.get_meridiem_str_24hr
+        else:
+            self.get_meridiem_str = self.get_meridiem_str_12hr

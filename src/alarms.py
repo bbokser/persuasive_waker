@@ -1,17 +1,6 @@
 import adafruit_datetime
 import time
-
-wday_sets = [
-    set((0, 1, 2, 3, 4, 5, 6)),  # full week
-    set((0, 1, 2, 3, 4)),  # mon-fri
-    set((5, 6)),  # sat & sun
-]
-
-wday_set_lbls = [
-    "",
-    " M-F",
-    " S&S",
-]
+import utils
 
 
 class Alarm:
@@ -19,10 +8,11 @@ class Alarm:
         self.rtc = rtc
         self.idx = idx
 
-        self.wday_set = 0  # corresponds to full week
+        self.wday_set = [0] * 7  # corresponds to full week
         self.start_day = None
         self.enable = False
         self.delta_max = 10 * 60  # max alarm ring time, seconds
+        self.change_format(0)
 
     def log_start(self) -> None:
         # remembering date prevents, say, the alarm ringing for only one minute if it's set to 23:59
@@ -38,6 +28,12 @@ class Alarm:
     def disable(self) -> None:
         self.enable = False
 
+    def change_format(self, format: int) -> None:
+        if format == 0:
+            self.get_str = self.get_str_24hr
+        else:
+            self.get_str = self.get_str_12hr
+
     def get_hour(self) -> int:
         if self.idx == 0:
             time, _ = self.rtc.alarm1
@@ -52,12 +48,35 @@ class Alarm:
             time, _ = self.rtc.alarm2
         return time.tm_min
 
-    def get_str(self) -> str:
+    def get_wday_set_str(self) -> str:
+        string = ""
+        if not any(self.wday_set):
+            pass
+        elif self.enable == False:
+            pass
+        else:
+            for i in range(7):
+                if self.wday_set[i] == True:
+                    string += utils.weekday[i][:1]
+                else:
+                    string += "_"
+        return string
+
+    def get_str_24hr(self) -> str:
         if self.enable is True:
-            return (
-                "{:02d}:{:02d}".format(self.get_hour(), self.get_min())
-                + wday_set_lbls[self.wday_set]
-            )
+            return "{:02d}:{:02d}".format(self.get_hour(), self.get_min()) + " "
+        else:
+            return "None"
+
+    def get_str_12hr(self) -> str:
+        hour = self.get_hour()
+        if hour > 12:
+            meridiem = "PM"
+        else:
+            meridiem = "AM"
+
+        if self.enable is True:
+            return "{:02d}:{:02d}".format(hour % 12, self.get_min()) + meridiem + " "
         else:
             return "None"
 
@@ -72,7 +91,7 @@ class Alarm:
             chip_status = self.rtc.alarm2_status
 
         wday = self.rtc.datetime.tm_wday
-        if self.enable and chip_status and (wday in wday_sets[self.wday_set]):
+        if self.enable and chip_status and self.wday_set[wday] == True:
             delta = self.get_alarm_delta()
             if 0 <= delta <= self.delta_max:
                 final_status = True
@@ -106,28 +125,31 @@ class Alarm:
         return final_status
 
     def set_alarm(self, hour: int, min: int, wday_set: int = 0, enable: bool = True):
-        time_struct = (
-            time.struct_time(
-                (
-                    self.rtc.datetime.tm_year,
-                    self.rtc.datetime.tm_mon,
-                    self.rtc.datetime.tm_mday,
-                    hour,
-                    min,
-                    0,
-                    self.rtc.datetime.tm_wday,
-                    -1,
-                    -1,
-                )
-            ),
-            "daily",
-        )
-        if self.idx == 0:
-            self.rtc.alarm1 = time_struct
-        else:
-            self.rtc.alarm2 = time_struct
         self.wday_set = wday_set
-        self.enable = enable
+        if not any(self.wday_set):
+            self.disable()
+        else:
+            time_struct = (
+                time.struct_time(
+                    (
+                        self.rtc.datetime.tm_year,
+                        self.rtc.datetime.tm_mon,
+                        self.rtc.datetime.tm_mday,
+                        hour,
+                        min,
+                        0,
+                        self.rtc.datetime.tm_wday,
+                        -1,
+                        -1,
+                    )
+                ),
+                "daily",
+            )
+            if self.idx == 0:
+                self.rtc.alarm1 = time_struct
+            else:
+                self.rtc.alarm2 = time_struct
+            self.enable = enable
 
     def get_datetime_now(self) -> adafruit_datetime.datetime:
         return adafruit_datetime.datetime.fromtimestamp(time.mktime(self.rtc.datetime))
