@@ -149,6 +149,52 @@ class InkDisp:
         )
         return None
 
+    def apply_info_tank(self, info: dict):
+        display = self.display
+        self.draw_bg(color="white")
+        x_center = display.width // 2
+
+        col_1 = 5
+        col_2 = x_center + int(x_center / 4)
+        row_1 = self.size_font_small - 6
+        row_step_size = self.size_font_small
+        row_2 = row_1 + row_step_size
+        row_3 = row_2 + row_step_size
+        row_4 = row_3 + row_step_size
+        row_5 = row_4 + row_step_size
+        offset_icon = 18
+        offset_txt = 24
+
+        self.draw_bmp("/bmps/temp.bmp", x=col_1, y=row_1 - offset_icon)
+        self.draw_text(text=info["probetemp"], x=col_1 + offset_txt, y=row_1)
+
+        self.draw_bmp("/bmps/alarm1.bmp", x=col_1, y=row_4 - offset_icon)
+        self.draw_text(
+            text=info["alarm1"] + " " + info["alarm1wdays"],
+            x=col_1 + offset_txt,
+            y=row_4,
+        )
+
+        self.draw_bmp("/bmps/elec.bmp", x=col_2, y=row_1 - offset_icon)
+        if info["usb"]:
+            self.draw_text(text="USB", x=col_2 + offset_txt, y=row_1)
+        else:
+            self.draw_battery(frac=info["batt"], x=col_2 + offset_txt, y=0)
+
+        self.draw_bmp("/bmps/temp.bmp", x=col_2, y=row_2 - offset_icon)
+        self.draw_text(text=info["temp"], x=col_2 + offset_txt, y=row_2)
+
+        self.draw_bmp("/bmps/humidity.bmp", x=col_2, y=row_3 - offset_icon)
+        self.draw_text(text=info["humidity"] + " %", x=col_2 + offset_txt, y=row_3)
+
+        self.draw_bmp("/bmps/alarm2.bmp", x=col_1, y=row_5 - offset_icon)
+        self.draw_text(
+            text=info["alarm2"] + " " + info["alarm2wdays"],
+            x=col_1 + offset_txt,
+            y=row_5,
+        )
+        return None
+
     def draw_battery(self, frac, x, y):
         frac = utils.clip(frac, 0, 1)
         clearance = 2

@@ -15,6 +15,7 @@ from button import PinButton, ScanButton
 from sense_ht import HTSensor
 from led import LED
 from dac import DAC
+from probe import Probe
 
 import utils
 
@@ -42,6 +43,8 @@ class OS(FSM):
         self.buzzer = Buzzer(board.GP2)
         self.sensor = HTSensor(i2c, address=0x45, units=0)
         self.dac = DAC(i2c)
+        self.probe = Probe(board.GP9)
+
         # segment display colon
         self.seg_colon = LED(board.GP13, brightness_init / 15)
         self.seg_colon.on()
@@ -137,6 +140,7 @@ class OS(FSM):
             "batt": self.battery.get_batt_frac(),
             "usb": self.battery.usb_power.value,
             "meridiem": self.clock.get_meridiem_str(),
+            "probetemp": self.probe.get_temp_str(),
         }
         self.inkdisp.clear()
         self.inkdisp.apply_info(disp_info)
