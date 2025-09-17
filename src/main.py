@@ -16,8 +16,7 @@ from sense_ht import HTSensor
 from led import LED
 from dac import DAC
 from probe import Probe
-
-import utils
+from light import Light
 
 # time.sleep(5)  # to ensure serial connection does not fail
 
@@ -44,6 +43,7 @@ class OS(FSM):
         self.sensor = HTSensor(i2c, address=0x45, units=0)
         self.dac = DAC(i2c)
         self.probe = Probe(board.GP9)
+        self.light = Light(self.clock)
 
         # segment display colon
         self.seg_colon = LED(board.GP13, brightness_init / 15)
@@ -63,7 +63,7 @@ class OS(FSM):
         self.dt = 0.1
         self.beat_rate = 0.3  # should be a multiple of dt
 
-        self.dac.set_value(self.light_fn())
+        self.dac.set_value(self.light.get_brightness())
 
     def run(self):
         z = 0
@@ -103,7 +103,7 @@ class OS(FSM):
                     self.sensor.set_mode_read()
                 j = 0
                 self.update_disp()
-                self.dac.set_value(self.light_fn())
+                self.dac.set_value(self.light.get_brightness())
                 z += 1
                 if z > reheat_counter:
                     self.sensor.set_mode_heat()
@@ -141,25 +141,11 @@ class OS(FSM):
             "usb": self.battery.usb_power.value,
             "meridiem": self.clock.get_meridiem_str(),
             "probetemp": self.probe.get_temp_str(),
+            "lightinfo": self.light.get_info_str(),
         }
         self.inkdisp.clear()
-        self.inkdisp.apply_info(disp_info)
+        self.inkdisp.apply_info_tank(disp_info)
         self.inkdisp.update()
-
-    def light_fn(self):
-        """
-        function for light level
-        Should start at 6am, peak for an hour at noon, and end at 6pm
-        with a siesta at 4pm
-        """
-        midday = 13.0
-        delta_hours = abs(self.clock.get_delta_hours(midday))
-        light_fn = utils.percentize(midday / 2 - delta_hours, 0.0, midday / 2)
-        if int(self.clock.get_hour()) == 16:
-            # 4 o'clock siesta
-            return 0
-        else:
-            return light_fn
 
 
 if __name__ == "__main__":

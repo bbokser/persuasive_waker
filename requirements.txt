@@ -10,3 +10,4 @@ adafruit_display_text==3.3.3
 adafruit_register==1.10.4
 font_ostrich_sans_black_24==20250418.0.0
 font_ostrich_sans_black_60==20250418.0.0
+adafruit_ds18x20==1.4.6
