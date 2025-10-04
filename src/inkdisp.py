@@ -202,7 +202,7 @@ class InkDisp:
         return None
 
     def draw_battery(self, frac, x, y):
-        frac = utils.clip(frac, 0, 1)
+        frac = utils.clip(frac, 0.01, 1)
         clearance = 2
         height = 20
         width_max = 40
