@@ -9,6 +9,7 @@ class Light:
         start_time: float = 7.5,
         end_time: float = 19.5,
         siesta: int = 16,
+        brightness_min: float = 0.15,
         brightness_max: float = 1.0,
     ):
         """
@@ -32,6 +33,7 @@ class Light:
         # how many hours the light should be on for
         self.timespan = end_time - start_time
         # brightness range, must be between 0 and 1
+        self.brightness_min = brightness_min
         self.brightness_max = brightness_max
 
     def get_brightness(self) -> float:
@@ -45,9 +47,9 @@ class Light:
             brightness = utils.percentize(
                 self.midday / 2 - delta_hours, 0.0, self.timespan / 2
             )
-            brightness = utils.translate(brightness, 0.0, self.brightness_max)
+            brightness = utils.translate(brightness, self.brightness_min, self.brightness_max)
             # prevent high-pitched whine
-            if 0.01 < brightness < 0.15:
+            if 0.0 < brightness < self.brightness_min + 0.01:
                 brightness = 0.0
             return brightness
 

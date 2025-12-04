@@ -8,4 +8,8 @@ class Probe:
         self.ds18 = DS18X20(ow_bus, ow_bus.scan()[0])
 
     def get_temp_str(self) -> str:
-        return str(self.ds18.temperature)
+        try:
+            temp = self.ds18.temperature
+        except:
+            temp = None
+        return str(temp)

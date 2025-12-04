@@ -43,7 +43,7 @@ class OS(FSM):
         self.sensor = HTSensor(i2c, address=0x45, units=0)
         self.dac = DAC(i2c)
         self.probe = Probe(board.GP9)
-        self.light = Light(self.clock, brightness_max=0.8)
+        self.light = Light(self.clock, brightness_min=0.15, brightness_max=0.6)
 
         # segment display colon
         self.seg_colon = LED(board.GP13, brightness_init / 15)

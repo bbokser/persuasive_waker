@@ -9,4 +9,7 @@ class DAC:
         self.mcp4725 = adafruit_mcp4725.MCP4725(i2c)
 
     def set_value(self, value: float):
-        self.mcp4725.normalized_value = value
+        try:
+            self.mcp4725.normalized_value = value
+        except:
+            pass
