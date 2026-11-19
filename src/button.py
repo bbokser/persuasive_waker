@@ -1,9 +1,9 @@
 import digitalio
 
 
-class PinButton:
+class HoldButton:
     """
-    Debounces button presses from pin
+    Checks if button is currently being pressed
     """
 
     def __init__(self, pin):
@@ -12,17 +12,8 @@ class PinButton:
         self.button.direction = digitalio.Direction.INPUT
         self.button.pull = digitalio.Pull.UP
 
-    def update(self) -> bool:
-        # this must run every timestep to work
-        if self.button_prev is True and self._get_button() is False:
-            # button was previously pressed, is no longer pressed
-            self.button_prev = False
-            return True
-        self.button_prev = self._get_button()
-        return False
-
-    def _get_button(self) -> bool:
-        return not self.button.value
+    def get_value(self) -> bool:
+        return self.button.value
 
 
 class ScanButton:
@@ -30,15 +21,12 @@ class ScanButton:
     Debounces button presses from keyscan
     """
 
-    def __init__(self):
-        self.button_prev = False
-        self.button = False
+    def __init__(self) -> None:
+        self.prev_pressed = False
 
-    def update(self, input) -> bool:
-        # this must run every timestep to work
-        if self.button_prev is True and input is False:
-            # button was previously pressed, is no longer pressed
-            self.button_prev = False
-            return True
-        self.button_prev = input
-        return False
+    def update(self, pressed: bool) -> bool:
+        # Call once per loop iteration with the current boolean state
+        pressed = bool(pressed)
+        just_pressed = pressed and not self.prev_pressed
+        self.prev_pressed = pressed
+        return just_pressed

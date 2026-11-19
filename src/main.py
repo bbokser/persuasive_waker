@@ -1,19 +1,20 @@
 import time
+
 import board
 import busio
 
-from fsm import FSM
+from as1115 import AS1115
 
 # hardware
 from batt import Batt
-from inkdisp import InkDisp
-from clock import Clock
-from as1115 import AS1115
-from encoder import Encoder
+from button import HoldButton, ScanButton
 from buzzer import Buzzer
-from button import PinButton, ScanButton
-from sense_ht import HTSensor
+from clock import Clock
+from encoder import Encoder
+from fsm import FSM
+from inkdisp import InkDisp
 from led import LED
+from sense_ht import HTSensor
 
 # time.sleep(5)  # to ensure serial connection does not fail
 
@@ -30,7 +31,7 @@ class OS(FSM):
         # disable the alarms on reset because I haven't figured out how to retrieve the saved info from the rtc
         # self.clock.alarm1.disable()
         # self.clock.alarm2.disable()
-        self.rf = PinButton(board.GP15)
+        self.rf = HoldButton(board.GP15)
         self.enc_button = ScanButton()
         self.alarm_button = ScanButton()
         self.opt_button = ScanButton()
@@ -53,7 +54,7 @@ class OS(FSM):
 
         self.wday_idx = 0
         self.wday_set_new = [0] * 7
-        self.dt = 0.1
+        self.dt = 0.05
         self.beat_rate = 0.3  # should be a multiple of dt
 
     def run(self):

@@ -1,11 +1,10 @@
+import time
+
 from adafruit_bus_device import i2c_device
-from adafruit_register import i2c_bit
-from adafruit_register import i2c_bits
+from adafruit_register import i2c_bit, i2c_bits
 
 # from typing import Union, List, Tuple, Optional
 from busio import I2C
-import time
-
 
 AS1115_CLEAR = 15  # BCD
 AS1115_REGISTER = {
@@ -188,17 +187,19 @@ class AS1115_REG:
         num_bits=4, register_address=AS1115_DIGIT_REGISTER[3], lowest_bit=0
     )
 
-    keyA = [None] * 8
-    # keyB = [None] * 8
-    for i in range(8):
-        keyA[i] = i2c_bit.ROBit(register_address=AS1115_REGISTER["KEY_A"], bit=i)
-        # keyB[i] = i2c_bit.ROBit(register_address=AS1115_REGISTER['KEY_B'], bit=i)
-
+    # keyA = [None] * 8
+    # # keyB = [None] * 8
+    # for i in range(8):
+    #     keyA[i] = i2c_bit.ROBit(register_address=AS1115_REGISTER["KEY_A"], bit=i)
+    #     # keyB[i] = i2c_bit.ROBit(register_address=AS1115_REGISTER['KEY_B'], bit=i)
+    keyA_byte = i2c_bits.ROBits(
+        num_bits=8, register_address=AS1115_REGISTER["KEY_A"], lowest_bit=0
+    )
     led_diag = [[[None] for i in range(8)] for i in range(8)]
     for i in range(8):
         for j in range(8):
             led_diag[i][j] = i2c_bit.ROBit(
-                register_address=AS1115_LED_DIAG_REG[i], bit=i
+                register_address=AS1115_LED_DIAG_REG[i], bit=j
             )
 
     def __init__(self, i2c: I2C, address: int = 0x00) -> None:
@@ -260,10 +261,13 @@ class AS1115:
     def disable_decode(self):
         self.device.decode_mode = 0x0
 
-    def scan_keys(self) -> list:
-        for i in range(8):
-            self.keyscan[i] = self.device.keyA[i].__get__(obj=self.device)
-        return [not x for x in self.keyscan]  # flip the bool values
+    def scan_keys(self) -> list[bool]:
+        # for i in range(8):
+        #     self.keyscan[i] = self.device.keyA[i].__get__(obj=self.device)
+        # return [not x for x in self.keyscan]  # flip the bool values
+        raw = self.device.keyA_byte
+        # Active-low keys: bit == 0 means pressed
+        return [not bool((raw >> i) & 1) for i in range(8)]
 
     def clear(self) -> None:
         n = self.n_digits
@@ -279,7 +283,7 @@ class AS1115:
 
     def display_int(self, value: int) -> None:
         # display int on entire display
-        value = int("{:04d}".format(value))
+        value = int(f"{value:04d}")
         for i in range(self.n_digits):
             self.device.set_digit(i, reversed_nth(value, i, self.n_digits))
 
@@ -341,7 +345,7 @@ class AS1115:
                 wday_set[pos] * int(2 + which * 30)
             )
             if pos == blink_pos and pos != 6:
-                idx_set_lower[idx] = (blink_bool * int(4 + which * 12)) | int(
+                idx_set_lower[idx] = (blink_bool * int(4 + which * 12)) | (
                     4 + (not which) * 12
                 )
             elif pos == blink_pos and pos == 6:

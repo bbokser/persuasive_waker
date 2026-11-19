@@ -81,17 +81,17 @@ class Default(State):
         self.display_hourmin()
 
         if self.f.b_set_date == True:
-            if not self.f.rf._get_button():
+            if self.f.rf.get_value():
                 self.f.to_transition("toSetYear")
             else:
                 self.f.buzzer.play_error_tone()
         elif self.f.b_set_time == True:
-            if not self.f.rf._get_button():
+            if self.f.rf.get_value():
                 self.f.to_transition("toSetHour")
             else:
                 self.f.buzzer.play_error_tone()
         elif self.f.b_set_alarm == True:
-            if not self.f.rf._get_button():
+            if self.f.rf.get_value():
                 self.f.to_transition("toSetAlarm1Hour")
             else:
                 self.f.buzzer.play_error_tone()
