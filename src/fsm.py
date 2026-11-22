@@ -38,7 +38,7 @@ class Alarming(State):
         self.f.clock.alarm2.log_start()
 
     def execute(self):
-        rf_input = self.f.rf.update()
+        rf_input = self.f.rf.get_value()
         self.f.as1115.display_hourmin(self.f.clock.get_hour(), self.f.clock.get_min())
         self.f.buzzer.play(amp=1, on=self.f.heartbeat)
 
